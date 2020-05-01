@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DetailMapper">
+    <cache/>
+    <!-- 查询 -->
+<!--    <select id="queryDetail" parameterType="integer" resultType="com.model.pojo.Detail">-->
+<!--        select * from detail-->
+<!--        <where>-->
+<!--            <if test="id != null and id != 0">-->
+<!--                and det_id = #{detId}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
+<!--    <insert id="insertDetail" parameterType=""-->
+<!--            useGeneratedKeys="true" keyColumn="det_id" keyProperty="detId">-->
+<!--        insert into detail (brief_id, det_item_name, sub_id)-->
+<!--        values (#{detBriefId}, #{detItemName}, #{sub_id})-->
+<!--    </insert>-->
+<!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+<!--    <update id="updateDetail" parameterType="com.model.pojo.Detail">-->
+<!--        update detail-->
+<!--        <set>-->
+<!--            <if test="detBriefId != null and detBriefId > 0">-->
+<!--                det_brief_id = #{detBriefId}-->
+<!--            </if>-->
+<!--            <if test="detItemName != null and detItemName.trim() != ''">-->
+<!--                det_itemName = #{detItemName}-->
+<!--            </if>-->
+<!--            <if test="detResult != null and detResult.trim() != ''">-->
+<!--                det_result = #{detResult}-->
+<!--            </if>-->
+<!--            <if test="detCmp != null and detCmp.trim() != ''">-->
+<!--                det_cmp = #{detCmp}-->
+<!--            </if>-->
+
+<!--        </set>-->
+<!--        where det_id = #{detId}-->
+<!--    </update>-->
+
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.QueryAssetsDaoMapper">
+    <resultMap id="uniQuery" type="com.model.pojo.Assert_detail" autoMapping="true">
+        <id property="adId" column="ad_id"></id>
+        <association property="users" javaType="com.model.pojo.Users" autoMapping="true">
+            <id property="userId" column="user_id"></id>
+        </association>
+        <association property="assetsVoy" javaType="com.model.pojo.Assets_vou" autoMapping="true">
+            <id property="avId" column="av_id"></id>
+            <association property="assets" javaType="com.model.pojo.Assets" autoMapping="true">
+                <id property="assId" column="ass_id"></id>
+                <association property="assertsType" javaType="com.model.pojo.Asserts_type" autoMapping="true">
+                    <id property="astyId" column="asty_id"></id>
+                </association>
+
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="findAssetsBy" resultMap="uniQuery" >
+        select F.*, E.*, G.* from assert_detail F
+        LEFT JOIN users G
+        on F.ad_uid = G.user_id
+        LEFT JOIN
+        (select D.*, C.* from assets_vou D
+        LEFT JOIN
+        (select B.*, A.* from assets A
+        Left JOIN asserts_type B
+        on A.ass_tyid = B.asty_id) C
+        on D.av_assid = C.ass_id) E
+        on F.ad_avid = E.av_id
+        <where>
+            <if test="adCode != null and adCode.trim() != ''">
+                and F.ad_code like '%${context}%'
+            </if>
+            <if test="assName != null and assName.trim() != ''">
+                and E.ass_code like '%${context}%'
+            </if>
+            <if test="assModel != null and assModel.trim() != ''">
+                and E.ass_model like '%${context}%'
+            </if>
+            <if test="avInsttime != null">
+                and E.av_insttime like '%${context}%'
+            </if>
+            <if test="adStatus != null and adStatus.trim() != ''">
+                and F.ad_status like '%${context}%'
+            </if>
+            <if test="userName != null and userName.trim() != ''">
+                and G.user_name like '%${context}%'
+            </if>
+        </where>
+    </select>
+
+</mapper>

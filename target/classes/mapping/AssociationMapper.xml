@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 流水表batches数据库操作 -->
+<mapper namespace="com.dao.AssociationMapper">
+    <cache/>
+    <!-- 查询 -->
+    <select id="findAssociation" parameterType="string" resultType="com.model.pojo.Association">
+        select * from association
+        <where>
+            <if test="assoNames != null and assoNames.trim() != ''">
+                and asso_name = #{assoNames}
+            </if>
+        </where>
+    </select>
+<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
+<!--    <insert id="insertBatches" parameterType="com.model.pojo.Batches"-->
+<!--            useGeneratedKeys="true" keyColumn="batch_id" keyProperty="batchId">-->
+<!--        insert into batches (batch_no, per_id, sum_id, batch_pay, batch_cmp)-->
+<!--        values (#{batchNo}, #{perId}, #{sumId}, #{batchPay}, #{batchCmp})-->
+<!--    </insert>-->
+<!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+<!--    <update id="updateBatches" parameterType="com.model.pojo.Batches">-->
+<!--        update batches-->
+<!--        <set>-->
+<!--            <if test="batchNo != null and batchNo.trim() != ''">-->
+<!--                batch_no = #{batchNo},-->
+<!--            </if>-->
+<!--            <if test="batchPay != null and batchPay.trim() != ''">-->
+<!--                batch_pay = #{batchPay},-->
+<!--            </if>-->
+<!--            <if test="batchPerId != null and batchPerId != 0">-->
+<!--                batch_per_id = #{batchPerId},-->
+<!--            </if>-->
+<!--            <if test="batchSumId != null and batchSumId != 0">-->
+<!--                batch_sum_id = #{batchSumId},-->
+<!--            </if>-->
+<!--            <if test="batchCmp != null and batchCmp.trim() != ''">-->
+<!--                batch_cmp = #{batchCmp},-->
+<!--            </if>-->
+
+<!--        </set>-->
+<!--        where batch_id = #{batchId}-->
+<!--    </update>-->
+
+
+</mapper>

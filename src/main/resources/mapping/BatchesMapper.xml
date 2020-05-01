@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 流水表batches数据库操作 -->
+<mapper namespace="com.dao.BatchesMapper">
+    <cache/>
+    <!-- 查询 -->
+<!--    <select id="findBatches" parameterType="integer" resultType="com.model.pojo.Batches">-->
+<!--        select * from batches-->
+<!--        <where>-->
+<!--            <if test="id != null and id != 0">-->
+<!--                and batch_id = #{id}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
+    <insert id="insertBatches" parameterType="com.model.pojo.Batches"
+            useGeneratedKeys="true" keyColumn="batch_id" keyProperty="batchId">
+        insert into batches (batch_no, per_id, sum_id, batch_pay, batch_cmp,
+        batch_prt, batch_prt_rpt, batch_sum)
+        values (#{batchNo}, #{perId}, #{sumId}, #{batchPay}, #{batchCmp},
+        #{batchPrt}, #{batchPrtRpt}, #{batchSum})
+    </insert>
+    <!-- 修改 -->
+    <update id="updateBatches" parameterType="com.model.pojo.Batches">
+        update batches
+        <set>
+            <if test="batchNo != null and batchNo.trim() != ''">
+                batch_no = #{batchNo},
+            </if>
+            <if test="batchPay != null and batchPay.trim() != ''">
+                batch_pay = #{batchPay},
+            </if>
+
+            <if test="batchCmp != null and batchCmp.trim() != ''">
+                batch_cmp = #{batchCmp},
+            </if>
+            <if test="batchPrt != null and batchPrt.trim() != ''">
+                batch_prt = #{batchPrt},
+            </if>
+            <if test="batchPrtRpt != null and batchPrtRpt.trim() != ''">
+                batch_prt_rpt = #{batchPrtRpt},
+            </if>
+            <if test="batchSum != null and batchSum.trim() != ''">
+                batch_sum = #{batchSum},
+            </if>
+
+        </set>
+        where batch_id = #{batchId}
+    </update>
+
+
+</mapper>

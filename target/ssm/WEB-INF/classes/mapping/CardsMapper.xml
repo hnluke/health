@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CardsMapper">
+    <cache/>
+<!--    &lt;!&ndash; 查询 &ndash;&gt;-->
+<!--    <select id="queryCards" parameterType="" resultType="com.model.pojo.Cards">-->
+
+<!--    </select>-->
+<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
+<!--    <insert id="insertCards" parameterType="" useGeneratedKeys="true" keyColumn="" keyProperty="">-->
+
+<!--    </insert>-->
+<!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+<!--    <update id="updateCards" parameterType="">-->
+<!--        update-->
+<!--        <set>-->
+<!--            <if test="">-->
+
+<!--            </if>-->
+
+<!--        </set>-->
+<!--        where-->
+<!--    </update>-->
+<!--    &lt;!&ndash; 删除 &ndash;&gt;-->
+<!--    <delete id="deleteCards" parameterType="">-->
+
+<!--    </delete>-->
+
+</mapper>

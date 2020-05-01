@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.PurchaseDaoMapper">
+    <select id="findPurchaseByPCode"  resultType="com.model.pojo.Purchase">
+        select * from purchase
+        <where>
+            <if test="code != null and code.trim() != ''">
+                and pur_code = #{code}
+            </if>
+            <if test="id != null and id != 0">
+                and pur_id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="isExists" resultType="integer" parameterType="string">
+        select count(*) from purchase
+        <where>
+            <if test="code != null and code.trim() != ''">
+                and pur_code = #{code}
+            </if>
+        </where>
+
+    </select>
+
+    <delete id="deletePurchaseByPCode" parameterType="integer" >
+        delete from purchase where pur_id = #{purId}
+    </delete>
+
+    <insert id="insertPurchase" parameterType="com.model.pojo.Purchase"
+     useGeneratedKeys="true" keyColumn="pur_id" keyProperty="purId">
+        insert into purchase (pur_code, pur_assname, pur_unit, pur_num,
+                    pur_type, pur_model, pur_vouno, pur_prices)
+        values (#{purCode}, #{purAssname}, #{purUnit}, #{purNum},
+            #{purType}, #{purModel}, #{purVouno}, #{purPrices})
+    </insert>
+
+    <update id="updatePurchaseByPCode">
+        update purchase
+        <set>
+            pur_assname = #{pur.purAssname},
+            pur_unit = #{pur.purUnit},
+            pur_num = #{pur.purNum},
+            pur_type = #{pur.purType},
+            pur_model = #{pur.purModel},
+            pur_vouno = #{pur.purVouno},
+            pur_prices = #{pur.purPrices},
+        </set>
+        where pur_code = #{code}
+    </update>
+
+
+
+</mapper>

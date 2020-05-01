@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CheckReportMapper">
+    <cache/>
+<!--    &lt;!&ndash; 查询 &ndash;&gt;-->
+<!--    <select id="queryCheckReport" parameterType="" resultType="com.model.pojo.CheckReport">-->
+<!--        select * from check_report-->
+<!--        <where>-->
+<!--            <if test="id != null and id != 0">-->
+<!--                chk_id = #{chkId}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
+<!--    <insert id="insertCheckReport" parameterType=""-->
+<!--            useGeneratedKeys="true" keyColumn="chk_id" keyProperty="chkId">-->
+<!--        insert into check_report (batch_id, chk_itemName, chk_sub, chk_result, chk_prompt,-->
+<!--        chk_sum, chk_scope, chk_unit, chk_bmp, chk_user)-->
+<!--        values (#{batchId}, #{chkItemName}, #{chkSub}, #{chkResult}, #{chkPrompt},-->
+<!--        #{chkSum}, #{chkScope}, #{chkUnit}, chk_bmp, chk_user)-->
+<!--    </insert>-->
+<!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+<!--    <update id="updateCheckReport" parameterType="com.model.pojo.CheckReport">-->
+<!--        update check_report-->
+<!--        <set>-->
+<!--            <if test="chkItemName != null and chkItemName.trim() != ''">-->
+<!--                chk_itemName = #{chkItemName},-->
+<!--            </if>-->
+<!--            <if test="chkSub != null and chkSub.trim() != ''">-->
+<!--                chk_sub = #{chkSub},-->
+<!--            </if>-->
+<!--            <if test="chkSub != null and chkSub.trim() != ''">-->
+<!--                chk_sub = #{chkSub},-->
+<!--            </if>-->
+<!--            <if test="chkResult != null and chkResult.trim() != ''">-->
+<!--                chk_result = #{chkResult},-->
+<!--            </if>-->
+<!--            <if test="chkPrompt != null and chkPrompt.trim() != ''">-->
+<!--                chk_prompt = #{chkPrompt},-->
+<!--            </if>-->
+<!--            <if test="chkSum != null and chkSum.trim() != ''">-->
+<!--                chk_sum = #{chkSum},-->
+<!--            </if>-->
+<!--            <if test="chkUnit != null and chkUnit.trim() != ''">-->
+<!--                chk_unit = #{chkUnit},-->
+<!--            </if>-->
+
+
+<!--        </set>-->
+<!--        where chk_id = #{chkId}-->
+<!--    </update>-->
+
+
+</mapper>

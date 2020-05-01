@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ListsMapper">
+    <cache/>
+    <!-- 查询 -->
+<!--    <select id="queryLists" parameterType="integer" resultType="com.model.pojo.Lists">-->
+<!--        select * from lists-->
+<!--        <where>-->
+<!--            <if test="id != null and id != 0">-->
+<!--                and list_id = #{id}-->
+<!--            </if>-->
+<!--        </where>-->
+
+<!--    </select>-->
+    <!-- 新增 -->
+    <insert id="insertLists" parameterType="com.model.pojo.Lists"
+            useGeneratedKeys="true" keyColumn="list_id" keyProperty="listId">
+        insert into Lists (batch_id, list_name, list_type, list_price)
+        values (#{batchId}, #{listName}, #{listType}, #{listPrice})
+
+    </insert>
+<!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+<!--    <update id="updateLists" parameterType="com.model.pojo.Lists">-->
+<!--        update lists-->
+<!--        <set>-->
+<!--            <if test="listPerId != null and ListPerId != 0">-->
+<!--                per_id = #{perId},-->
+<!--            </if>-->
+<!--            <if test="listComp != null and ListComp.trim() != ''">-->
+<!--                list_comp = #{listComp},-->
+<!--            </if>-->
+
+<!--        </set>-->
+<!--        where list_id = #{listId}-->
+<!--    </update>-->
+<!--    &lt;!&ndash; 删除 &ndash;&gt;-->
+<!--    <delete id="deleteLists" parameterType="">-->
+<!--        delete from lists-->
+<!--        where list_id = {listId}-->
+<!--    </delete>-->
+
+</mapper>

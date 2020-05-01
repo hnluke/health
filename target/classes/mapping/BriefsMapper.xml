@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 小结表数据库操作 -->
+<mapper namespace="com.dao.BriefsMapper">
+    <cache/>
+<!--    &lt;!&ndash; 查询 &ndash;&gt;-->
+<!--    <select id="findBriefs" parameterType="integer" resultType="com.model.pojo.Briefs">-->
+<!--        select * from briefs-->
+<!--        <where>-->
+<!--            <if test="id != null and id != 0">-->
+<!--                and brief_id = #{id}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+    <!-- 新增 -->
+    <insert id="insertBriefs" parameterType="com.model.pojo.Briefs" useGeneratedKeys="true"
+            keyColumn="brief_id" keyProperty="briefId">
+        insert into briefs (list_id, brief_itemName, brief_type, brief_name,
+        brief_comp, brief_pay, brief_batch_no, brief_person, brief_card_no)
+        values (#{listId}, #{briefItemName}, #{briefType},#{briefName},
+        #{briefComp}, #{briefPay}, #{briefBatchNo}, #{briefPerson}, #{briefCardNo})
+
+    </insert>
+<!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+<!--    <update id="updateBriefs" parameterType="com.model.pojo.Briefs">-->
+<!--        update briefs-->
+<!--        <set>-->
+<!--            <if test="briefListId != null and briefListId > 0">-->
+<!--                brief_list_id = #{briefListId},-->
+<!--            </if>-->
+<!--            <if test="briefDesc != null and briefDesc.trim() != ''">-->
+<!--                brief_desc = #{briefDesc},-->
+<!--            </if>-->
+<!--            <if test="briefCmp != null and briefCmp.trim() != ''">-->
+<!--                brief_cmp = #{briefCmp},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where brief_id = #{briefId}-->
+<!--    </update>-->
+
+</mapper>

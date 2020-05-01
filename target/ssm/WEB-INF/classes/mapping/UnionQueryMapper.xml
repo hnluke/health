@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UnionQueryMapper">
+    <cache/>
+    <!-- 卡片表与体检人表关联查询 -->
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <resultMap type="com.model.pojo.Cards" id="cardsPerson" autoMapping="true">
+        <id property="cardId" column="card_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+            <id property="perId" column="per_id"></id>
+        </association>
+
+    </resultMap>
+    <select id="queryCardsPerson" resultMap="cardsPerson" parameterType="string">
+        select A.card_id, A.card_money, A.card_no, B.*
+        from cards A
+        inner join person B
+        on A.card_id = B.card_id
+        <where>
+            <if test="cardNos != null and cardNos.trim() != ''">
+                and A.card_no = #{cardNos}
+            </if>
+        </where>
+    </select>
+
+
+<!--    &lt;!&ndash; 表关联查询一对多，结果映射resultMap方式 &ndash;&gt;-->
+<!--    <resultMap type="" id="unionQuery2" autoMapping="true">-->
+<!--        <id property="" column="" />-->
+<!--        &lt;!&ndash;        <result property="name" column="name"></result>&ndash;&gt;-->
+
+<!--        <collection property="" javaType="" ofType="" autoMapping="true">-->
+<!--            <id property="" column="" />-->
+<!--        </collection>-->
+
+<!--    </resultMap>-->
+<!--    <select id="" resultMap="unionQuery2">-->
+<!--        select-->
+<!--        from-->
+<!--        inner join-->
+<!--        on-->
+<!--        <where>-->
+<!--            <if test="">-->
+<!--                and-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+    <!-- 表关联查询多对多，结果映射resultMap方式 -->
+    <!-- 检索出开单时应提供给小结表的信息资料 -->
+    <resultMap type="com.model.pojo.Item" id="assoItemTypeOff" autoMapping="true">
+        <id property="itemId" column="item_id" />
+        <!--        <result property="name" column="name"></result>-->
+        <association property="office" javaType="com.model.pojo.Office" autoMapping="true">
+            <id column="off_id" property="offId"/>
+        </association>
+        <association property="itemType" javaType="com.model.pojo.ItemType" autoMapping="true">
+            <id column="type_id" property="typeId" />
+        </association>
+
+        <collection property="listAsso" javaType="java.util.List" ofType="com.model.pojo.Association" autoMapping="true">
+            <id property="assoId" column="asso_id" />
+            <association property="assoItem" javaType="com.model.pojo.AssoItem" autoMapping="true">
+                <id column="asso_id" property="assoId" />
+            </association>
+        </collection>
+
+    </resultMap>
+    <select id="queryBriefData" resultMap="assoItemTypeOff" parameterType="string">
+        select A.item_name, E.asso_name, B.type_name, C.off_name
+        from item A
+        left JOIN item_type B on A.item_type_id = B.type_id
+        left JOIN office C on A.off_id = C.off_id
+        LEFT JOIN asso_item D on A.item_id = D.item_id
+        LEFT JOIN association E on E.asso_id = D.asso_id
+        <where>
+            <if test="itemName != null and itemName.trim() != ''">
+                and A.item_name = #{itemName}
+            </if>
+            <if test="assoName != null and assoName.trim() != ''">
+                and D.asso_name = #{assoName}
+            </if>
+        </where>
+    </select>
+
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <!-- 获取打印导检表的数据 -->
+    <resultMap type="com.model.pojo.Briefs" id="briefListBatchPerson" autoMapping="true">
+        <id property="briefId" column="brief_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="lists" javaType="com.model.pojo.Lists" autoMapping="true">
+            <id property="listId" column="list_id"></id>
+            <association property="batches" javaType="com.model.pojo.Batches" autoMapping="true">
+                <id property="batchId" column="batch_id"></id>
+                <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+                    <id property="perId" column="per_id"></id>
+
+                </association>
+
+            </association>
+        </association>
+
+    </resultMap>
+    <select id="queryGuideCheckData" parameterType="integer" resultMap="briefListBatchPerson" >
+        SELECT C.batch_no, A.brief_itemName, A.brief_name, D.per_name, D.per_age
+        from briefs A
+        inner JOIN lists B on A.list_id = B.list_id
+        inner JOIN batches C on B.batch_id = C.batch_id
+        inner JOIN person D on C.per_id = D.per_id
+        <where>
+            <if test="batchIds != 0">
+                and C.batch_Id = #{batchIds}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <!-- 获取导检列表的数据, 体检打印列表或人员信息列表 -->
+    <resultMap type="com.model.pojo.Batches" id="batchPersonCards" autoMapping="true">
+        <id property="batchId" column="batch_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+            <id property="perId" column="per_id"></id>
+            <association property="cards" javaType="com.model.pojo.Cards" autoMapping="true">
+                <id property="cardId" column="card_id"></id>
+            </association>
+        </association>
+
+    </resultMap>
+    <select id="queryGuideCheckList" resultMap="batchPersonCards">
+        select A.batch_id, A.batch_no,  A.batch_prt, A.batch_prt_rpt, A.batch_pay
+        B.per_name, B.per_tele, B.per_age, B.per_addr,
+        C.card_no, C.card_money
+        FROM batches A
+        INNER JOIN person B on A.per_id = B.per_id
+        INNER JOIN cards C on B.card_id = C.card_id
+        <where>
+            <if test="cardNo != null and cardNo.trim() != ''">
+                and C.card_no = #{cardNo}
+            </if>
+            <if test="prts != null and prts.trim() != ''">
+                and A.batch_prt = #{prts}
+            </if>
+            <if test="prtRpts != null and prtRpts.trim() != ''">
+                and A.batch_prt_rpt = #{prtRpt}
+            </if>
+            <if test="batchPays != null and batchPays.trim() != ''">
+                and A.batch_pay = #{batchPays}
+            </if>
+            <if test="batchCmps != null and batchCmps.trim() != ''">
+                and A.batch_cmp = #{batchCmps}
+            </if>
+            <if test="perName != null and perName.trim() !=''">
+                and B.per_name like '%${perName}%'
+            </if>
+            <if test="perTele != null and perTele.trim() != ''">
+                and B.per_tele like '%${perTele}%'
+            </if>
+            <if test="perBorn != null">
+                and B.per_born like '%${perBorn}%'
+            </if>
+        </where>
+    </select>
+
+
+        <!-- 表关联查询一对多，结果映射resultMap方式 -->
+        <!-- 获取体检报告数据 -->
+        <resultMap type="com.model.pojo.Briefs" id="checkReport" autoMapping="true">
+            <id property="briefId" column="brief_id" />
+            <!--        <result property="name" column="name"></result>-->
+            <association property="lists" javaType="com.model.pojo.Lists" autoMapping="true">
+                <id property="listId" column="list_id" />
+                <association property="batches" javaType="com.model.pojo.Batches" autoMapping="true">
+                    <id property="batchId" column="batch_id" />
+                    <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+                        <id property="perId" column="per_id" />
+                        <association property="cards" javaType="com.model.pojo.Cards" autoMapping="true">
+                            <id property="cardId" column="card_id" />
+                        </association>
+                    </association>
+                </association>
+            </association>
+            <collection property="listDetails" javaType="java.util.List"
+                        ofType="com.model.pojo.Details" autoMapping="true">
+                <id property="detId" column="det_id" />
+            </collection>
+        </resultMap>
+        <select id="queryCheckReport" resultMap="checkReport" parameterType="integer">
+            select D.batch_no, E.per_name, E.per_sex, E.per_age,
+            A.brief_itemName, A.brief_desc, A.brief_name, A.brief_user, A.brief_date,
+            B.det_itemName, B.det_result, B.det_prompt, B.det_refer, B.det_unit, B.det_bmp
+            from briefs A
+            LEFT JOIN detail B on A.brief_id = B.brief_id
+            LEFT JOIN lists C on A.list_id = C.list_id
+            LEFT JOIN batches D on C.batch_id = D.batch_id
+            LEFT JOIN person E on E.per_id = E.per_id
+            LEFT JOIN cards F on E.card_id = F.card_id
+            <where>
+                D.batch_cmp = '已完成'
+                <if test="batchId != null and batchId != 0">
+                    and D.batch_id = #{batchId}
+                </if>
+            </where>
+            ORDER BY A.brief_itemName
+
+        </select>
+
+
+</mapper>

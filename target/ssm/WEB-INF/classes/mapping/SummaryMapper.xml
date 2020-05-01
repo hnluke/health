@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.SummaryMapper">
+    <cache/>
+    <!-- 查询 -->
+    <select id="querySummary" parameterType="integer" resultType="com.model.pojo.Summary">
+        select * from summary
+        <where>
+            <if test="sumId != null and sumId != 0">
+                and sum_id = #{sumId}
+            </if>
+        </where>
+
+    </select>
+    <!-- 新增 -->
+    <insert id="insertSummary" parameterType="com.model.pojo.Summary"
+            useGeneratedKeys="true" keyColumn="sum_id" keyProperty="sumId">
+        insert into summary (batch_id, sum_name, sum_desc, sum_guide, sum_date)
+        values (#{batchId}, #{sumName}, #{sumDesc}, #{sumGuide}, #{sumDate})
+    </insert>
+    <!-- 修改 -->
+    <update id="updateSummary" parameterType="com.model.pojo.Summary">
+        update summary
+        <set>
+            <if test="sumName != null and sumName.trim() != ''">
+                sum_name = #{sumName},
+            </if>
+            <if test="sumDesc != null and sumDesc.trim() != ''">
+                sum_desc = #{sumDesc},
+            </if>
+            <if test="sumGuide != null and sumGuide.trim() != ''">
+                sum_guide = #{sumGuide},
+            </if>
+
+        </set>
+        where sum_id = #{sumId}
+    </update>
+    <!-- 删除 -->
+    <delete id="deleteSummary" parameterType="integer">
+        delete from summary
+        where sum_id = #{sumId}
+    </delete>
+
+</mapper>
