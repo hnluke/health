@@ -4,6 +4,7 @@
 <mapper namespace="com.dao.UsersMapper">
     <cache/>
     <!--设置一个冲突===============================-->
+<!--  Luke修改了这里  -->
 <!--    &lt;!&ndash; 查询 &ndash;&gt;-->
 <!--    <select id="queryUsers" parameterType="" resultType="com.model.pojo.Users">-->
 
