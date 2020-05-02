@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.UsersMapper">
     <cache/>
-    <!--设置一个冲突===============================-->
+    <!--设置看看第二次-->
 <!--    &lt;!&ndash; 查询 &ndash;&gt;-->
 <!--    <select id="queryUsers" parameterType="" resultType="com.model.pojo.Users">-->
 
