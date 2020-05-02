@@ -145,6 +145,7 @@ public class CheckStationServiceImpl  implements ICheckStationService {
 
     /**
      * 产生流水号
+     * @author Luke
      * @return
      */
     public String getNumberForBatchNo(){
@@ -158,14 +159,27 @@ public class CheckStationServiceImpl  implements ICheckStationService {
     }
 
     /**
-     *
+     * @author Luke
      * @param assoNames  套餐名 如果为null或空，则查询套餐表所有的数据
      * @return
      */
     @Override
     public List<Association> showAllAsso(String assoNames) {
         List<Association> listAsso;
-        listAsso = associationMapper.findAssociation("");
+        listAsso = associationMapper.findAssociation(assoNames);
         return listAsso;
+    }
+
+
+    /**
+     * 查询项目表
+     * @author Luke
+     * @param itemName  项目名称，如果为null或空，则查询项目表中所有的数据
+     * @return
+     */
+    public List<Item> showAllItem(String itemName) {
+        List<Item> listItem;
+        listItem = unionQueryMapper.queryBriefData("", "");
+        return listItem;
     }
 }

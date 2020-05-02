@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface AssociationMapper {
-    public List<Association> findAssociation(String assoNames);
+    public List<Association> findAssociation(@Param("assoNames") String assoNames);
 }
