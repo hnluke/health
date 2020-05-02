@@ -68,8 +68,8 @@
         </collection>
 
     </resultMap>
-    <select id="queryBriefData" resultMap="assoItemTypeOff" parameterType="string">
-        select A.item_name, E.asso_name, B.type_name, C.off_name
+    <select id="queryBriefData" resultMap="assoItemTypeOff">
+        select A.item_name, A.item_price, E.asso_name, B.type_name, C.off_name
         from item A
         left JOIN item_type B on A.item_type_id = B.type_id
         left JOIN office C on A.off_id = C.off_id

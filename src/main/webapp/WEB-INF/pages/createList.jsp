@@ -196,64 +196,57 @@
                 请选择你需要的套餐:
                 <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
                     <tr>
-                        <th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />
+                        <th width="30"><input type="checkbox" id="allAsso" onclick="selectOrClearAllCheckbox(this);" />
                         </th>
-                        <th>序号</th>
+<%--                        <th>序号</th>--%>
                         <th>套餐名称</th>
                         <th>价格</th>
-
-
                     </tr>
                     <c:if test="${!empty(assoList)}">
-                    <c:forEach var="asso"  items="${assoList}">
-
-                    <tr>
-                        <td><input type="checkbox" name="IDCheck" value="${pur.purId}" class="acb" onclick = "selected();"/></td>
-                        <td>${asso.assoId}</td>
-                        <td>${asso.assoName}</td>
-                        <td>${asso.assoPrice}</td>
-                    </tr>
-                    </c:forEach>
+                        <c:forEach var="asso"  items="${assoList}">
+                        <tr>
+                            <td><input type="checkbox" name="IDCheck" value="${asso.assoId}" class="acb" onclick = "selected();"/></td>
+    <%--                        <td>${asso.assoId}</td>--%>
+                            <td>${asso.assoName}</td>
+                            <td>${asso.assoPrice}</td>
+                        </tr>
+                        </c:forEach>
 
                     </c:if>
 
                 </table>
             </div>
-            <div id = "items" style="width: 40%; float:left; overflow: scroll; height: 300px">
+            <div id = "items" style="width: 50%; float:left; overflow: scroll; height: 300px">
+
                 请选择你需要的项目:
-                <table border="1">
-                    <tr>
-                        <td style="width: 100px; height: 50px">
-                        </td>
+                <form>
+                    <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+                        <tr>
+                            <th width="30"><input type="checkbox" id="allItem" onclick="selectOrClearAllCheckbox(this);" />
+                            </th>
+                            <%--                        <th>序号</th>--%>
+                            <th>项目名称</th>
+                            <th>项目类别</th>
+                            <th>所属科室</th>
+                            <th>价格</th>
+                        </tr>
+                        <c:if test="${!empty(itemList)}">
+                            <c:forEach var="items"  items="${itemList}">
+                                <tr>
+                                    <td><input type="checkbox" name="IDCheck" value="${items.itemId}" class="acb" onclick = "selected();"/></td>
+                                        <%--                        <td>${asso.assoId}</td>--%>
+                                    <td>${items.itemName}</td>
+                                    <td>${items.itemType.typeName}</td>
+                                    <td>${items.office.offName}</td>
+                                    <td>${items.itemPrice}</td>
+                                </tr>
+                            </c:forEach>
 
-                    </tr>
-                    <tr>
-                        <td style="width: 100px; height: 50px">
-                        </td>
+                        </c:if>
 
-                    </tr>
-                    <tr>
-                        <td style="width: 100px; height: 50px">
-                        </td>
+                    </table>
+                </form>
 
-                    </tr>
-                    <tr>
-                        <td style="width: 100px; height: 50px">
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td style="width: 100px; height: 50px">
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td style="width: 100px; height: 50px">
-                        </td>
-
-                    </tr>
-
-                </table>
             </div>
             <div class="ui_tb">
 <%--                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">--%>
