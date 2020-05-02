@@ -2,6 +2,7 @@ package com.service;
 
 import com.model.pojo.Association;
 import com.model.pojo.Batches;
+import com.model.pojo.Item;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -43,5 +44,12 @@ public interface ICheckStationService {
      * @return
      */
     public List<Association> showAllAsso(String assoName);
+
+    /**
+     * 依据项目名来查询项目表
+     * @param itemName  项目名称，如果为null或空，则查询项目表中所有的数据
+     * @return
+     */
+    public List<Item> showAllItem(String itemName);
 
 }

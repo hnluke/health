@@ -15,6 +15,7 @@ public interface UnionQueryMapper {
      */
     public List<Cards> queryCardsPerson(String cardNos);
 
+
     /**
      * 获取需要插入小结表的数据
      * @author Luke

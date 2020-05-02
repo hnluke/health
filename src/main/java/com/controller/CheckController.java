@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.model.pojo.Association;
+import com.model.pojo.Item;
 import com.service.ICheckStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,9 @@ public class CheckController {
     public ModelAndView createList() {
         ModelAndView modelAndView = new ModelAndView();
         List<Association>  assoList = checkStationService.showAllAsso("");
+        List<Item> itemList = checkStationService.showAllItem("");
         modelAndView.addObject("assoList", assoList);
+        modelAndView.addObject("itemList", itemList);
         modelAndView.setViewName("createList");
         return modelAndView;
 
