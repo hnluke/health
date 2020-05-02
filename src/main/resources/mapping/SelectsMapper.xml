@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.SelectsMapper">
+    <cache/>
+<!--     查询-->
+        <select id="findSelect" parameterType="integer" resultType="com.model.pojo.Selects">
+            select * from selects
+            <where>
+                <if test="selId != null and selId != 0">
+                    and sel_id = #{selId}
+                </if>
+            </where>
+
+        </select>
+
+    <!-- 新增 -->
+    <insert id="insertSelect" parameterType="com.model.pojo.Selects"
+            useGeneratedKeys="true" keyColumn="sel_id" keyProperty="selId">
+        insert into Lists (sel_asso_id, sel_item_id, sel_item_name, sel_type, sel_off, sel_price)
+        values (#{selAssoId}, #{selItemId}, #{selItemName}, #{selType}, #{selOff}, #{selPrice})
+
+    </insert>
+
+        <!-- 删除 -->
+        <delete id="deleteSelect">
+            delete from selects
+            <where>
+                <if test="assoId != null and assoId != 0">
+                    and sel_asso_id = #{assoId}
+                </if>
+                <if test="itemId != null and itemId != 0">
+                    and sel_item_id = #{itemId}
+                </if>
+            </where>
+        </delete>
+
+        <delete id="clearSelect">
+            truncate table
+        </delete>
+    <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+    <!--    <update id="updateLists" parameterType="com.model.pojo.Lists">-->
+    <!--        update lists-->
+    <!--        <set>-->
+    <!--            <if test="listPerId != null and ListPerId != 0">-->
+    <!--                per_id = #{perId},-->
+    <!--            </if>-->
+    <!--            <if test="listComp != null and ListComp.trim() != ''">-->
+    <!--                list_comp = #{listComp},-->
+    <!--            </if>-->
+
+    <!--        </set>-->
+    <!--        where list_id = #{listId}-->
+    <!--    </update>-->
+    <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
+    <!--    <delete id="deleteLists" parameterType="">-->
+    <!--        delete from lists-->
+    <!--        where list_id = {listId}-->
+    <!--    </delete>-->
+
+</mapper>
