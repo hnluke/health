@@ -13,7 +13,7 @@ public interface UnionQueryMapper {
      * @param cardNos   卡片编号，如果是""或null ,则查询全部的记录
      * @return
      */
-    public List<Cards> queryCardsPerson(String cardNos);
+    public List<Cards> queryCardsPerson(@Param("cardNos") String cardNos);
 
 
     /**
@@ -27,29 +27,55 @@ public interface UnionQueryMapper {
                                            @Param("itemName") String itemName);
 
     /**
-     * 获取打印导检表的数据
-     * @param batchIds   流水编号
+     * 获取打印导检表的数据, 待打印数据, 体检人综合查询
+     * @param batchIds  流水表id
+     * @param batchCmp  是否已经完成
+     * @param batchPay  是否已经缴费
      * @return
      */
-    public List<Briefs> queryGuideCheckData(Integer batchIds);
+    public List<Briefs> queryGuideCheckData(@Param("batchIds") Integer batchIds,
+                                            @Param("batchCmp") String batchCmp,
+                                            @Param("batchPay") String batchPay);
 
     /**
      * 获取导检列表, 打印体检报告列表
-     * @author
-     * @param cardNo        卡片编号
-     * @param prts          是否打印导检表
-     * @param prtRpts       是否打印体检报表
-     * @param batchPays     是否已缴费
-     * @param batchCmps     是否已完成
+     * @author luke
+     * @param batches       流水表pojo
+     * @param person        体检人表pojo
+     * @param cards         卡片表pojo
      * @return
      */
-    public List<Batches> queryGuideCheckList(@Param("cardNo") String cardNo,
-                                             @Param("prts") String prts,
-                                             @Param("prtRpts") String prtRpts,
-                                             @Param("batchPays") String batchPays,
-                                             @Param("batchCmps") String batchCmps);
+    public List<Batches> queryGuideCheckList(@Param("batches") Batches batches,
+                                             @Param("person") Person person,
+                                             @Param("cards") Cards cards);
 
-    public List<Briefs> queryCheckReport(Integer batchId);
+
+
+//    public List<Briefs> queryCheckReport(Integer batchId);
+
+    /**
+     * 查询小结-开单关联表以得到导检信息
+     * @param batchId
+     * @return
+     */
+    public List<Briefs> queryBriesfLists(@Param("batchId") Integer batchId);
+
+    /**
+     * 查询小结-明细表以得到体检报告信息
+     * @param batchNo
+     * @return
+     */
+    public List<Briefs> queryBriesfDetails(@Param("batchNo") String batchNo);
+
+
+    /**
+     * 查询体检总结表数据
+     * @param batchNo
+     * @return
+     */
+    public List<Batches> queryBatchSumPerCard(@Param("batchNo") String batchNo);
+
+
 
 
 

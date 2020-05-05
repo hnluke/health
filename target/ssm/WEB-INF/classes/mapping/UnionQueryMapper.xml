@@ -69,7 +69,7 @@
 
     </resultMap>
     <select id="queryBriefData" resultMap="assoItemTypeOff">
-        select A.item_name, A.item_price, E.asso_name, B.type_name, C.off_name
+        select A.item_id, A.item_name, A.item_price, E.asso_name, B.type_name, C.off_name, E.asso_id
         from item A
         left JOIN item_type B on A.item_type_id = B.type_id
         left JOIN office C on A.off_id = C.off_id
@@ -80,7 +80,7 @@
                 and A.item_name = #{itemName}
             </if>
             <if test="assoName != null and assoName.trim() != ''">
-                and D.asso_name = #{assoName}
+                and E.asso_name = #{assoName}
             </if>
         </where>
     </select>
@@ -103,15 +103,23 @@
         </association>
 
     </resultMap>
-    <select id="queryGuideCheckData" parameterType="integer" resultMap="briefListBatchPerson" >
-        SELECT C.batch_no, A.brief_itemName, A.brief_name, D.per_name, D.per_age
+    <select id="queryGuideCheckData" resultMap="briefListBatchPerson" >
+        SELECT C.batch_no, C.batch_prt, C.batch_prt_rpt, C.batch_sum, C.batch_cmp, C.batch_pay,
+        A.brief_itemName, A.brief_name, A.brief_type, A.brief_user, A.brief_card_no,
+        D.per_name, D.per_age, D.per_sex, D.per_tele, D.per_born
         from briefs A
-        inner JOIN lists B on A.list_id = B.list_id
-        inner JOIN batches C on B.batch_id = C.batch_id
-        inner JOIN person D on C.per_id = D.per_id
+        left JOIN lists B on A.list_id = B.list_id
+        left JOIN batches C on B.batch_id = C.batch_id
+        left JOIN person D on C.per_id = D.per_id
         <where>
-            <if test="batchIds != 0">
+            <if test="batchIds != null and batchIds != 0">
                 and C.batch_Id = #{batchIds}
+            </if>
+            <if test="batchCmp != null and batchCmp.trim() != ''">
+                and C.batch_cmp = #{batchCmp}
+            </if>
+            <if test="batchPay != null and batchPay.trim() != ''">
+                and C.batch_pay = #{batchPay}
             </if>
         </where>
     </select>
@@ -131,36 +139,40 @@
 
     </resultMap>
     <select id="queryGuideCheckList" resultMap="batchPersonCards">
-        select A.batch_id, A.batch_no,  A.batch_prt, A.batch_prt_rpt, A.batch_pay
+        select A.batch_id, A.batch_no, A.batch_prt, A.batch_prt_rpt,
+        A.batch_pay, A.batch_sum, A.batch_cmp, A.batch_date,
         B.per_name, B.per_tele, B.per_age, B.per_addr,
         C.card_no, C.card_money
         FROM batches A
-        INNER JOIN person B on A.per_id = B.per_id
-        INNER JOIN cards C on B.card_id = C.card_id
+        left JOIN person B on A.per_id = B.per_id
+        left JOIN cards C on B.card_id = C.card_id
         <where>
-            <if test="cardNo != null and cardNo.trim() != ''">
-                and C.card_no = #{cardNo}
+            <if test="cards.cardNo != null and cards.cardNo.trim() != ''">
+                and C.card_no = #{cards.cardNo}
             </if>
-            <if test="prts != null and prts.trim() != ''">
-                and A.batch_prt = #{prts}
+            <if test="batches.batchPrt != null and batches.batchPrt.trim() != ''">
+                and A.batch_prt = #{batches.batchPrt}
             </if>
-            <if test="prtRpts != null and prtRpts.trim() != ''">
-                and A.batch_prt_rpt = #{prtRpt}
+            <if test="batches.batchPrtRpt != null and batches.batchPrtRpt.trim() != ''">
+                and A.batch_prt_rpt = #{batches.batchPrtRpt}
             </if>
-            <if test="batchPays != null and batchPays.trim() != ''">
-                and A.batch_pay = #{batchPays}
+            <if test="batches.batchPay != null and batches.batchPay.trim() != ''">
+                and A.batch_pay = #{batches.batchPay}
             </if>
-            <if test="batchCmps != null and batchCmps.trim() != ''">
-                and A.batch_cmp = #{batchCmps}
+            <if test="batches.batchCmp != null and batches.batchCmp.trim() != ''">
+                and A.batch_cmp = #{batches.batchCmp}
             </if>
-            <if test="perName != null and perName.trim() !=''">
-                and B.per_name like '%${perName}%'
+            <if test="batches.batchSum != null and batches.batchSum.trim() != ''">
+                and A.batch_sum = #{batches.batchSum}
             </if>
-            <if test="perTele != null and perTele.trim() != ''">
-                and B.per_tele like '%${perTele}%'
+            <if test="person.perName != null and person.perName.trim() !=''">
+                and B.per_name like '%${person.perName}%'
             </if>
-            <if test="perBorn != null">
-                and B.per_born like '%${perBorn}%'
+            <if test="person.perTele != null and person.perTele.trim() != ''">
+                and B.per_tele like '%${person.perTele}%'
+            </if>
+            <if test="person.perBorn != null">
+                and B.per_born like '%${person.perBorn}%'
             </if>
         </where>
     </select>
@@ -207,6 +219,85 @@
             ORDER BY A.brief_itemName
 
         </select>
+
+    <!-- 导检表数据 -->
+    <resultMap type="com.model.pojo.Briefs" id="briefsLists" autoMapping="true">
+        <id property="briefId" column="brief_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="lists" javaType="com.model.pojo.Lists" autoMapping="true">
+            <id property="listId" column="list_id"></id>
+        </association>
+
+    </resultMap>
+    <select id="queryBriesfLists" resultMap="briefsLists" parameterType="integer">
+        select B.batch_id, A.brief_card_no,
+        A.brief_itemName, A.brief_type, A.brief_name, A.brief_batch_no, A.brief_person, A.brief_date
+        from briefs A
+        left join lists B
+        on A.list_id = B.list_id
+        <where>
+            <if test="batchId != null and batchId != 0">
+                and B.batch_id = #{batchId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 体检数据 -->
+    <resultMap type="com.model.pojo.Briefs" id="briefsDetails" autoMapping="true">
+        <id property="briefId" column="brief_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <collection property="listDetails" javaType="java.util.List" ofType="com.model.pojo.Details" autoMapping="true">
+            <id property="detId" column="det_id"></id>
+        </collection>
+
+    </resultMap>
+    <select id="queryBriesfDetails" resultMap="briefsDetails" parameterType="string">
+        select
+        A.brief_id, A.brief_itemName, A.brief_type, A.brief_name,
+        A.brief_batch_no, A.brief_person, A.brief_date, A.brief_card_no,
+        B.det_itemName, det_result, det_prompt, det_bmp, det_unit, det_refer, det_upper, det_lower
+        from briefs A
+        left join detail B
+        on A.brief_id = B.brief_id
+        <where>
+            <if test="batchNo != null and batchNo.trim() != ''">
+                and A.brief_batch_no = #{batchNo}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <!-- 获取体检总结表数据-->
+    <resultMap type="com.model.pojo.Batches" id="batchSumPerCard" autoMapping="true">
+        <id property="batchId" column="batch_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="summary" javaType="com.model.pojo.Summary" autoMapping="true">
+            <id property="sumId" column="sum_id"></id>
+        </association>
+        <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+            <id property="perId" column="per_id"></id>
+            <association property="cards" javaType="com.model.pojo.Cards" autoMapping="true">
+                <id property="cardId" column="card_id"></id>
+            </association>
+        </association>
+    </resultMap>
+    <select id="queryBatchSumPerCard" resultMap="batchSumPerCard" parameterType="string">
+        SELECT A.batch_id, A.batch_no, A.batch_date,
+        B.sum_desc, B.sum_guide,
+        C.per_name, C.per_age,
+        D.card_no, D.card_money
+        from batches A
+        left JOIN summary B on A.sum_id = B.sum_id
+        left JOIN person C on A.per_id = C.per_id
+        left JOIN cards D on C.card_id = D.card_id
+        <where>
+            <if test="batchNo != null and batchNo.trim() != ''">
+                and A.batch_no = #{batchNo}
+            </if>
+
+        </where>
+    </select>
 
 
 </mapper>

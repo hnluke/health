@@ -2,9 +2,10 @@ package com.dao;
 
 import com.model.pojo.Selects;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface SelectsMapper {
     /**
      * 新增选择项目
@@ -27,4 +28,16 @@ public interface SelectsMapper {
      * @return
      */
     public List<Selects> findSelect(@Param("selId") Integer selId);
+
+    /**
+     * 清除selects表
+     * @return
+     */
+    public boolean clearSelect();
+
+    /**
+     * 查询选择表selects
+     * @return
+     */
+    public List<String> findSelectNames();
 }

@@ -7,8 +7,9 @@ public class Selects implements Serializable {
     private Integer selId;          // 选择表id
     private Integer selAssoId;      // 套餐表id
     private Integer selItemId;      // 项目表id
+    private String selAssoName;     // 套餐名称
     private String selItemName;     //  项目名称
-    private String selIType;        //  项目类别
+    private String selType;        //  项目类别
     private String selOff;          //  科室
     private Double selPrice;        //  价格
 
@@ -44,12 +45,12 @@ public class Selects implements Serializable {
         this.selItemName = selItemName;
     }
 
-    public String getSelIType() {
-        return selIType;
+    public String getSelType() {
+        return selType;
     }
 
-    public void setSelIType(String selIType) {
-        this.selIType = selIType;
+    public void setSelType(String selType) {
+        this.selType = selType;
     }
 
     public String getSelOff() {
@@ -68,14 +69,23 @@ public class Selects implements Serializable {
         this.selPrice = selPrice;
     }
 
+    public String getSelAssoName() {
+        return selAssoName;
+    }
+
+    public void setSelAssoName(String selAssoName) {
+        this.selAssoName = selAssoName;
+    }
+
     @Override
     public String toString() {
         return "Selects{" +
                 "selId=" + selId +
                 ", selAssoId=" + selAssoId +
                 ", selItemId=" + selItemId +
+                ", selAssoName='" + selAssoName + '\'' +
                 ", selItemName='" + selItemName + '\'' +
-                ", selIType='" + selIType + '\'' +
+                ", selType='" + selType + '\'' +
                 ", selOff='" + selOff + '\'' +
                 ", selPrice=" + selPrice +
                 '}';

@@ -3,6 +3,7 @@ package com.model.pojo;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -23,6 +24,7 @@ public class Briefs implements Serializable {
     private String briefCardNo;     // 卡片编号
     private String briefPerson;      // 体检人
     private List<Details> listDetails;  // 小结明细表集合
+    private Date briefDate;          // 小结日期
 
 
 
@@ -138,6 +140,14 @@ public class Briefs implements Serializable {
         this.listDetails = listDetails;
     }
 
+    public Date getBriefDate() {
+        return briefDate;
+    }
+
+    public void setBriefDate(Date briefDate) {
+        this.briefDate = briefDate;
+    }
+
     @Override
     public String toString() {
         return "Briefs{" +
@@ -155,6 +165,7 @@ public class Briefs implements Serializable {
                 ", briefCardNo='" + briefCardNo + '\'' +
                 ", briefPerson='" + briefPerson + '\'' +
                 ", listDetails=" + listDetails +
+                ", briefDate=" + briefDate +
                 '}';
     }
 }

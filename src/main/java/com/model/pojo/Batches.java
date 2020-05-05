@@ -1,5 +1,6 @@
 package com.model.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class Batches implements Serializable {
     private Summary summary;        // 体检总结表pojo
     private String batchCmp;        // 是否已经完成（参考值："已完成", "未完成"）
     private Integer sumId;          // 体检总结表id
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date batchDate;         // 流水日期
     private String batchPrt;        // 是否已经打印导检表, 参考值："已打印", "未打印"
     private String batchPrtRpt;     // 是否已经打印体检报告, 参考值："已打印", "未打印"
