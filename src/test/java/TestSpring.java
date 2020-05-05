@@ -6,15 +6,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import sun.corba.Bridge;
 
 
 import javax.annotation.Resource;
 import java.awt.image.renderable.RenderableImage;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring.xml", "classpath:spring-mybatis.xml"})
@@ -37,6 +35,8 @@ public class TestSpring {
     private Summary summary;
     @Resource
     private Association association;
+    @Autowired
+    private SelectsMapper selectsMapper;
     @Test
     public void testCode() {
 //        List<Cards> cards = unionQueryMapper.queryCardsPerson("1001");
@@ -55,7 +55,7 @@ public class TestSpring {
 //        List<String> list = new ArrayList<String>();
 //        list.add("a");
 //        checkStationService.createList("1001", list);
-//        List<Briefs> listBrief = unionQueryMapper.queryGuideCheckData(0);
+//        List<Briefs> listBrief = unionQueryMapper.queryGuideCheckData(0, "", "");
 //        System.out.println(listBrief);
 //        List<Batches> listBatches = unionQueryMapper.queryGuideCheckList(
 //                "","","","",""
@@ -70,8 +70,52 @@ public class TestSpring {
 //            System.out.println("插入总结表失败");
 //        }
 
-        List<Association> listAsso = associationMapper.findAssociation("");
-        System.out.println(listAsso);
+//        List<Association> listAsso = associationMapper.findAssociation("");
+//        System.out.println(listAsso);
+//        List<Selects> listSelect = checkStationService.insertSelect("abc", "");
+//        System.out.println(listSelect);
+//        List<String> listStr = selectsMapper.findSelectNames();
+//        System.out.println(listStr);
+//        List<String> list = new ArrayList<String>();
+//        list.add("abc");
+//        list.add("aby");
+//        list.add("acu");
+//        list.add("acu");
+//        ((ArrayList)list).remove("ac");
+//        list.clear();
+//        System.out.println(list);
+//       long distinctSize = list.stream().distinct().count();
+//       System.out.println(distinctSize < list.size());
+//        Batches batches = new Batches();
+//        Cards cards = new Cards();
+//        cards.setCardNo("");
+//        batches.setBatchPay("已缴费");
+//        batches.setBatchCmp("已完成");
+//        List<Batches> listBatch = unionQueryMapper.queryGuideCheckList(batches,
+//                new Person(), cards);
+//        List<Batches> listBatch = checkStationService.showGuideGheck(batches, new Person(), cards);
+//        System.out.println(listBatch);
+//        List<Briefs> listBrief = unionQueryMapper.queryBriesfLists(17);
+//        System.out.println(listBrief);
+
+//        List<Briefs> listBrief = unionQueryMapper.queryBriesfDetails("");
+//        System.out.println(listBrief);
+
+//        List<Briefs> listBrief = checkStationService.showReportData("20200429205303");
+//        System.out.println(listBrief.get(0).getListDetails());
+
+//        List<Briefs> listBrief = checkStationService.showReportData("20200429205303");
+//        System.out.println(listBrief);
+
+//        List<Batches> sumData = checkStationService.showSumData("20200501093437");
+//        System.out.println(sumData);
+
+//        List<Cards> cardsList = unionQueryMapper.queryCardsPerson("");
+//        System.out.println(cardsList);
+        String str = String.format("%08d", 1);
+        System.out.println(str);
+
+
 
 
     }

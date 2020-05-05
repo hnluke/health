@@ -10,6 +10,8 @@ import java.util.List;
 public class Item implements Serializable {
     public final static long serialVersionUID = 106L;
     private Integer itemId;             // 项目id
+    private Integer assoId;             // 关联套餐表id
+    private Integer itemTypeId;         // 关联类别表id
     private Office office;              // 科室表pojo
     private String itemName;            // 项目名称
     private String itemCode;            // 项目编号
@@ -74,10 +76,28 @@ public class Item implements Serializable {
         this.office = office;
     }
 
+    public Integer getAssoId() {
+        return assoId;
+    }
+
+    public void setAssoId(Integer assoId) {
+        this.assoId = assoId;
+    }
+
+    public Integer getItemTypeId() {
+        return itemTypeId;
+    }
+
+    public void setItemTypeId(Integer itemTypeId) {
+        this.itemTypeId = itemTypeId;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "itemId=" + itemId +
+                ", assoId=" + assoId +
+                ", itemTypeId=" + itemTypeId +
                 ", office=" + office +
                 ", itemName='" + itemName + '\'' +
                 ", itemCode='" + itemCode + '\'' +
