@@ -2,7 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.UsersDaoMapper">
-    <select id="findUsersByName" parameterType="string" resultType="com.model.pojo.Users">
-        select * from users where user_name = #{userName}
+    <cache/>
+    <select id="findUsersByName"  resultType="com.model.pojo.Users"  >
+        SELECT * FROM users
+        <where>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+        </where>
     </select>
+
+    <!-- 修改用户密码 -->
+    <update id="changePwd" >
+        update users
+        <set>
+            <if test="userId != null and userId != ''and userPwd != null and userPwd != ''">
+                user_pwd = #{userPwd}
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+
+<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
+<!--    <insert id="insertUsers" parameterType="" useGeneratedKeys="true" keyColumn="" keyProperty="">-->
+
+<!--    </insert>-->
+
+    <!-- 删除 -->
+<!--    <delete id="deleteUsers" parameterType="">-->
+
+<!--    </delete>-->
+
 </mapper>

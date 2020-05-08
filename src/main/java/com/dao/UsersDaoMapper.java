@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.model.pojo.Users;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,10 +10,18 @@ public interface UsersDaoMapper {
     /**
      * @按用户名来查找表users中的记录
      * @author Luke
-     * @param u_name 如果u_name是空字串，则查询整个users表
-     * @return 返回一个Users的pojo对象的集体List
+     * @param userName 如果u_name是空字串，则查询整个users表
+     * @return 返回一个Users的pojo对象
      */
-    public Users  findUsersByName(String u_name);
+    List<Users>  findUsersByName(@Param("userName") String userName);
+
+    /**
+     * 修改用户密码,有多个参数以及一个参数用在动态sql中需要加@Param
+     * @param userPwd
+     * @param userId
+     * @return
+     */
+    int changePwd(@Param("userPwd") String userPwd,@Param("userId") Integer userId);
 
     /**
      * 按用户id来查找用户表

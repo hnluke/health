@@ -26,7 +26,7 @@
         /**退出系统**/
         function logout(){
             if(confirm("您确定要退出本系统吗？")){
-                window.location.href = "${pageContext.request.contextPath}/LoginServlet?login=2";
+                window.location.href = "${pageContext.request.contextPath}/user/logout";
             }
         }
 
@@ -263,11 +263,7 @@
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":47,"resourceName":"科室设置","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":49,"resourceName":"细项配置","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":50,"resourceName":"项目配置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":51,"resourceName":"登录","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":52,"resourceName":"退出","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":53,"resourceName":"修改密码","resourceOrder":0,"resourceType":""}
-                // {"accessPath":"assets/intro","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":59,"resourceName":"系统介绍","resourceOrder":0,"resourceType":""}
-                // {"accessPath":"","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":42,"resourceName":"退出系统","resourceOrder":0,"resourceType":""},
+                {"accessPath":"user/findAll","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":51,"resourceName":"修改密码","resourceOrder":0,"resourceType":""},
                 ];
             // 如果返回数据不为空，加载"业务模块"目录
             if(data != null){

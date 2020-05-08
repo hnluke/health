@@ -1,6 +1,7 @@
 import com.dao.*;
 import com.model.pojo.*;
 import com.service.ICheckStationService;
+//import org.hibernate.validator.constraints.SafeHtml;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import javax.annotation.Resource;
-import java.awt.image.renderable.RenderableImage;
+//import java.awt.image.renderable.RenderableImage;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,8 +38,16 @@ public class TestSpring {
     private Summary summary;
     @Resource
     private Association association;
+    @Resource
+    private Users users;
+    @Resource
+    private UsersDaoMapper usersDaoMapper;
     @Test
     public void testCode() {
+        List<Users> list = new ArrayList<Users>();
+        list = usersDaoMapper.findUsersByName(null);
+        System.out.println(list);
+
 //        List<Cards> cards = unionQueryMapper.queryCardsPerson("1001");
 //        System.out.println(cards.get(0).getPerson());
 //        System.out.println(cards.get(0).getPerson().getPerId());
@@ -70,8 +79,8 @@ public class TestSpring {
 //            System.out.println("插入总结表失败");
 //        }
 
-        List<Association> listAsso = associationMapper.findAssociation("");
-        System.out.println(listAsso);
+//        List<Association> listAsso = associationMapper.findAssociation("");
+//        System.out.println(listAsso);
 
 
     }
