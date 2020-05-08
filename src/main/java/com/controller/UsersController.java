@@ -135,11 +135,4 @@ public class UsersController {
     }
 
 
-
-    @RequestMapping("")
-    public String showLogin() {
-        return "login";
-    }
-
-
 }
