@@ -95,7 +95,6 @@ public class UsersController {
         return modelAndView;
     }
 
-
     //关于修改密码的表单提交
     @RequestMapping("/changePwd")
     public ModelAndView changePwd(@RequestParam("newPwd") String newPwd, @RequestParam("userPwd") String userPwd, @RequestParam("userId") Integer userId, ModelMap model) {
@@ -132,6 +131,13 @@ public class UsersController {
         session.invalidate();    // 获取session信息，使session信息失效，直接返回登录界面，并连接跳转。
         modelAndView.setViewName("redirect:/login.jsp");
         return modelAndView;
+    }
+
+
+
+    @RequestMapping("")
+    public String showLogin() {
+        return "login";
     }
 
 
