@@ -95,6 +95,7 @@ public class UsersController {
         return modelAndView;
     }
 
+
     //关于修改密码的表单提交
     @RequestMapping("/changePwd")
     public ModelAndView changePwd(@RequestParam("newPwd") String newPwd, @RequestParam("userPwd") String userPwd, @RequestParam("userId") Integer userId, ModelMap model) {
