@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +43,12 @@ public class CheckStationServiceImpl  implements ICheckStationService {
     private Summary summary;
     @Resource
     private Association association;
+    @Autowired
+    private SelectsMapper selectsMapper;
+    @Autowired
+    private CardsMapper cardsMapper;
+//    @Resource
+//    private Selects selects;
 
 
     /**
@@ -52,8 +59,8 @@ public class CheckStationServiceImpl  implements ICheckStationService {
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
-    public boolean createList(String cardNos, List<String> itemNames) {
-        boolean flag = false;
+    public String createList(String cardNos, List<String> itemNames) {
+        String message = "";
         Double listPrice = 0D;      // 价格
         String listType = "";       // 项目类型
         String batchNo = "";        // 流水编号
@@ -61,7 +68,23 @@ public class CheckStationServiceImpl  implements ICheckStationService {
         Integer listId;             // 开单表id
 
         // 根据卡片编号查找到体检人id
+        List<Cards> listCards = null;
+        listCards = cardsMapper.findCards(cardNos);
+        // 如果无此卡号，则直接返回
+        if(listCards == null || listCards.size() < 1) {
+            selectsMapper.clearSelect();
+            return "未知卡号";
+        }
+        // 获取选择的所有项目名称列表
+        List<String> selectNames = selectsMapper.findSelectNames();
+        // 如果名称列表有重复，则返回
+        if(selectNames.stream().distinct().count() < selectNames.size()) {
+            selectsMapper.clearSelect();
+            return "选择项目重复，请重新选择";
+        }
+        // 依据卡片编号查询到对应的体检人表id
         List<Cards> cards = unionQueryMapper.queryCardsPerson(cardNos);
+        // 将体检人表id写入流水表的per_id字段，建立体检表和流水表关联
         batches.setPerId(cards.get(0).getPerson().getPerId());
         batchNo = getNumberForBatchNo();
         person = cards.get(0).getPerson().getPerName();
@@ -70,6 +93,7 @@ public class CheckStationServiceImpl  implements ICheckStationService {
         batches.setBatchCmp("未完成");
         batches.setBatchPrt("未打印");
         batches.setBatchPrtRpt("未打印");
+        batches.setBatchSum("未打印");
         // 创建流水表记录
         batchesMapper.insertBatches(batches);
         // 获取自动回写的流水表主键值。
@@ -93,7 +117,7 @@ public class CheckStationServiceImpl  implements ICheckStationService {
             lists.setListName(itemName);
             lists.setListType(listType);
             lists.setListPrice(listPrice);
-            // 向开单表添加记录
+            // 创建开单表添加记录
             listsMapper.insertLists(lists);
             // 得到添加记录的id值
             listId = lists.getListId();
@@ -119,29 +143,27 @@ public class CheckStationServiceImpl  implements ICheckStationService {
                 briefsMapper.insertBriefs(briefs);        // 向小结表插入一条项目记录
             }
         }
-
-
-        return flag;
+        selectsMapper.clearSelect();
+        message = "开单成功";
+        return message;
     }
+
 
     /**
-     * 打印导检表
-     * @author Luke
-     * @param batchId   流水表id
+     * 显示导检列表, 综合查询列表
+     * @author luke
+     * @param batches   流水表pojo
+     * @param person    体检人表pojo
+     * @param cards     卡片表pojo
+     * @return
      */
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
-    public void printGuideCheck(Integer batchId) {
-
-    }
-
-    @Override
-    public List<Batches> showGuideGheck(String cardNo, String prt,
-                                        String prtRpts, String batchPays,String batchCmps) {
+    public List<Batches> showGuideGheck(Batches batches, Person person, Cards cards) {
         List<Batches> batchList = new ArrayList<Batches>();
-        batchList = unionQueryMapper.queryGuideCheckList(cardNo, prt, prtRpts, batchPays, batchCmps);
+        batchList = unionQueryMapper.queryGuideCheckList(batches, person, cards);
         return batchList;
     }
+
 
     /**
      * 产生流水号
@@ -181,5 +203,113 @@ public class CheckStationServiceImpl  implements ICheckStationService {
         List<Item> listItem;
         listItem = unionQueryMapper.queryBriefData("", "");
         return listItem;
+    }
+
+
+    /**
+     * 将用户选择的项目加入到selects表中
+     * @author Luke
+     * @param assoName      套餐名
+     * @param itemName      项目名
+     * @return
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
+    public List<Selects> insertSelect(String assoName, String itemName) {
+        List<Selects> listSelect = null;
+        List<Item> listItem = null;
+        listItem = unionQueryMapper.queryBriefData(assoName, itemName);
+        Selects selects = null;
+        if (listItem != null) {
+            for(Item item : listItem) {
+                selects = new Selects();
+                if(assoName != null) {
+                    selects.setSelAssoId(item.getAssoId());
+                    //selects.setSelAssoName(item);
+                }else if(itemName != null) {
+                    selects.setSelAssoId(0);
+                    //selects.setSelAssoName(null);
+                }
+                selects.setSelItemId(item.getItemId());
+                selects.setSelItemName(item.getItemName());
+                selects.setSelType(item.getItemType().getTypeName());
+                selects.setSelOff(item.getOffice().getOffName());
+                selects.setSelPrice(item.getItemPrice());
+                selectsMapper.insertSelect(selects);
+            }
+        }
+        listSelect = selectsMapper.findSelect(0);
+        return listSelect;
+    }
+
+    /**
+     * 删除选择记录
+     * @author Luke
+     * @param assoId
+     * @param itemId
+     * @return
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
+    public List<Selects> deleteSelect(Integer assoId, Integer itemId) {
+        List<Selects> listSelect = null;
+        if(selectsMapper.deleteSelect(assoId, itemId)) {
+            listSelect = selectsMapper.findSelect(0);
+        }
+        return listSelect;
+    }
+
+    @Override
+    public List<Selects> clearSelect() {
+        List<Selects> listSelect = null;
+        if(selectsMapper.clearSelect()) {
+            listSelect = selectsMapper.findSelect(0);
+        }
+        return listSelect;
+    }
+
+    /**
+     * 获取导检表数据
+     * @author Luke
+     * @param batchId   流水表id
+     * @return
+     */
+    @Override
+    public List<Briefs> showGuideData(Integer batchId) {
+        List<Briefs> briefList = null;
+        briefList = unionQueryMapper.queryBriesfLists(batchId);
+
+        return briefList;
+    }
+
+    /**
+     * 获取体检报告数据
+     * @author Luke
+     * @param batchNo   流水号
+     * @return
+     */
+    @Override
+    public List<Briefs> showReportData(String batchNo) {
+        List<Briefs> briefList = null;
+        briefList = unionQueryMapper.queryBriesfDetails(batchNo);
+        return briefList;
+    }
+
+    /**
+     * 显示体检总结报告
+     * @author Luke
+     * @param batchNo
+     * @return
+     */
+
+    public List<Batches> showSumData(String batchNo) {
+        List<Batches> briefList = null;
+        briefList = unionQueryMapper.queryBatchSumPerCard(batchNo);
+        return briefList;
+    }
+
+    public List<Cards> showPersonData(String cardNos) {
+        List<Cards> cardsList = unionQueryMapper.queryCardsPerson(cardNos);
+        return cardsList;
     }
 }

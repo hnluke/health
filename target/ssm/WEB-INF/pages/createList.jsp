@@ -160,10 +160,108 @@
                 $("#submitForm").attr("action", "house_list.html?page=" + 1).submit();
             }
         }
+        // 开单按键
+        function creList(){
+            if($("#cardNo").val() == "" || $.trim($("#cardNo").val()).length == 0) {
+                alert("请输入体检人卡号");
+            }else{
+                $("#submitForm").attr("action", "check/list/2");
+                $("#submitForm").attr("method", "post");
+                $("#submitForm").submit();
+            }
+        }
 
-        function selected() {
-            //alert("Ok");
-             $("#showTxt2").html("");
+        function selected(names, id) {
+            var chk;
+
+            if ($('#assoChk').prop('checked')) {
+                chk = "1";
+            } else {
+                chk = "0";
+            }
+            var url = "check/jsondata";
+            var contexts = {"assoName": names, "chk" : chk, "assoId" : id};
+            var con = "";
+            var end = "";
+            var title = "您选择的项目如下：<br/>\n";
+            var heads = "<table border='1' class='table' align='center' width='100%'>\n" +
+                "<tr>\n" +
+                "    <th>序号</th>\n" +
+                "    <th>项目名称</th>\n" +
+                "    <th>项目类别</th>\n" +
+                "    <th>所属科室</th>\n" +
+                "    <th>价格</th>\n" +
+                "</tr>\n";
+
+
+            $.ajax({
+                type: "post",
+                url: url,
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(contexts),
+                success: function (callback) {
+
+                    for(var i=0; i < callback.length; i++) {
+                        con = con +
+                            "<tr><td>" + callback[i].selId + "</td>\n" +
+                            "<td>" + callback[i].selItemName + "</td>\n" +
+                            "<td>" + callback[i].selType + "</td>\n" +
+                            "<td>" + callback[i].selOff + "</td>\n" +
+                            "<td>" + callback[i].selPrice + "</td></tr>\n";
+                    }
+                    end =  "</table>\n";
+
+                     $("#showTxt").html(title + heads + con + end);
+                }
+            });
+        }
+
+        function selected2(names, id) {
+            var chk;
+
+            if ($('#itemChk').prop('checked')) {
+                chk = "1";
+            } else {
+                chk = "0";
+            }
+            var url = "check/jsondata";
+            var contexts = {"itemName": names, "chk" : chk, "itemId" : id};
+            var con = "";
+            var end = "";
+            var title = "您选择的项目如下：<br/>\n";
+            var heads =
+                "<table border='1' class='table' align='center' width='100%'>\n" +
+                "<tr>\n" +
+                "    <th>序号</th>\n" +
+                "    <th>项目名称</th>\n" +
+                "    <th>项目类别</th>\n" +
+                "    <th>所属科室</th>\n" +
+                "    <th>价格</th>\n" +
+                "</tr>\n";
+
+
+            $.ajax({
+                type: "post",
+                url: url,
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(contexts),
+                success: function (callback) {
+
+                    for(var i=0; i < callback.length; i++) {
+                        con = con +
+                            "<tr><td>" + callback[i].selId + "</td>\n" +
+                            "<td>" + callback[i].selItemName + "</td>\n" +
+                            "<td>" + callback[i].selType + "</td>\n" +
+                            "<td>" + callback[i].selOff + "</td>\n" +
+                            "<td>" + callback[i].selPrice + "</td></tr>\n";
+                    }
+                    end = "</table>\n";
+
+                    $("#showTxt").html(title + heads + con + end);
+                }
+            });
         }
     </script>
     <style>
@@ -172,7 +270,7 @@
 
 </head>
 <body>
-<form id="submitForm" name="submitForm" action="" method="post">
+<form id="submitForm" name="submitForm" action="check/list/2" method="post">
     <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
     <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
     <div id="container">
@@ -181,50 +279,45 @@
                 <div id="box_border">
                     <div id="box_bottom">
 
-                        <span id="showTxt2">${flag}</span>
+                        <span id="showTxt2" style="font-weight: bold; color: #2b542c">[${message}]</span>
                         请输入体检人卡片编号：
-                        <input type="text" name="" class="ui_input_txt02"/>
-                        <input type="submit" value="开单" class="ui_input_btn01"/>
-                        <input type="button" value="导出" class="ui_input_btn01"
-                               onclick="location.href='assets/purchase/ex'" />
+                        <input type="text" name="cardNo" class="ui_input_txt02" id="cardNo" value="${cardNo}"/>
+                        <input type="button" value="开单" class="ui_input_btn01" onclick="creList()"/>
+<%--                        <input type="button" value="导出" class="ui_input_btn01"--%>
+<%--                               onclick="location.href='assets/purchase/ex'" />--%>
                     </div>
                 </div>
             </div>
         </div>
         <div class="ui_content">
-            <div id = "asso" style="width: 40%; float:left; overflow: scroll; height: 300px" >
+            <div id = "asso" style="width: 45%; float:left; overflow: scroll; height: 200px" >
                 请选择你需要的套餐:
-                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
-                    <tr>
-                        <th width="30"><input type="checkbox" id="allAsso" onclick="selectOrClearAllCheckbox(this);" />
-                        </th>
-<%--                        <th>序号</th>--%>
-                        <th>套餐名称</th>
-                        <th>价格</th>
-                    </tr>
-                    <c:if test="${!empty(assoList)}">
-                        <c:forEach var="asso"  items="${assoList}">
-                        <tr>
-                            <td><input type="checkbox" name="IDCheck" value="${asso.assoId}" class="acb" onclick = "selected();"/></td>
-    <%--                        <td>${asso.assoId}</td>--%>
-                            <td>${asso.assoName}</td>
-                            <td>${asso.assoPrice}</td>
-                        </tr>
-                        </c:forEach>
-
-                    </c:if>
-
-                </table>
-            </div>
-            <div id = "items" style="width: 50%; float:left; overflow: scroll; height: 300px">
-
-                请选择你需要的项目:
-                <form>
+                <form id="assoForm">
                     <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
                         <tr>
-                            <th width="30"><input type="checkbox" id="allItem" onclick="selectOrClearAllCheckbox(this);" />
-                            </th>
-                            <%--                        <th>序号</th>--%>
+                            <th>选择</th>
+                            <th>套餐名称</th>
+                            <th>价格</th>
+                        </tr>
+                        <c:if test="${!empty(assoList)}">
+                            <c:forEach var="asso"  items="${assoList}">
+                                <tr>
+                                    <td><input type="checkbox" id="assoChk" name="IDCheck2" value="${asso.assoId}" class="acb" onchange= "selected('${asso.assoName}','${asso.assoId}');"/></td>
+                                    <td>${asso.assoName}</td>
+                                    <td>${asso.assoPrice}</td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                    </table>
+                </form>
+
+            </div>
+            <div id = "items" style="width: 55%; float:left; overflow: scroll; height: 200px">
+                请选择你需要的项目:
+                <form id = "itemsForm">
+                    <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+                        <tr>
+                            <th>选择</th>
                             <th>项目名称</th>
                             <th>项目类别</th>
                             <th>所属科室</th>
@@ -233,8 +326,9 @@
                         <c:if test="${!empty(itemList)}">
                             <c:forEach var="items"  items="${itemList}">
                                 <tr>
-                                    <td><input type="checkbox" name="IDCheck" value="${items.itemId}" class="acb" onclick = "selected();"/></td>
-                                        <%--                        <td>${asso.assoId}</td>--%>
+                                    <td>
+                                        <input type="checkbox" name="IDCheck" id="itemChk" value="${items.itemId}" class="acb" onchange= "selected2('${items.itemName}','${items.itemId}');"/>
+                                    </td>
                                     <td>${items.itemName}</td>
                                     <td>${items.itemType.typeName}</td>
                                     <td>${items.office.offName}</td>
@@ -248,48 +342,51 @@
                 </form>
 
             </div>
-            <div class="ui_tb">
-<%--                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">--%>
-<%--                    <tr>--%>
-<%--                        <th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />--%>
-<%--                        </th>--%>
-<%--                        <th>序号</th>--%>
-<%--                        <th>项目编码</th>--%>
-<%--                        <th>项目名称</th>--%>
-<%--                        <th>项目类别</th>--%>
-<%--                        <th>价格</th>--%>
-<%--                        <th>缴费情况</th>--%>
+            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">
 
-<%--&lt;%&ndash;                        <th>操作</th>&ndash;%&gt;--%>
-
-<%--                    </tr>--%>
-<%--                    <c:if test="${!empty(purchase_list)}">--%>
-<%--                    <c:forEach var="pur"  items="${purchase_list}">--%>
-
-<%--                    <tr>--%>
-<%--                        <td><input type="checkbox" name="IDCheck" value="${pur.purId}" class="acb" onclick = "selected();"/></td>--%>
-<%--                        <td>${pur.purCode}</td>--%>
-<%--                        <td>${pur.purAssname}</td>--%>
-<%--                        <td>${pur.purType}</td>--%>
-<%--                        <td>${pur.purModel}</td>--%>
-<%--                        <td>${pur.purUnit}</td>--%>
-<%--                        <td>${pur.purNum}</td>--%>
-<%--                        <td>${pur.purPrices}</td>--%>
-<%--                        <td>${pur.purVouno}</td>--%>
-
-
-<%--&lt;%&ndash;                        <td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <a href="house_edit.html?fyID=14458579642011" class="edit">编辑</a>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <a href="javascript:del('14458579642011');">删除</a>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </td>&ndash;%&gt;--%>
-<%--                    </tr>--%>
-<%--                    </c:forEach>--%>
-
-<%--                    </c:if>--%>
-
-<%--                </table>--%>
             </div>
-            <div class="ui_tb_h30">
+<%--            <div class="ui_tb">--%>
+<%--&lt;%&ndash;                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        </th>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <th>序号</th>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <th>项目编码</th>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <th>项目名称</th>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <th>项目类别</th>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <th>价格</th>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <th>缴费情况</th>&ndash;%&gt;--%>
+
+<%--&lt;%&ndash;&lt;%&ndash;                        <th>操作</th>&ndash;%&gt;&ndash;%&gt;--%>
+
+<%--&lt;%&ndash;                    </tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <c:if test="${!empty(purchase_list)}">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <c:forEach var="pur"  items="${purchase_list}">&ndash;%&gt;--%>
+
+<%--&lt;%&ndash;                    <tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td><input type="checkbox" name="IDCheck" value="${pur.purId}" class="acb" onclick = "selected();"/></td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purCode}</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purAssname}</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purType}</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purModel}</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purUnit}</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purNum}</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purPrices}</td>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <td>${pur.purVouno}</td>&ndash;%&gt;--%>
+
+
+<%--&lt;%&ndash;&lt;%&ndash;                        <td>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;                            <a href="house_edit.html?fyID=14458579642011" class="edit">编辑</a>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;                            <a href="javascript:del('14458579642011');">删除</a>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;                        </td>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    </tr>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    </c:forEach>&ndash;%&gt;--%>
+
+<%--&lt;%&ndash;                    </c:if>&ndash;%&gt;--%>
+
+<%--&lt;%&ndash;                </table>&ndash;%&gt;--%>
+<%--            </div>--%>
+<%--            <div class="ui_tb_h30">--%>
 <%--                <div class="ui_flt" style="height: 30px; line-height: 30px;">--%>
 <%--                    共有--%>
 <%--                    <span class="ui_txt_bold04">1</span>--%>
@@ -299,24 +396,24 @@
 <%--						1</span>--%>
 <%--                    页--%>
 <%--                </div>--%>
-                <div class="ui_frt">
-                    <!--    如果是第一页，则只显示下一页、尾页 -->
+<%--                <div class="ui_frt">--%>
+<%--                    <!--    如果是第一页，则只显示下一页、尾页 -->--%>
 
-<%--                    <input type="button" value="首页" class="ui_input_btn01" />--%>
-<%--                    <input type="button" value="上一页" class="ui_input_btn01" />--%>
-<%--                    <input type="button" value="下一页" class="ui_input_btn01"--%>
-<%--                           onclick="jumpNormalPage(2);" />--%>
-<%--                    <input type="button" value="尾页" class="ui_input_btn01"--%>
-<%--                           onclick="jumpNormalPage(9);" />--%>
+<%--&lt;%&ndash;                    <input type="button" value="首页" class="ui_input_btn01" />&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <input type="button" value="上一页" class="ui_input_btn01" />&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <input type="button" value="下一页" class="ui_input_btn01"&ndash;%&gt;--%>
+<%--&lt;%&ndash;                           onclick="jumpNormalPage(2);" />&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <input type="button" value="尾页" class="ui_input_btn01"&ndash;%&gt;--%>
+<%--&lt;%&ndash;                           onclick="jumpNormalPage(9);" />&ndash;%&gt;--%>
 
 
 
-                    <!--     如果是最后一页，则只显示首页、上一页 -->
+<%--                    <!--     如果是最后一页，则只显示首页、上一页 -->--%>
 
-<%--                    转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页--%>
-<%--                    <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />--%>
-                </div>
-            </div>
+<%--&lt;%&ndash;                    转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />&ndash;%&gt;--%>
+<%--                </div>--%>
+<%--            </div>--%>
         </div>
     </div>
 </form>

@@ -19,14 +19,35 @@
 		<base href="<%=basePath%>">
 	</head>
 	<body>
+	<div id="myDiv">
 		<table width="100%">
 			<tr style="font-size: small;">
 				<td>xxx中心医院</td>
 				<td></td>
-				<td>体检编号:</td>
-				<td>姓名:</td>
-				<td>性别:</td>
-				<td>年龄:</td>
+				<td>
+					体检编号:
+					<c:if test="${!empty(sumData)}">
+						${sumData.get(0).person.cards.cardNo}
+					</c:if>
+				</td>
+				<td>
+					姓名:
+					<c:if test="${!empty(sumData)}">
+						${sumData.get(0).person.perName}
+					</c:if>
+				</td>
+				<td>
+					性别:
+					<c:if test="${!empty(sumData)}">
+						${sumData.get(0).person.perSex}
+					</c:if>
+				</td>
+				<td>
+					年龄:
+					<c:if test="${!empty(sumData)}">
+						${sumData.get(0).person.perAge}
+					</c:if>
+				</td>
 			</tr>
 		
 		</table>
@@ -42,13 +63,21 @@
 			<tr>
 				<td style="text-align: left;">
 					<p style="font-weight: 800">疾病诊断及阳性发现:</p>
-					<p style="font-weight: 200;height: 50px;">小结综合</p>
+					<p style="font-weight: 200;height: 50px;">
+						<c:if test="${!empty(sumData)}">
+							${sumData.get(0).summary.sumDesc}
+						</c:if>
+					</p>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align: left;">
 					<p style="font-weight: 800">健康指导:</p>
-					<p style="font-weight: 200;height: 300px;">小结综合指导</p>
+					<p style="font-weight: 200;height: 300px;">
+						<c:if test="${!empty(sumData)}">
+							${sumData.get(0).summary.sumGuide}
+						</c:if>
+					</p>
 				</td>
 			</tr>
 		</table >
@@ -65,8 +94,19 @@
 				<td>总审日期:</td>
 			</tr>
 		</table>
+	</div>
 		<hr>
-		
+		<button onclick="prt()">打印</button>
 		
 	</body>
+	<script type="text/javascript">
+		function prt() {
+			var printHtml = document.getElementById("myDiv").innerHTML;
+			var oldstr = document.body.innerHTML;
+			window.document.body.innerHTML = printHtml;
+			window.print();
+			document.body.innerHTML = oldstr;
+		}
+
+	</script>
 </html>

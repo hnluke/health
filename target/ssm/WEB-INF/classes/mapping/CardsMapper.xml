@@ -3,10 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.CardsMapper">
     <cache/>
-<!--    &lt;!&ndash; 查询 &ndash;&gt;-->
-<!--    <select id="queryCards" parameterType="" resultType="com.model.pojo.Cards">-->
+    <!-- 查询 -->
+    <select id="findCards" parameterType="string" resultType="com.model.pojo.Cards">
+        select * from cards
+        <where>
+            <if test="cardNo != null and cardNo.trim() != ''">
+                and card_no = #{cardNo}
+            </if>
+        </where>
 
-<!--    </select>-->
+    </select>
 <!--    &lt;!&ndash; 新增 &ndash;&gt;-->
 <!--    <insert id="insertCards" parameterType="" useGeneratedKeys="true" keyColumn="" keyProperty="">-->
 
