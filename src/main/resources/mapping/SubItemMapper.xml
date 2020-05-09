@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.SubItemMapper">
+    <cache/>
+    <!--     查询-->
+    <select id="findSubItem" parameterType="string" resultType="com.model.pojo.SubItem">
+        select * from subitem
+        <where>
+            <if test="subName != null and subName.trim() != ''">
+                and sub_name = #{subName}
+            </if>
+        </where>
+
+    </select>
+    <!-- 新增 -->
+    <insert id="insertSubItem" parameterType="com.model.pojo.SubItem"
+            useGeneratedKeys="true" keyColumn="item_id" keyProperty="itemId">
+        insert into subitem (sub_name, sub_code, item_id, sub_unit, sub_upper, sub_lower, sub_refer)
+        values (#{subName}, #{subCode}, #{itemId}, #{subUnit}, #{subUpper}, #{subLower}, #{subRefer})
+
+    </insert>
+    <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+    <update id="updateSubItem" parameterType="com.model.pojo.SubItem">
+        update subitem
+        <set>
+            <if test="subCode != null and subCode.trim != ''">
+                sub_code = #{subCode},
+            </if>
+            <if test="itemId != null and itemId != 0">
+                item_id = #{itemId},
+            </if>
+            <if test="subUnit != null and subUnit.trim() != ''">
+                sub_unit = #{subUnit},
+            </if>
+            <if test="subRefer != null and subRefer.trim != ''">
+                sub_refer = #{subRefer},
+            </if>
+            <if test="subLower != null">
+                sub_lower= #{subLower},
+            </if>
+            <if test="subUpper != null">
+                sub_upper = #{subUpper},
+            </if>
+        </set>
+        where sub_name = #{subName}
+    </update>
+    <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
+    <!--    <delete id="deleteLists" parameterType="">-->
+    <!--        delete from lists-->
+    <!--        where list_id = {listId}-->
+    <!--    </delete>-->
+
+</mapper>

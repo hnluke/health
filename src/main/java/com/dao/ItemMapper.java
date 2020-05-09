@@ -13,4 +13,18 @@ public interface ItemMapper {
      * @return
      */
     public List<Item> findItem(@Param("itemName") String itemName);
+
+    /**
+     * 新增项目记录
+     * @param item  项目表pojo
+     * @return
+     */
+    public boolean insertItem(Item item);
+
+    /**
+     * 更新项目记录
+     * @param item     项目表对象
+     * @return
+     */
+    public boolean updateItem(Item item);
 }

@@ -184,25 +184,7 @@
             <div class="ui_text_indent">
                 <div id="box_border">
                     <div id="box_bottom">
-<%--                        菜单名：--%>
-<%--                        <input type="text" name="menuName" class="ui_input_txt02" autocomplete="off"/>--%>
-<%--                        父菜单id：--%>
-<%--                        <input type="text" name="menuParent" class="ui_input_txt02" autocomplete="off"/>--%>
-<%--                        父菜单名称：--%>
-<%--                        <input type="text" name="menuParname" class="ui_input_txt02" autocomplete="off"/>--%>
-<%--                        所属权限--%>
-<%--                        <select name="prioId">--%>
-<%--                            <option value="0">---权限---</option>--%>
-<%--                            <c:if test="${!empty(priorityList)}">--%>
-<%--                                <c:forEach items="${priorityList}" var="prio">--%>
-<%--                                    <option value="${prio.prioId}">${prio.prioName}</option>--%>
-<%--                                </c:forEach>--%>
-<%--                            </c:if>--%>
-
-<%--                        </select>--%>
                         <input type="submit" value="导入菜单" class="ui_input_btn01"/>
-                        <%--                        <input type="button" value="导出" class="ui_input_btn01"--%>
-                        <%--                               onclick="location.href='assets/purchase/ex'" />--%>
                     </div>
                 </div>
             </div>
@@ -210,38 +192,34 @@
 
         <div class="ui_content">
             <div id = "guide" style="width: 100%; float:left; overflow: scroll; height: 500px" >
-                <form id="assoForm">
-                    <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
-                        <tr>
-                            <th>序号</th>
-                            <th>菜单名</th>
-                            <th>菜单id</th>
-                            <th>父菜单id</th>
-                            <th>组id</th>
-                            <th>操作</th>
 
-
-                        </tr>
-                        <c:if test="${!empty(menusList)}">
-                            <c:forEach var="menu"  items="${menusList}">
-                                <tr>
-                                    <td>${menu.menuId}</td>
-                                    <td>${menu.menuName}</td>
-                                    <td>${menu.menuResId}</td>
-                                    <td>${menu.menuParId}</td>
-                                    <td>${menu.menuGrpId}</td>
-                                    <td><a href="javascript:if(confirm('确实要删除吗?'))
-                                    location='manage/menu/3?menuId=${menu.menuId}'">删除</a></td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
-                    </table>
-                </form>
-
+                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+                    <tr>
+                        <th>序号</th>
+                        <th>菜单名</th>
+                        <th>菜单id</th>
+                        <th>父菜单id</th>
+                        <th>组id</th>
+                        <th>操作</th>
+                    </tr>
+                    <c:if test="${!empty(menusList)}">
+                        <c:forEach var="menu"  items="${menusList}" varStatus="stauts">
+                            <tr>
+                                <td>${stauts.count}</td>
+                                <td>${menu.menuName}</td>
+                                <td>${menu.menuResId}</td>
+                                <td>${menu.menuParId}</td>
+                                <td>${menu.menuGrpId}</td>
+                                <td><a href="javascript:if(confirm('确实要删除吗?'))
+                                location='manage/menu/3?menuId=${menu.menuId}'">删除</a></td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                </table>
             </div>
-            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">
+<%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
 
-            </div>
+<%--            </div>--%>
         </div>
     </div>
 </form>

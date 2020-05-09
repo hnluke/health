@@ -2,7 +2,7 @@ import com.dao.*;
 import com.model.pojo.*;
 import com.service.ICheckStationService;
 import com.service.IManageService;
-import com.util.ExcelPlugMenuPrio;
+import com.util.ExcelPlug;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +42,12 @@ public class TestSpring {
     @Resource
     private IManageService manageService;
     @Resource
-    private ExcelPlugMenuPrio excelPlugMenuPrio;
+    private ExcelPlug excelPlug;
     @Resource
     private MenuPrioMapper menuPrioMapper;
     @Resource
     private MenuPrio menuPrio;
+
     @Test
     public void testCode() {
 //        List<Cards> cards = unionQueryMapper.queryCardsPerson("1001");
@@ -151,6 +152,12 @@ public class TestSpring {
 //        manageService.relatePrioMenu(1, 5);
 //        prioMenuList = manageService.queryPrioMenu("");
 //         System.out.println(prioMenuList);
+//        System.out.println(unionQueryMapper.queryBriefData("",""));
+        String basePath = TestSpring.class.getClassLoader().getResource("common/resc.xls").getPath();
+       // excelPlug.importItemTypeExcelToDB(basePath);
+        //excelPlug.importAssoExcelToDB(basePath);
+        //excelPlug.importItemExcelToDB(basePath);
+        excelPlug.importSubItemExcelToDB(basePath);
     }
 
     public String getNumberForBatchNo() {

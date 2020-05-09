@@ -62,24 +62,25 @@
         <collection property="subItemList" javaType="java.util.List" ofType="com.model.pojo.SubItem" autoMapping="true">
             <id property="subId" column="sub_id"></id>
         </collection>
-        <collection property="listAsso" javaType="java.util.List" ofType="com.model.pojo.Association" autoMapping="true">
-            <id property="assoId" column="asso_id" />
-            <association property="assoItem" javaType="com.model.pojo.AssoItem" autoMapping="true">
+        <collection property="assoItems" javaType="java.util.List" ofType="com.model.pojo.AssoItem" autoMapping="true">
+            <id property="asitId" column="asit_id" />
+            <association property="association" javaType="com.model.pojo.Association" autoMapping="true">
                 <id column="asso_id" property="assoId" />
             </association>
         </collection>
 
     </resultMap>
-    <select id="queryBriefData" resultMap="assoItemTypeOffDetail">
+    <select id="queryBriefData" resultMap="assoItemTypeOffDetail" useCache="false">
         select A.item_id, A.item_name, A.item_price, E.asso_name,
         B.type_name, C.off_name, E.asso_id,
-        F.sub_name, sub_unit, sub_refer, sub_upper, sub_lower
+        F.sub_name, F.sub_unit, F.sub_refer, F.sub_upper, F.sub_lower
         from item A
         left JOIN item_type B on A.item_type_id = B.type_id
         left JOIN office C on A.off_id = C.off_id
-        LEFT JOIN asso_item D on A.item_id = D.item_id
         left join subitem F on A.item_id = F.item_id
+        LEFT JOIN asso_item D on A.item_id = D.item_id
         LEFT JOIN association E on E.asso_id = D.asso_id
+
         <where>
             <if test="itemName != null and itemName.trim() != ''">
                 and A.item_name = #{itemName}
@@ -89,6 +90,46 @@
             </if>
         </where>
     </select>
+
+<!--    <resultMap type="com.model.pojo.Item" id="assoItemTypeOffDetail" autoMapping="true">-->
+<!--        <id property="itemId" column="item_id" />-->
+<!--        &lt;!&ndash;        <result property="name" column="name"></result>&ndash;&gt;-->
+<!--        <association property="office" javaType="com.model.pojo.Office" autoMapping="true">-->
+<!--            <id column="off_id" property="offId"/>-->
+<!--        </association>-->
+<!--        <association property="itemType" javaType="com.model.pojo.ItemType" autoMapping="true">-->
+<!--            <id column="type_id" property="typeId" />-->
+<!--        </association>-->
+<!--        <collection property="subItemList" javaType="java.util.List" ofType="com.model.pojo.SubItem" autoMapping="true">-->
+<!--            <id property="subId" column="sub_id"></id>-->
+<!--        </collection>-->
+<!--        <collection property="listAsso" javaType="java.util.List" ofType="com.model.pojo.Association" autoMapping="true">-->
+<!--            <id property="assoId" column="asso_id" />-->
+<!--            <association property="assoItem" javaType="com.model.pojo.AssoItem" autoMapping="true">-->
+<!--                <id column="asso_id" property="assoId" />-->
+<!--            </association>-->
+<!--        </collection>-->
+
+<!--    </resultMap>-->
+<!--    <select id="queryBriefData" resultMap="assoItemTypeOffDetail">-->
+<!--        select A.item_id, A.item_name, A.item_price, E.asso_name,-->
+<!--        B.type_name, C.off_name, E.asso_id,-->
+<!--        F.sub_name, sub_unit, sub_refer, sub_upper, sub_lower-->
+<!--        from item A-->
+<!--        left JOIN item_type B on A.item_type_id = B.type_id-->
+<!--        left JOIN office C on A.off_id = C.off_id-->
+<!--        LEFT JOIN asso_item D on A.item_id = D.item_id-->
+<!--        left join subitem F on A.item_id = F.item_id-->
+<!--        LEFT JOIN association E on E.asso_id = D.asso_id-->
+<!--        <where>-->
+<!--            <if test="itemName != null and itemName.trim() != ''">-->
+<!--                and A.item_name = #{itemName}-->
+<!--            </if>-->
+<!--            <if test="assoName != null and assoName.trim() != ''">-->
+<!--                and E.asso_name = #{assoName}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
 
     <!-- 表关联查询多对一，结果映射resultMap方式 -->
     <!-- 获取打印导检表的数据 -->

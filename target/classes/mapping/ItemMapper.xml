@@ -14,26 +14,31 @@
 
         </select>
     <!-- 新增 -->
-<!--    <insert id="insertLists" parameterType="com.model.pojo.Lists"-->
-<!--            useGeneratedKeys="true" keyColumn="list_id" keyProperty="listId">-->
-<!--        insert into Lists (batch_id, list_name, list_type, list_price)-->
-<!--        values (#{batchId}, #{listName}, #{listType}, #{listPrice})-->
+    <insert id="insertItem" parameterType="com.model.pojo.Item"
+            useGeneratedKeys="true" keyColumn="item_id" keyProperty="itemId">
+        insert into item (off_id, item_name, item_code, item_type_id, item_price)
+        values (#{offId}, #{itemName}, #{itemCode}, #{itemTypeId}, #{itemPrice})
 
-<!--    </insert>-->
+    </insert>
     <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
-    <!--    <update id="updateLists" parameterType="com.model.pojo.Lists">-->
-    <!--        update lists-->
-    <!--        <set>-->
-    <!--            <if test="listPerId != null and ListPerId != 0">-->
-    <!--                per_id = #{perId},-->
-    <!--            </if>-->
-    <!--            <if test="listComp != null and ListComp.trim() != ''">-->
-    <!--                list_comp = #{listComp},-->
-    <!--            </if>-->
-
-    <!--        </set>-->
-    <!--        where list_id = #{listId}-->
-    <!--    </update>-->
+        <update id="updateItem" parameterType="com.model.pojo.Item">
+            update item
+            <set>
+                <if test="offId != null and offId != 0">
+                    off_id = #{offId},
+                </if>
+                <if test="itemTypeId != null and itemTypeId != 0">
+                    item_type_id = #{itemTypeId},
+                </if>
+                <if test="itemCode != null and itemCode.trim() != ''">
+                    item_code = #{itemCode},
+                </if>
+                <if test="itemPrice != null and itemPrice != 0">
+                    item_price = #{itemPrice},
+                </if>
+            </set>
+            where item_name = #{itemName}
+        </update>
     <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
     <!--    <delete id="deleteLists" parameterType="">-->
     <!--        delete from lists-->

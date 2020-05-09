@@ -28,7 +28,7 @@ public class ManageController {
 
     @Resource
     private IManageService manageService;
-    private String  path = ManageController.class.getClassLoader().getResource("common/menu.xls").getPath();
+    private String  path = ManageController.class.getClassLoader().getResource("common/resc.xls").getPath();
 
     /**
      * 初始化卡片

@@ -2,11 +2,10 @@ package com.service.impl;
 
 import com.dao.*;
 import com.model.pojo.Cards;
-import com.model.pojo.MenuPrio;
 import com.model.pojo.Menus;
 import com.model.pojo.Priority;
 import com.service.IManageService;
-import com.util.ExcelPlugMenuPrio;
+import com.util.ExcelPlug;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,7 +27,7 @@ public class ManageServiceImpl implements IManageService {
     @Resource
     private MenusMapper menusMapper;
     @Resource
-    private ExcelPlugMenuPrio excelPlugMenuPrio;
+    private ExcelPlug excelPlug;
     @Resource
     private MenuPrioMapper menuPrioMapper;
 
@@ -158,7 +157,7 @@ public class ManageServiceImpl implements IManageService {
 
     public String importMenu(String path) {
         String message = "导入数据失败";
-        if (excelPlugMenuPrio.importMenuExcelToDB(path)) {
+        if (excelPlug.importMenuExcelToDB(path)) {
             message = "导入数据成功";
         }
         return message;
@@ -172,7 +171,7 @@ public class ManageServiceImpl implements IManageService {
      */
     public String importPrio(String path) {
         String message = "导入数据失败";
-        if (excelPlugMenuPrio.importPrioExcelToDB(path)) {
+        if (excelPlug.importPrioExcelToDB(path)) {
             message = "导入数据成功";
         }
         return message;

@@ -152,8 +152,8 @@ public class CheckStationServiceImpl  implements ICheckStationService {
                     details.setDetItemName(subItem.getSubName());
                     details.setDetUnit(subItem.getSubUnit());
                     details.setDetRefer(subItem.getSubRefer());
-                    details.setDetUpper(subItem.getSubUpper());
-                    details.setDetLower(subItem.getSubLower());
+                    details.setDetUpper(String.valueOf(subItem.getSubUpper()));
+                    details.setDetLower(String.valueOf(subItem.getSubLower()));
                     detailMapper.insertDetail(details);
                 }
             }
@@ -239,7 +239,7 @@ public class CheckStationServiceImpl  implements ICheckStationService {
             for(Item item : listItem) {
                 selects = new Selects();
                 if(assoName != null) {
-                    selects.setSelAssoId(item.getAssoId());
+                    selects.setSelAssoId(item.getAssoItems().get(0).getAssoId());
                     //selects.setSelAssoName(item);
                 }else if(itemName != null) {
                     selects.setSelAssoId(0);

@@ -16,8 +16,8 @@ public class SubItem implements Serializable {
     private Item item;              // 项目pojo
     private String subUnit;         // 单位
     private String subRefer;        // 参考值
-    private String subUpper;        // 健康上限值
-    private String subLower;        // 健康下限值
+    private Integer subUpper;        // 健康上限值
+    private Integer subLower;        // 健康下限值
 
 
 
@@ -78,19 +78,19 @@ public class SubItem implements Serializable {
         this.subRefer = subRefer;
     }
 
-    public String getSubUpper() {
+    public Integer getSubUpper() {
         return subUpper;
     }
 
-    public void setSubUpper(String subUpper) {
+    public void setSubUpper(Integer subUpper) {
         this.subUpper = subUpper;
     }
 
-    public String getSubLower() {
+    public Integer getSubLower() {
         return subLower;
     }
 
-    public void setSubLower(String subLower) {
+    public void setSubLower(Integer subLower) {
         this.subLower = subLower;
     }
 
