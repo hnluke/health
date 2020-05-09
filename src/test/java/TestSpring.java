@@ -145,12 +145,12 @@ public class TestSpring {
 //        menuPrio.setPrioId(1);
 //        menuPrioMapper.insertMenuPrio(1, 1);
 //        System.out.println(unionQueryMapper.queryPrioMenu("").get(2).getMenuPrioList().get(0).getMenus());
-        List<Priority> prioMenuList = null;
-        manageService.relatePrioMenu(1, 3);
-        manageService.relatePrioMenu(1, 4);
-        manageService.relatePrioMenu(1, 5);
-        prioMenuList = manageService.queryPrioMenu("");
-         System.out.println(prioMenuList);
+//        List<Priority> prioMenuList = null;
+//        manageService.relatePrioMenu(1, 3);
+//        manageService.relatePrioMenu(1, 4);
+//        manageService.relatePrioMenu(1, 5);
+//        prioMenuList = manageService.queryPrioMenu("");
+//         System.out.println(prioMenuList);
     }
 
     public String getNumberForBatchNo() {
