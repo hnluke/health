@@ -10,7 +10,7 @@ public class Users implements Serializable {
     public final static long serialVersionUID = 121L;
     private Integer userId;         // 用户id
     private String userName;        // 姓名
-    private String pwd;             // 密码
+    private String userPwd;             // 密码
     private Office office;          // 科室表pojo
     private Priority priority;      // 权限表pojo
 
@@ -30,12 +30,12 @@ public class Users implements Serializable {
         this.userName = userName;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
     public Office getOffice() {
@@ -59,7 +59,7 @@ public class Users implements Serializable {
         return "Users{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
-                ", pwd='" + pwd + '\'' +
+                ", userPwd='" + userPwd + '\'' +
                 ", office=" + office +
                 ", priority=" + priority +
                 '}';
