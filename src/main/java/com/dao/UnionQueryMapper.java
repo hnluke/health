@@ -75,6 +75,13 @@ public interface UnionQueryMapper {
      */
     public List<Batches> queryBatchSumPerCard(@Param("batchNo") String batchNo);
 
+    /**
+     * 查询权限-菜单关联表
+     * @param prioName
+     * @return
+     */
+    public List<Priority> queryPrioMenu(@Param("prioName") String prioName);
+
 
 
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MenusMapper">
+    <cache/>
+    <!-- 查询 -->
+    <select id="findMenus" parameterType="integer" resultType="com.model.pojo.Menus">
+        select * from menus
+        <where>
+            <if test="menuId != null and menuId != 0">
+                and menu_id = #{menuId}
+            </if>
+        </where>
+
+    </select>
+    <!-- 新增 -->
+    <insert id="insertMenus" parameterType="com.model.pojo.Menus"
+            useGeneratedKeys="true" keyColumn="menu_id" keyProperty="menuId">
+        insert into menus (menu_path, menu_res_id, menu_par_id, menu_grp_id, menu_name )
+        values (#{menuPath}, #{menuResId}, #{menuParId}, #{menuGrpId}, #{menuName})
+
+    </insert>
+
+    <!-- 修改 -->
+    <update id="updateMenus" parameterType="com.model.pojo.Menus">
+        update menus
+        <set>
+            <if test="menuPath != null and menuPath.trim() != ''">
+                menu_path = #{menuPath},
+            </if>
+            <if test="menuResId != null and menuResId  != 0">
+                menu_res_id = #{menuResId},
+            </if>
+            <if test="menuParId != null and menuParId  != 0">
+                menu_par_id = #{menuParId},
+            </if>
+            <if test="menuParId != null and menuParId  != 0">
+                menu_grp_id = #{menuGrpId},
+            </if>
+
+        </set>
+        where menu_name = #{menuName}
+    </update>
+    <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
+    <delete id="deleteMenus" parameterType="Integer">
+            delete from menus
+            where menu_id = #{menuId}
+    </delete>
+
+
+    <!-- 查询 -->
+    <select id="findMenuCount" parameterType="string" resultType="integer">
+        select count(*) from menus
+        <where>
+            <if test="menuName != null and menuName.trim() != ''">
+                and menu_name = #{menuName}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

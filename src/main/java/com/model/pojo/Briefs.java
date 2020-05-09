@@ -2,6 +2,7 @@ package com.model.pojo;
 
 import org.springframework.stereotype.Repository;
 
+import javax.xml.soap.Detail;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 // 小结表pojo
 public class Briefs implements Serializable {
     public final static long serialVersionUID = 112L;
-    private String briefId;         // 小结表id
+    private Integer briefId;         // 小结表id
     private Lists lists;            // 开单表pojo
     private Integer listId;         // 关联开单表id
     private String briefDesc;       // 小结描述
@@ -24,15 +25,15 @@ public class Briefs implements Serializable {
     private String briefCardNo;     // 卡片编号
     private String briefPerson;      // 体检人
     private List<Details> listDetails;  // 小结明细表集合
+
     private Date briefDate;          // 小结日期
 
 
-
-    public String getBriefId() {
+    public Integer getBriefId() {
         return briefId;
     }
 
-    public void setBriefId(String briefId) {
+    public void setBriefId(Integer briefId) {
         this.briefId = briefId;
     }
 

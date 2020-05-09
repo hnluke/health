@@ -17,6 +17,7 @@ public class Item implements Serializable {
     private String itemCode;            // 项目编号
     private Double itemPrice;           // 价格
     //private Association association;    // 套餐表pojo
+    private List<SubItem> subItemList;       // 子项目表pojo
     private List<Association> listAsso;   // 套餐表pojo
     private ItemType itemType;          // 项目类别pojo
 
@@ -90,6 +91,14 @@ public class Item implements Serializable {
 
     public void setItemTypeId(Integer itemTypeId) {
         this.itemTypeId = itemTypeId;
+    }
+
+    public List<SubItem> getSubItemList() {
+        return subItemList;
+    }
+
+    public void setSubItemList(List<SubItem> subItemList) {
+        this.subItemList = subItemList;
     }
 
     @Override

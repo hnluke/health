@@ -1,16 +1,16 @@
 import com.dao.*;
 import com.model.pojo.*;
 import com.service.ICheckStationService;
+import com.service.IManageService;
+import com.util.ExcelPlugMenuPrio;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import sun.corba.Bridge;
 
 
 import javax.annotation.Resource;
-import java.awt.image.renderable.RenderableImage;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -37,6 +37,16 @@ public class TestSpring {
     private Association association;
     @Autowired
     private SelectsMapper selectsMapper;
+    @Autowired
+    private CardsMapper cardsMapper;
+    @Resource
+    private IManageService manageService;
+    @Resource
+    private ExcelPlugMenuPrio excelPlugMenuPrio;
+    @Resource
+    private MenuPrioMapper menuPrioMapper;
+    @Resource
+    private MenuPrio menuPrio;
     @Test
     public void testCode() {
 //        List<Cards> cards = unionQueryMapper.queryCardsPerson("1001");
@@ -112,12 +122,35 @@ public class TestSpring {
 
 //        List<Cards> cardsList = unionQueryMapper.queryCardsPerson("");
 //        System.out.println(cardsList);
-        String str = String.format("%08d", 1);
-        System.out.println(str);
+//        String str = String.format("%08d", 1);
+//        System.out.println(str);
+//        List<Item> itemList = unionQueryMapper.queryBriefData("","a");
+//        System.out.println(itemList.get(0).getSubItemList());
+//        int i = Integer.parseInt("0000001");
+//        System.out.println(i);
+//        Cards cards = cardsMapper.findLastCard();
+//        System.out.println(cards);
+//        System.out.print(unionQueryMapper.queryCardsPerson("00000001"));
+//        String basePath = TestSpring.class.getClassLoader().getResource("common/menu.xls").getPath();
+        //String basePath = TestSpring.class.getClassLoader().getResource("//").getHost();
+//        excelPlugMenuPrio.importPrioExcelToDB(basePath);
+        //System.out.println(priorityList);
 
-
-
-
+        //List<Menus> list = new ArrayList<Menus>();
+//        list = excelPlug.getAllByExcel(basePath);
+//        System.out.println(list);
+        //System.out.println(basePath);
+//        System.out.println(unionQueryMapper.queryPrioMenu("一般用户"));
+//        menuPrio.setMenuId(1);
+//        menuPrio.setPrioId(1);
+//        menuPrioMapper.insertMenuPrio(1, 1);
+//        System.out.println(unionQueryMapper.queryPrioMenu("").get(2).getMenuPrioList().get(0).getMenus());
+        List<Priority> prioMenuList = null;
+        manageService.relatePrioMenu(1, 3);
+        manageService.relatePrioMenu(1, 4);
+        manageService.relatePrioMenu(1, 5);
+        prioMenuList = manageService.queryPrioMenu("");
+         System.out.println(prioMenuList);
     }
 
     public String getNumberForBatchNo() {

@@ -16,7 +16,7 @@
     <!-- 新增 -->
     <insert id="insertLists" parameterType="com.model.pojo.Lists"
             useGeneratedKeys="true" keyColumn="list_id" keyProperty="listId">
-        insert into Lists (batch_id, list_name, list_type, list_price)
+        insert into lists (batch_id, list_name, list_type, list_price)
         values (#{batchId}, #{listName}, #{listType}, #{listPrice})
 
     </insert>

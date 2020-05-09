@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.PriorityMapper">
+    <cache/>
+    <!-- 查询 -->
+        <select id="findPriority" parameterType="string" resultType="com.model.pojo.Priority">
+            select * from priority
+            <where>
+                <if test="prioName != null and prioName.trim() != ''">
+                    and prio_name = #{prioName}
+                </if>
+            </where>
+
+        </select>
+    <!-- 新增 -->
+    <insert id="insertPriority" parameterType="com.model.pojo.Priority"
+            useGeneratedKeys="true" keyColumn="prio_id" keyProperty="prioId">
+        insert into priority (prio_name, prio_desc)
+        values (#{prioName}, #{prioDesc})
+
+    </insert>
+    <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+        <update id="updatePriority" parameterType="com.model.pojo.Priority">
+            update priority
+            <set>
+                <if test="prioDesc != null and prioDesc.trim() != ''">
+                    prio_desc = #{prioDesc},
+                </if>
+
+
+            </set>
+            where prio_name = #{prioName}
+        </update>
+    <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
+        <delete id="deletePriority" parameterType="Integer">
+            delete from priority
+            where prio_id = #{prioId}
+        </delete>
+
+
+    <!-- 查询记录数 -->
+    <select id="findPrioCount" parameterType="string" resultType="integer">
+        select count(*) from priority
+        <where>
+            <if test="prioName != null and prioName.trim() != ''">
+                and prio_name = #{prioName}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

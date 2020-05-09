@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class SubItem implements Serializable {
     public final static long serialVersionUID = 115L;
     private Integer subId;         // 子项目id
+    private Integer itemId;         // 项目表id
     private String subName;        // 子项目名称
     private String subCode;        // 子项目编号
     private Double subPrice;       // 价格
@@ -93,10 +94,19 @@ public class SubItem implements Serializable {
         this.subLower = subLower;
     }
 
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
     @Override
     public String toString() {
         return "SubItem{" +
                 "subId=" + subId +
+                ", itemId=" + itemId +
                 ", subName='" + subName + '\'' +
                 ", subCode='" + subCode + '\'' +
                 ", subPrice=" + subPrice +
