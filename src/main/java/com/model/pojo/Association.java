@@ -3,6 +3,7 @@ package com.model.pojo;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 // 套餐表pojo
 @Repository
@@ -11,6 +12,7 @@ public class Association implements Serializable {
     private Integer assoId;         // 套餐id
     private String assoName;        // 套餐名称
     //private AssoItem assoItem;    // 套项表pojo;
+    private List<AssoItem> assoItems;   // 套餐-项目关联表集合
     private Double assoPrice;      // 套餐价格
 
     public Integer getAssoId() {
@@ -38,11 +40,20 @@ public class Association implements Serializable {
         this.assoPrice = assoPrice;
     }
 
+    public List<AssoItem> getAssoItems() {
+        return assoItems;
+    }
+
+    public void setAssoItems(List<AssoItem> assoItems) {
+        this.assoItems = assoItems;
+    }
+
     @Override
     public String toString() {
         return "Association{" +
                 "assoId=" + assoId +
                 ", assoName='" + assoName + '\'' +
+                ", assoItems=" + assoItems +
                 ", assoPrice=" + assoPrice +
                 '}';
     }

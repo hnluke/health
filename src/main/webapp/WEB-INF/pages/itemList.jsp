@@ -15,7 +15,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>权限管理</title>
+    <title>项目管理</title>
     <base href="<%=basePath%>">
     <script type="text/javascript" src="<%=basePath%>scripts/jquery/jquery-1.7.1.js"></script>
     <link href="<%=basePath%>style/authority/basic_layout.css" rel="stylesheet" type="text/css">
@@ -161,11 +161,7 @@
             }
         }
 
-        function importPrio() {
-            window.location.href="manage/prio/2";
 
-
-        }
 
         // function openWin() {
         //     window.open ("check/guide/3", "newwindow",
@@ -181,124 +177,178 @@
 </head>
 <body>
 
-    <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
-    <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
+<%--    <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>--%>
+<%--    <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>--%>
     <div id="container">
+        <form id="submitForm" name="submitForm" action="manage/item/2" method="post">
         <div class="ui_content">
             <div class="ui_text_indent">
                 <div id="box_border">
                     <div id="box_bottom">
+                        <c:if test="${!empty(message)}">
+                            <label style="color: #2b542c">[${message}]</label>
+                        </c:if>
 
-
-
-
-                        <input type="button" value="导入" class="ui_input_btn01" onclick="importPrio()"/>
-
-<%--                        权限名：--%>
-<%--                        <input type="text" name="prioName" class="ui_input_txt02" autocomplete="off"/>--%>
-<%--                        权限描述：--%>
-<%--                        <input type="text" name="prioDesc" class="ui_input_txt02" autocomplete="off"/>--%>
-
-
-                        <%--                        <input type="button" value="导出" class="ui_input_btn01"--%>
-                        <%--                               onclick="location.href='assets/purchase/ex'" />--%>
+                        <input type="submit" value="导入项目" class="ui_input_btn01"/>
                     </div>
-
                 </div>
             </div>
         </div>
-        <form id="submitForm" name="submitForm" action="manage/prio/3" method="post">
-        <div class="ui_content">
-                请选择权限：
-            <select name="prioNameStrId">
-                <option value="0">--权限--</option>
-                <c:if test="${!empty(priorityList)}">
-                    <c:forEach var="names"  items="${priorityList}">
-                        <option value="${names.prioId}">${names.prioName}</option>
-                    </c:forEach>
+        </form>
 
-                </c:if>
-
-            </select>
-            (分配权限)
-            <input type="submit" value="分配" class="ui_input_btn01"/>
-
-        </div>
-        <br>
-        请配置限相应的菜单:
         <div class="ui_content">
             <div id = "guide" style="width: 100%; float:left; overflow: scroll; height: 260px" >
-                <form id="assoForm">
-                    <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="1">
-                        <c:if test="${!empty(menusList)}">
-                            <tr>
-                            <c:forEach var="menu"  items="${menusList}" varStatus="status">
 
-                                <c:if test="${(status.index % 6) == 0}">
+                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+                    <tr>
+                        <th>序号</th>
+                        <th>项目名称</th>
+                        <th>项目编号</th>
+                        <th>项目类别</th>
+                        <th>所属科室</th>
+                        <th>价格</th>
+                        <th>操作</th>
+                    </tr>
+                    <c:if test="${!empty(itemList)}">
+                        <c:forEach var="item"  items="${itemList}" varStatus="stauts">
+                            <tr>
+                                <td>${stauts.count}</td>
+                                <td>${item.itemName}</td>
+                                <td>${item.itemCode}</td>
+                                <td>
+<%--                                <select id="typeId" class="ui_select01">    --%>
+                                    <select id="typeId${item.itemId}" class="ui_select01">
+                                        <c:if test="${!empty(itemTypeList)}">
+                                            <c:forEach var="types" items="${itemTypeList}">
+                                                <option value="${types.typeId}"
+                                                        <c:if test="${item.itemTypeId eq types.typeId}">
+                                                            selected
+                                                        </c:if>
+                                                >${types.typeName}</option>
+                                            </c:forEach>
+                                        </c:if>
+                                    </select>
+                                </td>
+                                <td>
+
+                                    <select id="offId${item.itemId}" class="ui_select01">
+                                        <c:if test="${!empty(officeList)}">
+                                            <c:forEach var="office" items="${officeList}">
+                                                <option value="${office.offId}"
+                                                        <c:if test="${item.offId eq office.offId}">
+                                                            selected
+                                                        </c:if>
+                                                >${office.offName}</option>
+                                            </c:forEach>
+                                        </c:if>
+                                    </select>
+
+                                </td>
+                                <td>${item.itemPrice}</td>
+<%--                                <td><a href="manage/item/{3}?itemId=${item.itemId}&offId=${off}">配置</a></td>--%>
+                                <td>
+                                    <button type="button" onclick="conf(${item.itemId})">配置</button>
+                                </td>
+
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                </table>
+            </div>
+            <form id="assoForm" name="assoForm" action="manage/item/4" method="post">
+                创建套餐：
+                <div id = "assoGuide" style="width: 100%; float:left; overflow: scroll; height: 150px" >
+                    套餐名称：<input type="text" name="assoName" />
+                    套餐价格: <input type="text" name="assoPrice" />
+                    <input type="submit" value="创建"/>
+                    <br/>
+                    请为套餐添加项目：
+                    <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="2">
+                        <c:if test="${!empty(itemList)}">
+                            <tr>
+                            <c:forEach var="item"  items="${itemList}" varStatus="status">
+
+                                <c:if test="${(status.index % 4) == 0}">
                                     <tr>
                                 </c:if>
-                                    <td>
-                                        <input type="checkbox"  name="menuNameId" value="${menu.menuId}">${menu.menuName}
+                                <td>
+                                    <input type="checkbox"  name="itemNameId" value="${item.itemId}">${item.itemName}
 
-                                    </td>
-                                <c:if test="${(status.count % 6) == 0}">
+                                </td>
+                                <c:if test="${(status.count % 4) == 0}">
                                     </tr>
                                 </c:if>
-                                </c:forEach>
-                            <c:if test="${(status.count % 6) != 0}">
+                            </c:forEach>
+                            <c:if test="${(status.count % 4) != 0}">
                                 </tr>
                             </c:if>
                         </c:if>
                     </table>
-                </form>
+                </div>
+            </form>
+            <%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
 
-            </div>
-            <div id = "guide" style="width: 100%; float:left; overflow: scroll; height: 300px" >
-                配置信息如下：
-                <c:if test="${!empty(prioMenuList)}">
-                    <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="1">
-                        <tr>
-                            <td>序号</td>
-                            <td>权限名</td>
-                            <td>权限描述</td>
-                            <td>菜单名</td>
-                            <td>操作</td>
-
-                        </tr>
-                        <c:forEach var="prio" items="${prioMenuList}" varStatus="status">
-
-                            <tr>
-                                <td>${status.index + 1 }</td>
-                                <td>${prio.prioName}</td>
-                                <td>${prio.prioDesc}</td>
-                                <td></td>
-                            </tr>
-                            <c:if test="${!empty(prio.menuPrioList)}">
-                                <c:forEach var="mePr"  items="${prio.menuPrioList}">
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>${mePr.menus.menuName}</td>
-                                        <td><a href="javascript:if(confirm('确实要删除吗?'))
-                                                location='manage/prio/4?prmeId=${mePr.prmeId}'">删除</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                        </c:forEach>
-                    </table>
-                </c:if>
-            </div>
-<%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
-
-<%--            </div>--%>
+            <%--            </div>--%>
         </div>
-        </form>
-    </div>
 
+        <div id = "guide2" style="width: 100%; float:left; overflow: scroll; height: 300px" >
+            配置信息如下：
+            <c:if test="${!empty(associationList)}">
+                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="1">
+                    <tr>
+                        <td>序号</td>
+                        <td>套餐名</td>
+                        <td>价格</td>
+                        <td>项目名</td>
+                        <td>项目价格</td>
+                        <td>操作</td>
+
+                    </tr>
+                    <c:forEach var="asso" items="${associationList}" varStatus="status">
+
+                        <tr>
+                            <td>${status.count }</td>
+                            <td>${asso.assoName}</td>
+                            <td>${asso.assoPrice}</td>
+                            <td></td>
+                            <td></td>
+                            <td><a href="javascript:if(confirm('确实要删除吗?'))
+                                                location='manage/item/6?assoIds=${asso.assoId}'">删除</a>
+                            </td>
+                        </tr>
+                        <c:if test="${!empty(asso.assoItems) ||  asso.assoItems.size() > 0}">
+                            <c:forEach var="assoItem"  items="${asso.assoItems}">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>${assoItem.items.itemName}</td>
+                                    <td>${assoItem.items.itemPrice}</td>
+                                    <td><a href="javascript:if(confirm('确实要删除吗?'))
+                                                location='manage/item/5?asitId=${assoItem.asitId}'">删除</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                    </c:forEach>
+                </table>
+            </c:if>
+        </div>
+
+    </div>
+<%--</form>--%>
 
 </body>
+<script type="text/javascript">
+    function conf(id) {
 
+        var offId = document.getElementById("offId" + id).value;
+        var typeId = document.getElementById("typeId" + id).value;
+
+         window.location.href = "manage/item/3?itemId=" + id + "&offId=" + offId + "&typeId=" + typeId;
+
+
+    }
+</script>
 </html>
 

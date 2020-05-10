@@ -13,35 +13,30 @@
             </if>
         </where>
     </select>
-<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
-<!--    <insert id="insertBatches" parameterType="com.model.pojo.Batches"-->
-<!--            useGeneratedKeys="true" keyColumn="batch_id" keyProperty="batchId">-->
-<!--        insert into batches (batch_no, per_id, sum_id, batch_pay, batch_cmp)-->
-<!--        values (#{batchNo}, #{perId}, #{sumId}, #{batchPay}, #{batchCmp})-->
-<!--    </insert>-->
+    <!--    新增    -->
+    <insert id="insertAssociation" parameterType="com.model.pojo.Association"
+            useGeneratedKeys="true" keyColumn="asso_id" keyProperty="assoId">
+        insert into association (asso_name, asso_price)
+        values (#{assoName}, #{assoPrice})
+    </insert>
 <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
-<!--    <update id="updateBatches" parameterType="com.model.pojo.Batches">-->
-<!--        update batches-->
-<!--        <set>-->
-<!--            <if test="batchNo != null and batchNo.trim() != ''">-->
-<!--                batch_no = #{batchNo},-->
-<!--            </if>-->
-<!--            <if test="batchPay != null and batchPay.trim() != ''">-->
-<!--                batch_pay = #{batchPay},-->
-<!--            </if>-->
-<!--            <if test="batchPerId != null and batchPerId != 0">-->
-<!--                batch_per_id = #{batchPerId},-->
-<!--            </if>-->
-<!--            <if test="batchSumId != null and batchSumId != 0">-->
-<!--                batch_sum_id = #{batchSumId},-->
-<!--            </if>-->
-<!--            <if test="batchCmp != null and batchCmp.trim() != ''">-->
-<!--                batch_cmp = #{batchCmp},-->
-<!--            </if>-->
+    <update id="updateAssociation" parameterType="com.model.pojo.Association">
+        update association
+        <set>
+            <if test="assoName != null and assoName.trim() != ''">
+                asso_name = #{assoName},
+            </if>
+            <if test="assoPrice != null and assoPrice != 0">
+                asso_price = #{assoPrice},
+            </if>
+        </set>
+        where asso_name = #{assoName}
+    </update>
 
-<!--        </set>-->
-<!--        where batch_id = #{batchId}-->
-<!--    </update>-->
+    <delete id="deleteAssociation" parameterType="integer">
+        delete from association
+        where asso_id = #{assoId}
+    </delete>
 
 
 </mapper>

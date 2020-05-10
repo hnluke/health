@@ -1,9 +1,7 @@
 package com.service.impl;
 
 import com.dao.*;
-import com.model.pojo.Cards;
-import com.model.pojo.Menus;
-import com.model.pojo.Priority;
+import com.model.pojo.*;
 import com.service.IManageService;
 import com.util.ExcelPlug;
 import org.springframework.stereotype.Service;
@@ -30,6 +28,22 @@ public class ManageServiceImpl implements IManageService {
     private ExcelPlug excelPlug;
     @Resource
     private MenuPrioMapper menuPrioMapper;
+    @Resource
+    private DetailMapper detailMapper;
+    @Resource
+    private SubItemMapper subItemMapper;
+    @Resource
+    private ItemMapper itemMapper;
+    @Resource
+    private OfficeMapper officeMapper;
+    @Resource
+    private ItemTypeMapper itemTypeMapper;
+    @Resource
+    private AssociationMapper associationMapper;
+    @Resource
+    private AssoItemMapper assoItemMapper;
+
+
 
     /**
      * 初始化卡片
@@ -177,9 +191,32 @@ public class ManageServiceImpl implements IManageService {
         return message;
     }
 
+    /**
+     * 导入细项数据
+     * @author Luke
+     * @param path  Excel文件路径
+     * @return
+     */
+    public List<SubItem> importSubItem(String path) {
+        List<SubItem> subItemList = null;
+        if (excelPlug.importSubItemExcelToDB(path)) {
+            subItemList = subItemMapper.findSubItem("");
+        }
+        return subItemList;
+    }
+
+    public String importItem(String path) {
+        String message = "导入失败";
+        if(excelPlug.importItemExcelToDB(path)) {
+            message = "导入数据成功";
+        }
+        return message;
+    }
+
 
     /**
      * 关联权限-菜单表
+     * @author Luke
      * @param prioId    权限表id
      * @param menuId    菜单表id
      * @return
@@ -202,6 +239,7 @@ public class ManageServiceImpl implements IManageService {
 
     /**
      * 删除菜单-权限表记录
+     * @author Luke
      * @param prmeId    关联表id
      * @return
      */
@@ -209,5 +247,105 @@ public class ManageServiceImpl implements IManageService {
     public boolean deleteMenuPrio(Integer prmeId) {
 
         return menuPrioMapper.deleteMenuPrio(prmeId);
+    }
+
+    /**
+     * 删除细项
+     * @author Luke
+     * @param subId
+     * @return
+     */
+    public List<SubItem> deleteSubItem(Integer subId) {
+        List<SubItem> subItemList = null;
+        if(subItemMapper.deleteSubItem(subId)) {
+            subItemList = subItemMapper.findSubItem("");
+        }
+        return subItemList;
+    }
+
+    /**
+     * 查询项目表
+     * @param itemName  项目名称
+     * @return
+     */
+    public List<Item> findItem(String itemName) {
+        return itemMapper.findItem(itemName);
+    }
+
+    public List<Office> findOffice(String offName) {
+        return officeMapper.findOffice(offName);
+    }
+
+    public List<ItemType> findItemType(String typeName) {
+        return itemTypeMapper.findItemType(typeName);
+    }
+
+    public List<Association> findAssociation(String assoName) {
+        return associationMapper.findAssociation(assoName);
+    }
+
+    /**
+     * 更新项目
+     * @author Luke
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean updateItem(Item item) {
+
+        return itemMapper.updateItem(item);
+    }
+
+    /**
+     * 插入套餐表记录
+     * @author Luke
+     * @param association
+     * @return
+     */
+    public boolean insertAsso(Association association) {
+        return associationMapper.insertAssociation(association);
+    }
+
+    /**
+     * 插入套项表记录
+     * @author Luke
+     * @param assoId
+     * @param itemId
+     * @return
+     */
+    @Override
+    public boolean insertAssoItem(Integer assoId, Integer itemId) {
+        return assoItemMapper.insertAssoItem(assoId, itemId);
+    }
+
+    /**
+     * 删除套餐-项目关联表记录
+     * @author Luke
+     * @param asitId
+     * @return
+     */
+    @Override
+    public boolean deleteAssoItem(Integer asitId) {
+        return assoItemMapper.deleteAssoItem(asitId);
+    }
+
+    /**
+     * 查询套餐-项目关联表
+     * @author Luke
+     * @param assoName
+     * @return
+     */
+    public List<Association> queryAssoItem(String assoName) {
+        return unionQueryMapper.queryAssoItem(assoName);
+    }
+
+    @Override
+    public boolean deleteAssoItemByAssoId(Integer assoId) {
+        return assoItemMapper.deleteAssoItemByAssoId(assoId);
+    }
+
+    @Override
+    public boolean deleteAsso(Integer assoId) {
+        return associationMapper.deleteAssociation(assoId);
     }
 }

@@ -371,7 +371,7 @@ public class ExcelPlug {
                     subItem.setSubUnit(subUnit);
                     subItem.setSubRefer(subRefer);
                     subItem.setSubUpper(subUpper);
-                    subItem.setSubUpper(subLower);
+                    subItem.setSubLower(subLower);
                     subItem.setItemId(itemId);
                     list.add(subItem);
                 }

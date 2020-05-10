@@ -33,5 +33,10 @@
         where asso_name = #{assoName}
     </update>
 
+    <delete id="deleteAssociation" parameterType="integer">
+        delete from association
+        where asso_id = #{assoId}
+    </delete>
+
 
 </mapper>

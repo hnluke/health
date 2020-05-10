@@ -209,8 +209,6 @@
         </div>
         <form id="submitForm" name="submitForm" action="manage/prio/3" method="post">
         <div class="ui_content">
-
-
                 请选择权限：
             <select name="prioNameStrId">
                 <option value="0">--权限--</option>
@@ -247,7 +245,7 @@
                                     </tr>
                                 </c:if>
                                 </c:forEach>
-                            <c:if test="${(status.count % 4) != 0}">
+                            <c:if test="${(status.count % 6) != 0}">
                                 </tr>
                             </c:if>
                         </c:if>
@@ -282,7 +280,9 @@
                                         <td></td>
                                         <td></td>
                                         <td>${mePr.menus.menuName}</td>
-                                        <td><a href="manage/prio/4?prmeId=${mePr.prmeId}">删除</a></td>
+                                        <td><a href="javascript:if(confirm('确实要删除吗?'))
+                                                location='manage/prio/4?prmeId=${mePr.prmeId}'">删除</a>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </c:if>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Luke
-  Date: 2020/3/13
-  Time: 10:30
+  Date: 2020/5/3
+  Time: 21:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,27 +14,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>企业资产管理系统</title>
-    <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="scripts/jquery/jquery-1.7.1.js"></script>
-<%--    <script type="text/javascript" src="WEB-INF/js/jquery-3.4.1.js"></script>--%>
-    <link href="style/authority/basic_layout.css" rel="stylesheet" type="text/css">
-    <link href="style/authority/common_style.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="scripts/authority/commonAll.js"></script>
-    <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.js"></script>
-    <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/authority/jquery.fancybox-1.3.4.css" media="screen"></link>
-    <script type="text/javascript" src="scripts/artDialog/artDialog.js?skin=default"></script>
+    <title>细项管理</title>
+    <base href="<%=basePath%>">
+    <script type="text/javascript" src="<%=basePath%>scripts/jquery/jquery-1.7.1.js"></script>
+    <link href="<%=basePath%>style/authority/basic_layout.css" rel="stylesheet" type="text/css">
+    <link href="<%=basePath%>style/authority/common_style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="<%=basePath%>scripts/authority/commonAll.js"></script>
+    <script type="text/javascript" src="<%=basePath%>scripts/fancybox/jquery.fancybox-1.3.4.js"></script>
+    <script type="text/javascript" src="<%=basePath%>scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>style/authority/jquery.fancybox-1.3.4.css" media="screen"></link>
+    <script type="text/javascript" src="<%=basePath%>scripts/artDialog/artDialog.js?skin=default"></script>
 
-    <style type="text/css">
-        #myid {
-            text-align: center;
-            font-size: larger;
-            font-weight: bold;
-            height: 50px;
-        }
-    </style>
     <script type="text/javascript">
         $(document).ready(function(){
             /** 新增   **/
@@ -75,8 +66,6 @@
                 }
             });
         });
-
-
         /** 用户角色   **/
         var userRole = '';
 
@@ -151,17 +140,7 @@
 
         /** 普通跳转 **/
         function jumpNormalPage(page){
-            indexs = ${current};
-            if(page == 2){
-                indexs = ${current} + 1;
-
-            }else{
-                if(indexs > 1) {
-                    indexs =  indexs - 1;
-                }
-            }
-
-            $("#submitForm").attr("action", "${pageContext.request.contextPath}/AssetsQueryServlet?page=" + indexs).submit();
+            $("#submitForm").attr("action", "house_list.html?page=" + page).submit();
         }
 
         /** 输入页跳转 **/
@@ -181,122 +160,75 @@
                 $("#submitForm").attr("action", "house_list.html?page=" + 1).submit();
             }
         }
+
+
+
+        // function openWin() {
+        //     window.open ("check/guide/3", "newwindow",
+        //         "left=200 top= 300 height=500, width=600, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+        // }
+
+
     </script>
     <style>
         .alt td{ background:black !important;}
     </style>
+
 </head>
 <body>
-<script type="text/javascript">
-    // 利用Ajax获取资产卡片信息
-    function getDatas() {
-        var id = $("#fyZldz").val();
-        $.post("${pageContext.request.contextPath}/CardAjaxServlet", {"cardId": id}, function (callback) {
-            //alert(callback);
-            var jsonObj = JSON.parse(callback);
-            $("#ad_cardcode").html(jsonObj[0].ad_cardcode);
-            $("#ad_serial").html(jsonObj[0].ad_serial);
-            $("#ad_code").html(jsonObj[0].ad_code);
-            $("#ad_avno").html(jsonObj[0].ad_avno);
-            $("#ad_num").html(jsonObj[0].ad_num);
-            $("#ad_price").html(jsonObj[0].ad_price + "元");
-            $("#ad_status").html(jsonObj[0].ad_status);
-            $("#asty_name").html(jsonObj[0].asty_name);
-            $("#ass_name").html(jsonObj[0].ass_name);
-            $("#ass_model").html(jsonObj[0].ass_model);
-            $("#ass_fincode").html(jsonObj[0].ass_fincode);
-            $("#ass_unit").html(jsonObj[0].ass_unit);
-            $("#av_findate").html(jsonObj[0].av_findate);
-            $("#av_insttime").html(jsonObj[0].av_insttime);
-            $("#u_name").html(jsonObj[0].u_name);
-
-        });
-
-    }
-</script>
-<form id="submitForm" name="submitForm" action="${pageContext.request.contextPath}/AssetsQueryServlet?page=1" method="post">
+<form id="submitForm" name="submitForm" action="manage/subItem/2" method="post">
     <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
     <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
     <div id="container">
         <div class="ui_content">
             <div class="ui_text_indent">
                 <div id="box_border">
-                    <div id="box_top">搜索</div>
-                    <div id="box_bottom" style="text-align: left">
-                        请输入资产卡片编号：
-                        <input type="text" id="fyZldz" name="asscard" class="ui_input_txt02" value=""/>
-                        <input type="button" value="查询" class="ui_input_btn01" onclick="getDatas()"/>
-
+                    <div id="box_bottom">
+                        <input type="submit" value="导入细项" class="ui_input_btn01"/>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="ui_content">
-            <div class="ui_tb">
-                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" id="tbl">
-                    <tr id="myid">
-                        <td style="width: 100px">卡片编号</td>
-                        <td id="ad_cardcode" colspan="5"></td>
-                    </tr>
+            <div id = "guide" style="width: 100%; float:left; overflow: scroll; height: 500px" >
 
-
-                    <tr id="myid">
-
-                        <td style="width: 100px">资产编号</td>
-                        <td id="ad_code"></td>
-                        <td style="width: 100px">资产名称</td>
-                        <td id="ass_name"></td>
-                        <td style="width: 100px">类别</td>
-                        <td id="asty_name"></td>
+                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+                    <tr>
+                        <th>序号</th>
+                        <th>细项名称</th>
+                        <th>细项编号</th>
+                        <th>单位</th>
+                        <th>参考值</th>
+                        <th>健康下限值</th>
+                        <th>健康上限值</th>
+                        <th>操作</th>
                     </tr>
-
-                    <tr id="myid">
-                        <td >序列号</td>
-                        <td id="ad_serial"></td>
-                        <td style="width: 100px">单位</td>
-                        <td id="ass_unit"></td>
-                        <td >规格型号</td>
-                        <td id="ass_model"></td>
-                    </tr>
-                    <tr id="myid">
-                        <td style="width: 100px">凭证号</td>
-                        <td id="ad_avno"></td>
-                        <td style="width: 100px">单价</td>
-                        <td id="ad_price"></td>
-                        <td id="xxx" colspan="2"></td>
-                    </tr>
-
-                    <tr id="myid">
-                        <td style="width: 100px">财务编码</td>
-                        <td id="ass_fincode"></td>
-                        <td id="myid" colspan="4"></td>
-                    </tr>
-                    <tr id="myid">
-                        <td >入帐日期</td>
-                        <td id="av_findate"></td>
-                        <td >出帐日期</td>
-                        <td id="av_insttime"></td>
-                        <td id="myid" colspan="2"></td>
-                    </tr>
-                    <tr id="myid">
-                        <td style="width: 100px">使用人</td>
-                        <td id="u_name"></td>
-                        <td style="width: 100px">数量</td>
-                        <td id="ad_num"></td>
-                        <td style="width: 100px">资产状态</td>
-                        <td id="ad_status"></td>
-                    </tr>
+                    <c:if test="${!empty(subItemList)}">
+                        <c:forEach var="sub"  items="${subItemList}" varStatus="stauts">
+                            <tr>
+                                <td>${stauts.count}</td>
+                                <td>${sub.subName}</td>
+                                <td>${sub.subCode}</td>
+                                <td>${sub.subUnit}</td>
+                                <td>${sub.subRefer}</td>
+                                <td>${sub.subLower}</td>
+                                <td>${sub.subUpper}</td>
+                                <td><a href="javascript:if(confirm('确实要删除吗?'))
+                                location='manage/subItem/3?subItemId=${sub.itemId}'">删除</a></td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                 </table>
             </div>
-            <div class="ui_tb_h30">
-                <div class="ui_frt">
-                </div>
-            </div>
+            <%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
+
+            <%--            </div>--%>
         </div>
     </div>
 </form>
 
 </body>
-</html>
 
+</html>
 

@@ -70,7 +70,7 @@
         </collection>
 
     </resultMap>
-    <select id="queryBriefData" resultMap="assoItemTypeOffDetail" useCache="false">
+    <select id="queryBriefData" resultMap="assoItemTypeOffDetail">
         select A.item_id, A.item_name, A.item_price, E.asso_name,
         B.type_name, C.off_name, E.asso_id,
         F.sub_name, F.sub_unit, F.sub_refer, F.sub_upper, F.sub_lower
@@ -370,6 +370,34 @@
 
         </where>
         order by A.prio_name
+    </select>
+
+
+
+
+    <!-- 表关联查询多对多，结果映射resultMap方式 -->
+    <!-- 检索出套餐-项目数据 -->
+    <resultMap type="com.model.pojo.Association" id="assoItem" autoMapping="true">
+        <id property="assoId" column="asso_id" />
+        <collection property="assoItems" javaType="java.util.List" ofType="com.model.pojo.AssoItem" autoMapping="true">
+            <id property="asitId" column="asit_id"></id>
+            <association property="items" javaType="com.model.pojo.Item" autoMapping="true">
+                <id property="itemId" column="item_id"></id>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="queryAssoItem" resultMap="assoItem" parameterType="string" useCache="false">
+        select A.*, B.*, C.*
+        from association A
+        left JOIN asso_item B on A.asso_id = B.asso_id
+        left join item C on B.item_id = C.item_id
+        <where>
+            <if test="assoName != null and assoName.trim() != ''">
+                and A.asso_name = #{assoName}
+            </if>
+
+        </where>
+        order by A.asso_name
     </select>
 
 

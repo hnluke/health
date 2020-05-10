@@ -4,7 +4,7 @@
 <mapper namespace="com.dao.ItemMapper">
     <cache/>
 <!--     查询-->
-        <select id="findItem" parameterType="string" resultType="com.model.pojo.Item">
+        <select id="findItem" parameterType="string" resultType="com.model.pojo.Item" useCache="false">
             select * from item
             <where>
                 <if test="itemName != null and itemName.trim() != ''">
@@ -37,7 +37,7 @@
                     item_price = #{itemPrice},
                 </if>
             </set>
-            where item_name = #{itemName}
+            where item_id = #{itemId}
         </update>
     <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
     <!--    <delete id="deleteLists" parameterType="">-->

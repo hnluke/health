@@ -27,4 +27,11 @@ public interface SubItemMapper {
      */
     public boolean updateSubItem(SubItem subItem);
 
+    /**
+     * 删除细项
+     * @param subId
+     * @return
+     */
+    public boolean deleteSubItem(@Param("subId") Integer subId);
+
 }

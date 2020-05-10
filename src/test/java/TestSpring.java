@@ -153,11 +153,13 @@ public class TestSpring {
 //        prioMenuList = manageService.queryPrioMenu("");
 //         System.out.println(prioMenuList);
 //        System.out.println(unionQueryMapper.queryBriefData("",""));
-        String basePath = TestSpring.class.getClassLoader().getResource("common/resc.xls").getPath();
+//        String basePath = TestSpring.class.getClassLoader().getResource("common/resc.xls").getPath();
        // excelPlug.importItemTypeExcelToDB(basePath);
         //excelPlug.importAssoExcelToDB(basePath);
         //excelPlug.importItemExcelToDB(basePath);
-        excelPlug.importSubItemExcelToDB(basePath);
+//        excelPlug.importSubItemExcelToDB(basePath);
+//        System.out.println(unionQueryMapper.queryBriefData("", "过敏原全套"));
+        System.out.println(unionQueryMapper.queryAssoItem(""));
     }
 
     public String getNumberForBatchNo() {

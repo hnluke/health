@@ -9,6 +9,7 @@ public class AssoItem implements Serializable {
     private Integer assoId;     // 套餐id
     private Integer itemId;     // 项目id
     private Association association;    // 套餐pojo
+    private Item items;              // 项目pojo
 
     public Integer getAssoId() {
         return assoId;
@@ -40,6 +41,14 @@ public class AssoItem implements Serializable {
 
     public void setAsitId(Integer asitId) {
         this.asitId = asitId;
+    }
+
+    public Item getItems() {
+        return items;
+    }
+
+    public void setItems(Item items) {
+        this.items = items;
     }
 
     @Override

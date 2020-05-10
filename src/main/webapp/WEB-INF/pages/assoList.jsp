@@ -15,7 +15,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>权限管理</title>
+    <title>套餐配置管理</title>
     <base href="<%=basePath%>">
     <script type="text/javascript" src="<%=basePath%>scripts/jquery/jquery-1.7.1.js"></script>
     <link href="<%=basePath%>style/authority/basic_layout.css" rel="stylesheet" type="text/css">
@@ -181,35 +181,24 @@
 </head>
 <body>
 
-    <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
-    <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
-    <div id="container">
-        <div class="ui_content">
-            <div class="ui_text_indent">
-                <div id="box_border">
-                    <div id="box_bottom">
-
-
-
-
-                        <input type="button" value="导入" class="ui_input_btn01" onclick="importPrio()"/>
-
-<%--                        权限名：--%>
-<%--                        <input type="text" name="prioName" class="ui_input_txt02" autocomplete="off"/>--%>
-<%--                        权限描述：--%>
-<%--                        <input type="text" name="prioDesc" class="ui_input_txt02" autocomplete="off"/>--%>
-
-
-                        <%--                        <input type="button" value="导出" class="ui_input_btn01"--%>
-                        <%--                               onclick="location.href='assets/purchase/ex'" />--%>
-                    </div>
-
+<input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
+<input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
+<div id="container">
+    <div class="ui_content">
+        <div class="ui_text_indent">
+            <div id="box_border">
+                <div id="box_bottom">
+                    <input type="button" value="导入" class="ui_input_btn01" onclick="importPrio()"/>
                 </div>
+
             </div>
         </div>
-        <form id="submitForm" name="submitForm" action="manage/prio/3" method="post">
+    </div>
+    <form id="submitForm" name="submitForm" action="manage/prio/3" method="post">
         <div class="ui_content">
-                请选择权限：
+
+
+            请选择权限：
             <select name="prioNameStrId">
                 <option value="0">--权限--</option>
                 <c:if test="${!empty(priorityList)}">
@@ -237,15 +226,15 @@
                                 <c:if test="${(status.index % 6) == 0}">
                                     <tr>
                                 </c:if>
-                                    <td>
-                                        <input type="checkbox"  name="menuNameId" value="${menu.menuId}">${menu.menuName}
+                                <td>
+                                    <input type="checkbox"  name="menuNameId" value="${menu.menuId}">${menu.menuName}
 
-                                    </td>
+                                </td>
                                 <c:if test="${(status.count % 6) == 0}">
                                     </tr>
                                 </c:if>
-                                </c:forEach>
-                            <c:if test="${(status.count % 6) != 0}">
+                            </c:forEach>
+                            <c:if test="${(status.count % 4) != 0}">
                                 </tr>
                             </c:if>
                         </c:if>
@@ -280,9 +269,7 @@
                                         <td></td>
                                         <td></td>
                                         <td>${mePr.menus.menuName}</td>
-                                        <td><a href="javascript:if(confirm('确实要删除吗?'))
-                                                location='manage/prio/4?prmeId=${mePr.prmeId}'">删除</a>
-                                        </td>
+                                        <td><a href="manage/prio/4?prmeId=${mePr.prmeId}">删除</a></td>
                                     </tr>
                                 </c:forEach>
                             </c:if>
@@ -290,12 +277,12 @@
                     </table>
                 </c:if>
             </div>
-<%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
+            <%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
 
-<%--            </div>--%>
+            <%--            </div>--%>
         </div>
-        </form>
-    </div>
+    </form>
+</div>
 
 
 </body>

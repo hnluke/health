@@ -174,7 +174,7 @@
         function selected(names, id) {
             var chk;
 
-            if ($('#assoChk').prop('checked')) {
+            if ($('#assoChk' + id).prop('checked')) {
                 chk = "1";
             } else {
                 chk = "0";
@@ -204,7 +204,7 @@
 
                     for(var i=0; i < callback.length; i++) {
                         con = con +
-                            "<tr><td>" + callback[i].selId + "</td>\n" +
+                            "<tr><td>" + (i+1) + "</td>\n" +
                             "<td>" + callback[i].selItemName + "</td>\n" +
                             "<td>" + callback[i].selType + "</td>\n" +
                             "<td>" + callback[i].selOff + "</td>\n" +
@@ -220,7 +220,7 @@
         function selected2(names, id) {
             var chk;
 
-            if ($('#itemChk').prop('checked')) {
+            if ($('#itemChk'+ id).prop('checked')) {
                 chk = "1";
             } else {
                 chk = "0";
@@ -302,7 +302,7 @@
                         <c:if test="${!empty(assoList)}">
                             <c:forEach var="asso"  items="${assoList}">
                                 <tr>
-                                    <td><input type="checkbox" id="assoChk" name="IDCheck2" value="${asso.assoId}" class="acb" onchange= "selected('${asso.assoName}','${asso.assoId}');"/></td>
+                                    <td><input type="checkbox" id="assoChk${asso.assoId}" name="IDCheck2" value="${asso.assoId}" class="acb" onchange= "selected('${asso.assoName}','${asso.assoId}');"/></td>
                                     <td>${asso.assoName}</td>
                                     <td>${asso.assoPrice}</td>
                                 </tr>
@@ -327,7 +327,7 @@
                             <c:forEach var="items"  items="${itemList}">
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="IDCheck" id="itemChk" value="${items.itemId}" class="acb" onchange= "selected2('${items.itemName}','${items.itemId}');"/>
+                                        <input type="checkbox" name="IDCheck" id="itemChk${items.itemId}" value="${items.itemId}" class="acb" onchange= "selected2('${items.itemName}','${items.itemId}');"/>
                                     </td>
                                     <td>${items.itemName}</td>
                                     <td>${items.itemType.typeName}</td>

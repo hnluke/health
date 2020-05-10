@@ -82,7 +82,12 @@ public interface UnionQueryMapper {
      */
     public List<Priority> queryPrioMenu(@Param("prioName") String prioName);
 
-
+    /**
+     * 关联套餐-项目(多对多)查询
+     * @param assoName
+     * @return
+     */
+    public List<Association> queryAssoItem(@Param("assoName") String assoName);
 
 
 

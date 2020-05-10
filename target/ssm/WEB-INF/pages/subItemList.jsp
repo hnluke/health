@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Luke
-  Date: 2020/3/13
-  Time: 10:30
+  Date: 2020/5/3
+  Time: 21:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,17 +14,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>企业资产管理系统</title>
-    <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="scripts/jquery/jquery-1.7.1.js"></script>
-    <link href="style/authority/basic_layout.css" rel="stylesheet" type="text/css">
-    <link href="style/authority/common_style.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="scripts/authority/commonAll.js"></script>
-    <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.js"></script>
-    <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/authority/jquery.fancybox-1.3.4.css" media="screen"></link>
-    <script type="text/javascript" src="scripts/artDialog/artDialog.js?skin=default"></script>
+    <title>细项管理</title>
+    <base href="<%=basePath%>">
+    <script type="text/javascript" src="<%=basePath%>scripts/jquery/jquery-1.7.1.js"></script>
+    <link href="<%=basePath%>style/authority/basic_layout.css" rel="stylesheet" type="text/css">
+    <link href="<%=basePath%>style/authority/common_style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="<%=basePath%>scripts/authority/commonAll.js"></script>
+    <script type="text/javascript" src="<%=basePath%>scripts/fancybox/jquery.fancybox-1.3.4.js"></script>
+    <script type="text/javascript" src="<%=basePath%>scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>style/authority/jquery.fancybox-1.3.4.css" media="screen"></link>
+    <script type="text/javascript" src="<%=basePath%>scripts/artDialog/artDialog.js?skin=default"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -140,7 +140,7 @@
 
         /** 普通跳转 **/
         function jumpNormalPage(page){
-            $("#submitForm").attr("action", "${pageContext.request.contextPath}/AssetsQueryServlet?page=" + page).submit();
+            $("#submitForm").attr("action", "house_list.html?page=" + page).submit();
         }
 
         /** 输入页跳转 **/
@@ -160,129 +160,75 @@
                 $("#submitForm").attr("action", "house_list.html?page=" + 1).submit();
             }
         }
+
+
+
+        // function openWin() {
+        //     window.open ("check/guide/3", "newwindow",
+        //         "left=200 top= 300 height=500, width=600, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+        // }
+
+
     </script>
     <style>
         .alt td{ background:black !important;}
     </style>
+
 </head>
 <body>
-<form id="submitForm" name="submitForm" action="${pageContext.request.contextPath}/AssetsQueryServlet?page=1&qSign=Q" method="post">
+<form id="submitForm" name="submitForm" action="manage/subItem/2" method="post">
     <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
     <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
     <div id="container">
         <div class="ui_content">
             <div class="ui_text_indent">
                 <div id="box_border">
-                    <div id="box_top">搜索</div>
-                    <div id="box_bottom" style="text-align: left">
-                        条件查询
-                        <select name="sele" id="fyXq" class="ui_select01" onchange="getFyDhListByFyXqCode();"
-                            >
-                            <option value=""
-                            >--请选择--</option>
-                            <option value="ad_code">资产编号</option>
-                            <option value="ass_name">资产名称</option>
-                            <option value="ass_model">规格型号</option>
-                            <option value="av_insttime">入库时间</option>
-                            <option value="ad_status">资产状态</option>
-                            <option value="u_name">使用人</option>
-                        </select>
-                        <input type="text" id="fyZldz" name="vals" class="ui_input_txt02" value=""/>
-                        <input type="submit" value="查询" class="ui_input_btn01"/>
-                        <input type="button" value="所有资产" class="ui_input_btn01" id="importBtn"
-                               onclick="location.href='${pageContext.request.contextPath}/AssetsQueryServlet?page=1&qSign=Q'"/>
-
-                        <input type="button" value="导出" class="ui_input_btn01"
-                               onclick= "location.href='${pageContext.request.contextPath}/AssetsQueryServlet?page=1&qSign=E'"/>
-                        <span id="showTxt">${flag}</span>
+                    <div id="box_bottom">
+                        <input type="submit" value="导入细项" class="ui_input_btn01"/>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="ui_content">
-            <div class="ui_tb">
+            <div id = "guide" style="width: 100%; float:left; overflow: scroll; height: 500px" >
+
                 <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
                     <tr>
-                        <th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />
-                        </th>
-                        <th>资产编号</th>
-                        <th>卡片编号</th>
-                        <th>序列号</th>
-                        <th>资产名称</th>
-                        <th>资产类别</th>
-                        <th>规格型号</th>
+                        <th>序号</th>
+                        <th>细项名称</th>
+                        <th>细项编号</th>
                         <th>单位</th>
-                        <th>单价</th>
-                        <th>凭证号</th>
-                        <th>财务编码</th>
-                        <th>入帐日期</th>
-                        <th>入库日期</th>
-                        <th>使用人</th>
-                        <th>资产状态</th>
-
+                        <th>参考值</th>
+                        <th>健康下限值</th>
+                        <th>健康上限值</th>
+                        <th>操作</th>
                     </tr>
-                    <c:if test="${!empty(query)}">
-                    <c:forEach var="pur"  items="${query}" begin="${current*10-10}" end="${current*10-1}">
-
-                    <tr>
-                        <td><input type="checkbox" name="IDCheck" value="${pur.ad_id}" class="acb" /></td>
-                        <td>${pur.ad_code}</td>
-                        <td>${pur.ad_cardcode}</td>
-                        <td>${pur.ad_serial}</td>
-                        <td>${pur.ass_name}</td>
-                        <td>${pur.asty_name}</td>
-                        <td>${pur.ass_model}</td>
-                        <td>${pur.ass_unit}</td>
-                        <td>${pur.ad_price}</td>
-                        <td>${pur.ad_avno}</td>
-                        <td>${pur.ass_fincode}</td>
-                        <td>${pur.av_findate}</td>
-                        <td>${pur.av_insttime}</td>
-                        <td>${pur.u_name}</td>
-                        <td>${pur.ad_status}</td>
-
-
-
-                    </tr>
-                    </c:forEach>
-
+                    <c:if test="${!empty(subItemList)}">
+                        <c:forEach var="sub"  items="${subItemList}" varStatus="stauts">
+                            <tr>
+                                <td>${stauts.count}</td>
+                                <td>${sub.subName}</td>
+                                <td>${sub.subCode}</td>
+                                <td>${sub.subUnit}</td>
+                                <td>${sub.subRefer}</td>
+                                <td>${sub.subLower}</td>
+                                <td>${sub.subUpper}</td>
+                                <td><a href="javascript:if(confirm('确实要删除吗?'))
+                                location='manage/subItem/3?subItemId=${sub.itemId}'">删除</a></td>
+                            </tr>
+                        </c:forEach>
                     </c:if>
-
                 </table>
             </div>
-            <div class="ui_tb_h30">
-                <div class="ui_flt" style="height: 30px; line-height: 30px;">
-                    共有
-                    <span class="ui_txt_bold04">${count}</span>
-                    条记录，当前第
-                    <span class="ui_txt_bold04">${current}
-						/
-						${pages}</span>
-                    页
-                </div>
-                <div class="ui_frt">
-                    <!--    如果是第一页，则只显示下一页、尾页 -->
+            <%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
 
-                    <input type="button" value="首页" class="ui_input_btn01" />
-                    <input type="button" value="上一页" class="ui_input_btn01"
-                           onclick="jumpNormalPage(${current} - 1);"/>
-                    <input type="button" value="下一页" class="ui_input_btn01"
-                           onclick="jumpNormalPage(${current} + 1);" />
-                    <input type="button" value="尾页" class="ui_input_btn01"
-                           onclick="jumpNormalPage(9);" />
-
-
-
-                    <!--     如果是最后一页，则只显示首页、上一页 -->
-
-                    转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页
-                    <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />
-                </div>
-            </div>
+            <%--            </div>--%>
         </div>
     </div>
 </form>
 
 </body>
+
 </html>
 

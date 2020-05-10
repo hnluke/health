@@ -27,4 +27,7 @@ public interface AssociationMapper {
      * @return
      */
     public boolean updateAssociation(Association association);
+
+    public boolean deleteAssociation(@Param("assoId") Integer assoId);
 }
+

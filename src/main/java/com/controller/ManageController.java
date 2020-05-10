@@ -1,9 +1,6 @@
 package com.controller;
 
-import com.model.pojo.Cards;
-import com.model.pojo.MenuPrio;
-import com.model.pojo.Menus;
-import com.model.pojo.Priority;
+import com.model.pojo.*;
 import com.service.IManageService;
 import com.service.impl.ManageServiceImpl;
 import com.sun.deploy.net.HttpResponse;
@@ -14,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -123,11 +121,16 @@ public class ManageController {
         return modelAndView;
     }
 
+    /**
+     * 菜单管理
+     * @param id
+     * @param menuId
+     * @return
+     */
     @RequestMapping("/menu/{id}")
     @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     public ModelAndView menuManage(@PathVariable("id") Integer id,
-                                   Integer menuId,
-                                   Menus menus) {
+                                   Integer menuId) {
 //        List<Priority> priorityList = null;
         ModelAndView modelAndView = new ModelAndView();
         List<Menus> menusList = null;
@@ -144,7 +147,109 @@ public class ManageController {
         return modelAndView;
     }
 
-    
+
+    /**
+     * 细项管理
+     * @param id
+     * @param subItemId 细项id
+     * @return
+     */
+    @RequestMapping("/subItem/{id}")
+    public ModelAndView subItemManage(@PathVariable("id") Integer id,
+                                   Integer subItemId) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<SubItem> subItemList = null;
+
+        if(id == 2) {
+            subItemList = manageService.importSubItem(path);
+        }else if(id == 3) {
+            subItemList = manageService.deleteSubItem(subItemId);
+        }
+        modelAndView.addObject("subItemList", subItemList);
+        modelAndView.setViewName("subItemList");
+        return modelAndView;
+    }
 
 
+    /**
+     * 项目管理
+     * @param id
+     * @param
+     * @return
+     */
+    @RequestMapping("/item/{id}")
+    @Transactional(propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
+    public ModelAndView itemManage(@PathVariable("id") Integer id,
+                                     Association association,
+                                     Integer asitId,
+                                     Integer assoIds,
+                                     HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Item> itemList = null;
+        List<Office> officeList = null;
+        List<ItemType> itemTypeList = null;
+        List<Association> associationList = null;
+
+        String message = "";
+        if(id == 2) {
+            message = manageService.importItem(path);
+        }else if(id == 3) {
+            int itemIds = Integer.parseInt(request.getParameter("itemId"));
+            int offIds = Integer.parseInt(request.getParameter("offId"));
+            int typeIds = Integer.parseInt(request.getParameter("typeId"));
+            Item item = new Item();
+            item.setItemId(itemIds);
+            item.setOffId(offIds);
+            item.setItemTypeId(typeIds);
+            if(manageService.updateItem(item)) {
+                message = "配置成功";
+            }
+        }else if(id == 4) {
+            // 新增套餐
+            String[] items = null;
+
+            String assoName = association.getAssoName();
+            double assoPrice = association.getAssoPrice();
+            if(assoName != null && !("".equals(assoName.trim())) &&
+                    manageService.findAssociation(assoName).size() < 1) {
+                Association asso = new Association();
+                asso.setAssoName(assoName);
+                asso.setAssoPrice(assoPrice);
+                items = request.getParameterValues("itemNameId");
+                if(items != null && items.length > 0) {
+                    manageService.insertAsso(asso);
+                    int assoId = asso.getAssoId();
+                    for(String item : items) {
+                        int itemId = Integer.parseInt(item);
+                        manageService.insertAssoItem(assoId, itemId);
+                    }
+                }
+            }else{
+                message = "套餐名不能为空，或已经存在此套餐";
+            }
+        }else if(id == 5) {
+            // 删除套餐中的项目
+            manageService.deleteAssoItem(asitId);
+
+
+        }else if(id == 6) {
+            // 删除套餐
+            manageService.deleteAssoItemByAssoId(assoIds);
+            manageService.deleteAsso(assoIds);
+
+
+
+        }
+        associationList = manageService.queryAssoItem("");
+        itemList = manageService.findItem("");
+        officeList = manageService.findOffice("");
+        itemTypeList = manageService.findItemType("");
+        modelAndView.addObject("associationList", associationList);
+        modelAndView.addObject("itemList", itemList);
+        modelAndView.addObject("officeList", officeList);
+        modelAndView.addObject("itemTypeList", itemTypeList);
+        modelAndView.addObject("message", message);
+        modelAndView.setViewName("itemList");
+        return modelAndView;
+    }
 }

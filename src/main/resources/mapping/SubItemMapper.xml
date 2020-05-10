@@ -46,9 +46,9 @@
         where sub_name = #{subName}
     </update>
     <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
-    <!--    <delete id="deleteLists" parameterType="">-->
-    <!--        delete from lists-->
-    <!--        where list_id = {listId}-->
-    <!--    </delete>-->
+        <delete id="deleteSubItem" parameterType="integer">
+            delete from subitem
+            where sub_id = {subId}
+        </delete>
 
 </mapper>

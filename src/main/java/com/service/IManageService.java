@@ -1,9 +1,6 @@
 package com.service;
 
-import com.model.pojo.Cards;
-import com.model.pojo.MenuPrio;
-import com.model.pojo.Menus;
-import com.model.pojo.Priority;
+import com.model.pojo.*;
 
 import java.util.List;
 
@@ -105,4 +102,104 @@ public interface IManageService {
      * @return
      */
     public boolean deleteMenuPrio(Integer prmeId);
+
+    /**
+     * 导入细项数据
+     * @param path
+     * @return
+     */
+    public List<SubItem> importSubItem(String path);
+
+    /**
+     * 删除细项
+     * @param subId
+     * @return
+     */
+    public List<SubItem> deleteSubItem(Integer subId);
+
+    /**
+     * 查询项目表
+     * @param itemName  项目名称
+     * @return
+     */
+    public List<Item> findItem(String itemName);
+
+    /**
+     * 查询科室表
+     * @param offName
+     * @return
+     */
+    public List<Office> findOffice(String offName);
+
+    /**
+     * 查询项目类别表
+     * @param typeName
+     * @return
+     */
+    public List<ItemType> findItemType(String typeName);
+
+    /**
+     * 更新项目表
+     * @param item
+     * @return
+     */
+    public boolean updateItem(Item item);
+
+    /**
+     * Excel导入项目
+     * @param path
+     * @return
+     */
+    public String importItem(String path);
+
+    /**
+     * 查询套餐表
+     * @param assoName
+     * @return
+     */
+    public List<Association> findAssociation(String assoName);
+
+    /**
+     * 插入套餐记录
+     * @param association
+     * @return
+     */
+    public boolean insertAsso(Association association);
+
+    /**
+     * 插入套餐-项目关联表记录
+     * @param assoId
+     * @param itemId
+     * @return
+     */
+    public boolean insertAssoItem(Integer assoId, Integer itemId);
+
+    /**
+     * 删除关联表记录
+     * @param asitId
+     * @return
+     */
+    public boolean deleteAssoItem(Integer asitId);
+
+    /**
+     * 查询套餐-项目关联表
+     * @param assoName
+     * @return
+     */
+    public List<Association> queryAssoItem(String assoName);
+
+    /**
+     * 删除指定的套餐
+     * @param assoId
+     * @return
+     */
+    public boolean deleteAssoItemByAssoId(Integer assoId);
+
+    /**
+     * 删除套餐表记录
+     * @param assoId
+     * @return
+     */
+    public boolean deleteAsso(Integer assoId);
+
 }

@@ -4,7 +4,7 @@
 <mapper namespace="com.dao.SelectsMapper">
     <cache/>
 <!--     查询-->
-        <select id="findSelect" parameterType="integer" resultType="com.model.pojo.Selects">
+        <select id="findSelect" parameterType="integer" resultType="com.model.pojo.Selects" useCache="false">
             select * from selects
             <where>
                 <if test="selId != null and selId != 0">
