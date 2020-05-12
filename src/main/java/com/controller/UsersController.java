@@ -1,6 +1,7 @@
 package com.controller;
 
 
+import com.model.pojo.Menus;
 import com.model.pojo.Users;
 import com.service.IUsersService;
 import org.mybatis.logging.Logger;
@@ -34,6 +35,7 @@ public class UsersController {
     @RequestMapping(value = "/login",method= RequestMethod.POST)
     public ModelAndView login(Users user, HttpSession session,
                               HttpServletResponse response, HttpServletRequest request,  String isMemory){
+        List<Menus> menusList = null;
         if(isMemory==null){
             isMe=false;
         }else{
@@ -51,14 +53,18 @@ public class UsersController {
                 e.printStackTrace();
             }
             session.setAttribute("user", user.getUserName());
+            menusList = usersService.fetchUserMenus(user.getUserName());
+            modelAndView.addObject("menuList", menusList);
             modelAndView.setViewName("main");
+            return modelAndView;
 
         }else {
             session.setAttribute("user", "");
             modelAndView.setViewName("redirect:/login.jsp");
+            return modelAndView;
         }
-        modelAndView.setViewName("main");
-        return modelAndView;
+//        modelAndView.setViewName("main");
+
     }
 
     /*

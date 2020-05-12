@@ -231,6 +231,22 @@
             <%--  data属性说明："accessPath"是需要跳转的页面地址属性，在accessPath后面的引号中输入需要跳转的地址或Controller中的映射地址即可  --%>
             <%-- "parentId"是当前菜单的父菜单的属性，它的值的设定如果与其它菜单项目的"resourceID"值匹配，则与其匹配的菜单项即成为此菜单的父菜单--%>
             <%-- "resourceGrade"是菜单所在级别属性，同一级的菜单需要值设置相同 --%>
+            <%--var content = "";--%>
+            <%--<c:if test="${!empty(menuList)}">--%>
+            <%--<c:forEach items="${menuList}" var="menu" varStatus="stauts">--%>
+            <%--<c:if test="${stauts.last}">--%>
+            <%--content = content + '{"accessPath":"${menu.menuPath}","checked":true,"delFlag":0,"parentID":${menu.menuParId},"resourceCode":"","resourceDesc":"","resourceGrade":${menu.menuGrpId},"resourceID":${menu.menuResId},"resourceName":"${menu.menuName}","resourceOrder":0,"resourceType":""}'--%>
+            <%--</c:if>--%>
+            <%--content = content + '{"accessPath":"${menu.menuPath}","checked":true,"delFlag":0,"parentID":${menu.menuParId},"resourceCode":"","resourceDesc":"","resourceGrade":${menu.menuGrpId},"resourceID":${menu.menuResId},"resourceName":"${menu.menuName}","resourceOrder":0,"resourceType":""},'--%>
+
+            <%--</c:forEach>--%>
+
+            <%--</c:if>--%>
+            <%--data = [--%>
+            <%--    content--%>
+
+
+            <%--];--%>
             data = [
                  {"accessPath":"","checked":true,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":11,"resourceName":"体检工作站","resourceOrder":0,"resourceType":""},
                 {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":12,"resourceName":"收费工作站","resourceOrder":0,"resourceType":""},
@@ -266,8 +282,8 @@
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":51,"resourceName":"登录","resourceOrder":0,"resourceType":""},
                 {"accessPath":"manage/logout","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":52,"resourceName":"退出","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":53,"resourceName":"修改密码","resourceOrder":0,"resourceType":""}
-                // {"accessPath":"assets/intro","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":59,"resourceName":"系统介绍","resourceOrder":0,"resourceType":""}
-                // {"accessPath":"","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":42,"resourceName":"退出系统","resourceOrder":0,"resourceType":""},
+            //     // {"accessPath":"assets/intro","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":59,"resourceName":"系统介绍","resourceOrder":0,"resourceType":""}
+            //     // {"accessPath":"","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":42,"resourceName":"退出系统","resourceOrder":0,"resourceType":""},
                 ];
             // 如果返回数据不为空，加载"业务模块"目录
             if(data != null){

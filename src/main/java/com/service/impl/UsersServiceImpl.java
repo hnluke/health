@@ -1,12 +1,15 @@
 package com.service.impl;
 
+import com.dao.UnionQueryMapper;
 import com.dao.UsersDaoMapper;
+import com.model.pojo.Menus;
 import com.model.pojo.Users;
 import com.service.IUsersService;
 import com.util.MD5App;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -18,27 +21,21 @@ public class UsersServiceImpl implements IUsersService{
     private UsersDaoMapper usersDaoMapper;
     @Autowired
     private MD5App md5App;
+    @Resource
+    private UnionQueryMapper unionQueryMapper;
 
     @Override
     public boolean verify(String userName, String userPwd) {
         boolean flag = false;
+        if(userName == null || "".equals(userName.trim())) {
+            return false;
+        }
         List<Users> users = usersDaoMapper.findUsersByName(userName);
         Users user = users.get(0);
         if (userPwd.equals(user.getUserPwd())){
             flag=true;
         }
 
-//        if(users != null) {
-//            try {
-//                if(md5App.validPassword(userPwd, users.getUserPwd())) {
-//                    flag = true;
-//                }
-//            } catch (NoSuchAlgorithmException e) {
-//                e.printStackTrace();
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         return flag;
     }
@@ -57,6 +54,11 @@ public class UsersServiceImpl implements IUsersService{
         int rows = usersDaoMapper.changePwd(newPwd,userId);
 
         return rows;
+    }
+
+    public List<Menus> fetchUserMenus(String userName) {
+        List<Menus> menusList = unionQueryMapper.queryMenesPrioUsers(userName);
+        return menusList;
     }
 
 
