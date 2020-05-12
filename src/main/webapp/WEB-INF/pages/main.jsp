@@ -248,7 +248,7 @@
 
             <%--];--%>
             data = [
-                 {"accessPath":"","checked":true,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":11,"resourceName":"体检工作站","resourceOrder":0,"resourceType":""},
+                {"accessPath":"","checked":true,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":11,"resourceName":"体检工作站","resourceOrder":0,"resourceType":""},
                 {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":12,"resourceName":"收费工作站","resourceOrder":0,"resourceType":""},
                 {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":13,"resourceName":"医生工作站","resourceOrder":0,"resourceType":""},
                 {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":14,"resourceName":"管理工作站","resourceOrder":0,"resourceType":""},
@@ -266,7 +266,7 @@
                 {"accessPath":"check/compre/1","checked":false,"delFlag":0,"parentID":22,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":34,"resourceName":"体检综合查询","resourceOrder":0,"resourceType":""},
                 {"accessPath":"check/persons/1","checked":false,"delFlag":0,"parentID":22,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":35,"resourceName":"体检人员查询","resourceOrder":0,"resourceType":""},
                 {"accessPath":"charge/createCards/1","checked":false,"delFlag":0,"parentID":23,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":36,"resourceName":"建卡","resourceOrder":0,"resourceType":""},
-                    {"accessPath":"charge/balance/1","checked":false,"delFlag":0,"parentID":23,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":37,"resourceName":"结算","resourceOrder":0,"resourceType":""},
+                {"accessPath":"charge/balance/1","checked":false,"delFlag":0,"parentID":23,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":37,"resourceName":"结算","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":38,"resourceName":"项目接收","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":39,"resourceName":"体检小结","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":40,"resourceName":"体检总结","resourceOrder":0,"resourceType":""},
