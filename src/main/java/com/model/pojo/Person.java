@@ -3,6 +3,8 @@ package com.model.pojo;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.sql.Date;
+
 
 // 体检人表pojo
 @Repository
@@ -14,7 +16,7 @@ public class Person implements Serializable {
     private Integer perAge;         // 年龄
     private String perAddr;        // 地址
     private String perBlood;       // 血型
-    private String perBorn;        // 出生年月
+    private Date perBorn;        // 出生年月
     private Cards cards;           // 卡片表pojo
     private Integer cardId;         // 关联对象Card的id
     private String perSex;          // 性别
@@ -69,14 +71,13 @@ public class Person implements Serializable {
         this.perBlood = perBlood;
     }
 
-    public String getPerBorn() {
+    public Date getPerBorn() {
         return perBorn;
     }
 
-    public void setPerBorn(String perBorn) {
+    public void setPerBorn(Date perBorn) {
         this.perBorn = perBorn;
     }
-
 
     public Cards getCards() {
         return cards;
@@ -113,6 +114,8 @@ public class Person implements Serializable {
                 ", perBlood='" + perBlood + '\'' +
                 ", perBorn='" + perBorn + '\'' +
                 ", cards=" + cards +
+                ", cardId=" + cardId +
+                ", perSex='" + perSex + '\'' +
                 '}';
     }
 }

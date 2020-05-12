@@ -13,6 +13,7 @@ public class Briefs implements Serializable {
     public final static long serialVersionUID = 112L;
     private Integer briefId;         // 小结表id
     private Lists lists;            // 开单表pojo
+    //private List<Lists> listslist;
     private Integer listId;         // 关联开单表id
     private String briefDesc;       // 小结描述
     private String briefName;       // 科室名
@@ -24,7 +25,8 @@ public class Briefs implements Serializable {
     private String briefBatchNo;    // 流水号
     private String briefCardNo;     // 卡片编号
     private String briefPerson;      // 体检人
-    private List<Details> listDetails;  // 小结明细表集合
+    private List<Details> listDetails;  // 小结明细表集合 1对多
+
 
     private Date briefDate;          // 小结日期
 

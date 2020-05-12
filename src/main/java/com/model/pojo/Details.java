@@ -23,6 +23,7 @@ public class Details implements Serializable {
     private Integer briefId;        // 小结表id
 
 
+
     public Integer getDetId() {
         return detId;
     }

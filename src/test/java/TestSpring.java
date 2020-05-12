@@ -1,5 +1,7 @@
 import com.dao.*;
 import com.model.pojo.*;
+import com.mysql.jdbc.UpdatableResultSet;
+import com.service.IChargeService;
 import com.service.ICheckStationService;
 import com.service.IManageService;
 import com.util.ExcelPlug;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import javax.annotation.Resource;
+import javax.xml.soap.Detail;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -47,6 +50,14 @@ public class TestSpring {
     private MenuPrioMapper menuPrioMapper;
     @Resource
     private MenuPrio menuPrio;
+    @Resource
+    private IChargeService chargeService;
+    @Resource
+    private Person person;
+    @Resource
+    private Cards cards;
+    @Resource
+    private Apps apps;
 
     @Test
     public void testCode() {
@@ -159,7 +170,31 @@ public class TestSpring {
         //excelPlug.importItemExcelToDB(basePath);
 //        excelPlug.importSubItemExcelToDB(basePath);
 //        System.out.println(unionQueryMapper.queryBriefData("", "过敏原全套"));
-        System.out.println(unionQueryMapper.queryAssoItem(""));
+//        System.out.println(unionQueryMapper.queryAssoItem(""));
+//        List<Cards> cardsList = unionQueryMapper.queryCardsPerson("00000001");
+//        System.out.println(cardsList.size() < 1);
+//        List<Cards> stringList = unionQueryMapper.queryCardsNotPerson();
+//        System.out.println(stringList);
+        //System.out.println(chargeService.queryCardsPerson(""));
+//        List<Briefs> briefsList = unionQueryMapper.queryBriesfLists(0);
+//        List<Briefs> briefsList = unionQueryMapper.queryBriesfDetails("20200510083559");
+//        for(Briefs briefs : briefsList) {
+//            List<Details> detailsList = briefs.getListDetails();
+//            for(Details details : detailsList) {
+//                System.out.println(details.getDetItemName() + ":" + details.getDetLower() + ":" + details.getDetUpper());
+//            }
+//        }
+//        System.out.println(briefsList);
+//        briefsList.get(0).getBriefBatchNo();
+//        System.out.println(briefsList);
+//        List<Batches> batchesList = null;
+//        batches.setBatchPay("未缴费");
+//        batches.setBatchCmp("未完成");
+//        cards.setCardNo(apps.getCardNo());
+//        batchesList = unionQueryMapper.queryGuideCheckList(batches, person, cards);
+//        System.out.println(batchesList);
+
+        System.out.println(unionQueryMapper.queryPayBalance(new Batches(), new Cards()));
     }
 
     public String getNumberForBatchNo() {

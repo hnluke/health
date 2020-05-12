@@ -258,9 +258,9 @@
             <form id="assoForm" name="assoForm" action="manage/item/4" method="post">
                 创建套餐：
                 <div id = "assoGuide" style="width: 100%; float:left; overflow: scroll; height: 150px" >
-                    套餐名称：<input type="text" name="assoName" />
-                    套餐价格: <input type="text" name="assoPrice" />
-                    <input type="submit" value="创建"/>
+                    套餐名称：<input type="text" name="assoName" class="ui_input_txt02" autocomplete="off"/>
+                    套餐价格: <input type="text" name="assoPrice" class="ui_input_txt02" autocomplete="off"/>
+                    <input type="submit" value="创建"  class="ui_input_btn01"/>
                     <br/>
                     请为套餐添加项目：
                     <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="2">

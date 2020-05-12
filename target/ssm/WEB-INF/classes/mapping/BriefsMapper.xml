@@ -23,20 +23,14 @@
 
     </insert>
 <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
-<!--    <update id="updateBriefs" parameterType="com.model.pojo.Briefs">-->
-<!--        update briefs-->
-<!--        <set>-->
-<!--            <if test="briefListId != null and briefListId > 0">-->
-<!--                brief_list_id = #{briefListId},-->
-<!--            </if>-->
-<!--            <if test="briefDesc != null and briefDesc.trim() != ''">-->
-<!--                brief_desc = #{briefDesc},-->
-<!--            </if>-->
-<!--            <if test="briefCmp != null and briefCmp.trim() != ''">-->
-<!--                brief_cmp = #{briefCmp},-->
-<!--            </if>-->
-<!--        </set>-->
-<!--        where brief_id = #{briefId}-->
-<!--    </update>-->
+    <update id="updateBriefsPay">
+        update briefs
+        <set>
+            <if test="briefPay != null and briefPay.trim() != ''">
+                brief_pay = #{briefPay},
+            </if>
+        </set>
+        where list_id = #{listId}
+    </update>
 
 </mapper>

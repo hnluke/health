@@ -173,7 +173,6 @@
 
         function selected(names, id) {
             var chk;
-
             if ($('#assoChk' + id).prop('checked')) {
                 chk = "1";
             } else {
@@ -192,8 +191,6 @@
                 "    <th>所属科室</th>\n" +
                 "    <th>价格</th>\n" +
                 "</tr>\n";
-
-
             $.ajax({
                 type: "post",
                 url: url,
@@ -345,75 +342,6 @@
             <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">
 
             </div>
-<%--            <div class="ui_tb">--%>
-<%--&lt;%&ndash;                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <tr>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </th>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <th>序号</th>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <th>项目编码</th>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <th>项目名称</th>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <th>项目类别</th>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <th>价格</th>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <th>缴费情况</th>&ndash;%&gt;--%>
-
-<%--&lt;%&ndash;&lt;%&ndash;                        <th>操作</th>&ndash;%&gt;&ndash;%&gt;--%>
-
-<%--&lt;%&ndash;                    </tr>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <c:if test="${!empty(purchase_list)}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <c:forEach var="pur"  items="${purchase_list}">&ndash;%&gt;--%>
-
-<%--&lt;%&ndash;                    <tr>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td><input type="checkbox" name="IDCheck" value="${pur.purId}" class="acb" onclick = "selected();"/></td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purCode}</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purAssname}</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purType}</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purModel}</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purUnit}</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purNum}</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purPrices}</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <td>${pur.purVouno}</td>&ndash;%&gt;--%>
-
-
-<%--&lt;%&ndash;&lt;%&ndash;                        <td>&ndash;%&gt;&ndash;%&gt;--%>
-<%--&lt;%&ndash;&lt;%&ndash;                            <a href="house_edit.html?fyID=14458579642011" class="edit">编辑</a>&ndash;%&gt;&ndash;%&gt;--%>
-<%--&lt;%&ndash;&lt;%&ndash;                            <a href="javascript:del('14458579642011');">删除</a>&ndash;%&gt;&ndash;%&gt;--%>
-<%--&lt;%&ndash;&lt;%&ndash;                        </td>&ndash;%&gt;&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    </tr>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    </c:forEach>&ndash;%&gt;--%>
-
-<%--&lt;%&ndash;                    </c:if>&ndash;%&gt;--%>
-
-<%--&lt;%&ndash;                </table>&ndash;%&gt;--%>
-<%--            </div>--%>
-<%--            <div class="ui_tb_h30">--%>
-<%--                <div class="ui_flt" style="height: 30px; line-height: 30px;">--%>
-<%--                    共有--%>
-<%--                    <span class="ui_txt_bold04">1</span>--%>
-<%--                    条记录，当前第--%>
-<%--                    <span class="ui_txt_bold04">1--%>
-<%--						/--%>
-<%--						1</span>--%>
-<%--                    页--%>
-<%--                </div>--%>
-<%--                <div class="ui_frt">--%>
-<%--                    <!--    如果是第一页，则只显示下一页、尾页 -->--%>
-
-<%--&lt;%&ndash;                    <input type="button" value="首页" class="ui_input_btn01" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <input type="button" value="上一页" class="ui_input_btn01" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <input type="button" value="下一页" class="ui_input_btn01"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                           onclick="jumpNormalPage(2);" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <input type="button" value="尾页" class="ui_input_btn01"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                           onclick="jumpNormalPage(9);" />&ndash;%&gt;--%>
-
-
-
-<%--                    <!--     如果是最后一页，则只显示首页、上一页 -->--%>
-
-<%--&lt;%&ndash;                    转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />&ndash;%&gt;--%>
-<%--                </div>--%>
-<%--            </div>--%>
         </div>
     </div>
 </form>

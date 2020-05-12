@@ -13,7 +13,7 @@
         </association>
 
     </resultMap>
-    <select id="queryCardsPerson" resultMap="cardsPerson" parameterType="string">
+    <select id="queryCardsPerson" resultMap="cardsPerson" parameterType="string" useCache="false">
         select A.card_id, A.card_money, A.card_no, B.*
         from cards A
         inner join person B
@@ -23,6 +23,25 @@
                 and A.card_no like '%${cardNos}'
             </if>
         </where>
+    </select>
+
+
+    <!-- 卡片表与体检人表关联查询, 查询所以没有绑定的卡片记录 -->
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <resultMap type="com.model.pojo.Cards" id="cardsNotPerson" autoMapping="true">
+        <id property="cardId" column="card_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+            <id property="perId" column="per_id"></id>
+        </association>
+
+    </resultMap>
+    <select id="queryCardsNotPerson" resultMap="cardsNotPerson" useCache="false">
+        select A.card_id, A.card_no, B.card_id
+        from cards A
+        left join person B
+        on A.card_id = B.card_id
+        where B.card_id is null
     </select>
 
 
@@ -254,7 +273,7 @@
             LEFT JOIN detail B on A.brief_id = B.brief_id
             LEFT JOIN lists C on A.list_id = C.list_id
             LEFT JOIN batches D on C.batch_id = D.batch_id
-            LEFT JOIN person E on E.per_id = E.per_id
+            LEFT JOIN person E on E.per_id = D.per_id
             LEFT JOIN cards F on E.card_id = F.card_id
             <where>
                 D.batch_cmp = '已完成'
@@ -267,6 +286,7 @@
         </select>
 
     <!-- 导检表数据 -->
+    <!-- 小结表和开单表lists关联, 多对一 -->
     <resultMap type="com.model.pojo.Briefs" id="briefsLists" autoMapping="true">
         <id property="briefId" column="brief_id"></id>
         <!--        <result property="name" column="name"></result>-->
@@ -398,6 +418,47 @@
 
         </where>
         order by A.asso_name
+    </select>
+
+
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <!-- 获取缴费、退费 -->
+    <resultMap type="com.model.pojo.Lists" id="ListsBatchesPersonCard" autoMapping="true">
+        <id property="listId" column="list_id" />
+        <association property="batches" javaType="com.model.pojo.Batches" autoMapping="true">
+            <id property="batchId" column="batch_id" />
+            <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+                <id property="perId" column="per_id" />
+                <association property="cards" javaType="com.model.pojo.Cards" autoMapping="true">
+                    <id property="cardId" column="card_id" />
+                </association>
+            </association>
+        </association>
+
+    </resultMap>
+    <select id="queryPayBalance" resultMap="ListsBatchesPersonCard">
+        select A.list_name, A.list_type, A.list_price, A.list_id, A.batch_id,
+        B.batch_no, B.batch_cmp, B.batch_pay, B.batch_date,
+        C.per_name, C.per_tele, C.per_age, C.per_born, C.per_sex, C.per_blood,
+        D.card_no, D.card_money
+        from lists A
+        LEFT JOIN batches B on B.batch_id = A.batch_id
+        LEFT JOIN person C on C.per_id = B.per_id
+        LEFT JOIN cards D on D.card_id = C.card_id
+        <where>
+            <if test="batches.batchPay != null and batches.batchPay.trim() != ''">
+                and B.batch_pay = #{batches.batchPay}
+            </if>
+
+            <if test="cards.cardNo != null and cards.cardNo.trim() != ''">
+                and D.card_no = #{cards.cardNo}
+            </if>
+            <if test="batches.batchCmp != null and batches.batchCmp.trim() != ''">
+                and B.batch_cmp = #{batches.batchCmp}
+            </if>
+        </where>
+
+
     </select>
 
 

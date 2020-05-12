@@ -173,7 +173,6 @@
 
         function selected(names, id) {
             var chk;
-
             if ($('#assoChk' + id).prop('checked')) {
                 chk = "1";
             } else {
@@ -192,8 +191,6 @@
                 "    <th>所属科室</th>\n" +
                 "    <th>价格</th>\n" +
                 "</tr>\n";
-
-
             $.ajax({
                 type: "post",
                 url: url,

@@ -44,26 +44,31 @@ public class CheckController {
     public ModelAndView createList(@PathVariable("id") Integer id, String cardNo, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         List<String> namesList = null;
+        String message = "";
         namesList = new ArrayList<String>();
         if(id == 1) {
+            checkStationService.clearSelect();
             request.getSession().setAttribute("namesList", namesList);
         }else if(id == 2) {
-
-            // namesList-用于保存用户选择的项目或套餐的名称session的集合
-            namesList = (List<String>)request.getSession().getAttribute("namesList");
-            // 如果用户没有选择，则返回并提示用户没有选择项目
-            if(namesList == null || namesList.size() < 1) {
-                modelAndView.addObject("message", "您没有选择任何体检项目");
-            }else{
-                String message = "";
-                //
-                message = checkStationService.createList(cardNo, namesList);
-                modelAndView.addObject("message", message);
+            if(checkStationService.showPersonData(cardNo).size() < 1) {
+                message = "此卡未绑定用户";
+            } else {
+                // namesList-用于保存用户选择的项目或套餐的名称session的集合
+                namesList = (List<String>)request.getSession().getAttribute("namesList");
+                // 如果用户没有选择，则返回并提示用户没有选择项目
+                if(namesList == null || namesList.size() < 1) {
+                    message =  "您没有选择任何体检项目";
+                }else{
+                    message = checkStationService.createList(cardNo, namesList);
+                    // modelAndView.addObject("message", message);
+                }
             }
+
         }
 
         List<Association>  assoList = checkStationService.showAllAsso("");
         List<Item> itemList = checkStationService.showAllItem("");
+        modelAndView.addObject("message", message);
         modelAndView.addObject("assoList", assoList);
         modelAndView.addObject("itemList", itemList);
         modelAndView.addObject("cardNo", cardNo);

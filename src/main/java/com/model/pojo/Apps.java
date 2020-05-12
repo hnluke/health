@@ -12,6 +12,8 @@ public class Apps implements Serializable {
     private String chk;
     private Integer assoId;
     private Integer itemId;
+    private String param;       // 参数: "体检缴费","体检退费"
+    private String cardNo;      // 卡片编号
 
     public String getAssoName() {
         return assoName;
@@ -53,6 +55,22 @@ public class Apps implements Serializable {
         this.itemId = itemId;
     }
 
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
+    }
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
     @Override
     public String toString() {
         return "Apps{" +
@@ -61,6 +79,8 @@ public class Apps implements Serializable {
                 ", chk='" + chk + '\'' +
                 ", assoId=" + assoId +
                 ", itemId=" + itemId +
+                ", param='" + param + '\'' +
+                ", cardNo='" + cardNo + '\'' +
                 '}';
     }
 }

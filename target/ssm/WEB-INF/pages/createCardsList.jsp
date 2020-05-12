@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Luke
-  Date: 2020/3/13
-  Time: 10:30
+  Date: 2020/3/17
+  Time: 22:32
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,11 +14,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>企业资产管理系统</title>
+    <title>用户建卡</title>
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="scripts/jquery/jquery-1.7.1.js"></script>
-<%--    <script type="text/javascript" src="WEB-INF/js/jquery-3.4.1.js"></script>--%>
     <link href="style/authority/basic_layout.css" rel="stylesheet" type="text/css">
     <link href="style/authority/common_style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="scripts/authority/commonAll.js"></script>
@@ -26,15 +25,8 @@
     <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
     <link rel="stylesheet" type="text/css" href="style/authority/jquery.fancybox-1.3.4.css" media="screen"></link>
     <script type="text/javascript" src="scripts/artDialog/artDialog.js?skin=default"></script>
+    <script src="<%=basePath%>My97DatePicker/WdatePicker.js"></script>
 
-    <style type="text/css">
-        #myid {
-            text-align: center;
-            font-size: larger;
-            font-weight: bold;
-            height: 50px;
-        }
-    </style>
     <script type="text/javascript">
         $(document).ready(function(){
             /** 新增   **/
@@ -75,8 +67,6 @@
                 }
             });
         });
-
-
         /** 用户角色   **/
         var userRole = '';
 
@@ -104,7 +94,6 @@
                 }
                 $("#submitForm").attr("action", "/xngzf/archives/exportExcelFangyuan.action").submit();
             }
-
         }
 
         /** 删除 **/
@@ -151,17 +140,7 @@
 
         /** 普通跳转 **/
         function jumpNormalPage(page){
-            indexs = ${current};
-            if(page == 2){
-                indexs = ${current} + 1;
-
-            }else{
-                if(indexs > 1) {
-                    indexs =  indexs - 1;
-                }
-            }
-
-            $("#submitForm").attr("action", "${pageContext.request.contextPath}/AssetsQueryServlet?page=" + indexs).submit();
+            $("#submitForm").attr("action", "house_list.html?page=" + page).submit();
         }
 
         /** 输入页跳转 **/
@@ -187,116 +166,175 @@
     </style>
 </head>
 <body>
-<script type="text/javascript">
-    // 利用Ajax获取资产卡片信息
-    function getDatas() {
-        var id = $("#fyZldz").val();
-        $.post("${pageContext.request.contextPath}/CardAjaxServlet", {"cardId": id}, function (callback) {
-            //alert(callback);
-            var jsonObj = JSON.parse(callback);
-            $("#ad_cardcode").html(jsonObj[0].ad_cardcode);
-            $("#ad_serial").html(jsonObj[0].ad_serial);
-            $("#ad_code").html(jsonObj[0].ad_code);
-            $("#ad_avno").html(jsonObj[0].ad_avno);
-            $("#ad_num").html(jsonObj[0].ad_num);
-            $("#ad_price").html(jsonObj[0].ad_price + "元");
-            $("#ad_status").html(jsonObj[0].ad_status);
-            $("#asty_name").html(jsonObj[0].asty_name);
-            $("#ass_name").html(jsonObj[0].ass_name);
-            $("#ass_model").html(jsonObj[0].ass_model);
-            $("#ass_fincode").html(jsonObj[0].ass_fincode);
-            $("#ass_unit").html(jsonObj[0].ass_unit);
-            $("#av_findate").html(jsonObj[0].av_findate);
-            $("#av_insttime").html(jsonObj[0].av_insttime);
-            $("#u_name").html(jsonObj[0].u_name);
-
-        });
-
-    }
-</script>
-<form id="submitForm" name="submitForm" action="${pageContext.request.contextPath}/AssetsQueryServlet?page=1" method="post">
+<form id="submitForm" name="submitForm" action="charge/createCards/2" method="post">
     <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
     <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
     <div id="container">
         <div class="ui_content">
             <div class="ui_text_indent">
                 <div id="box_border">
-                    <div id="box_top">搜索</div>
-                    <div id="box_bottom" style="text-align: left">
-                        请输入资产卡片编号：
-                        <input type="text" id="fyZldz" name="asscard" class="ui_input_txt02" value=""/>
-                        <input type="button" value="查询" class="ui_input_btn01" onclick="getDatas()"/>
+                    <div id="box_top">建卡</div>
 
+                    <div id="box_center" style="text-align: center;font-weight: bold;font-size: large;">
+                        用户建卡
+
+                    </div>
+                    <div class="ui_content">
+                        <div class="ui_tb" align="center">
+                            <table align="center">
+                                <tr>
+                                    <td>姓名:</td>
+                                    <td><input type="text" id="perName" name="perName" class="ui_input_txt02" autocomplete="off"/></td>
+                                    <td>性别:</td>
+                                    <td>
+                                        <select name="perSex" class ="ui_select01">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </td>
+                                    <td>出生年月:</td>
+                                    <td><input type="text" id="perBorn" name="perBorn"
+                                               class="ui_input_txt02" autocomplete="off" onclick="WdatePicker()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>血型:</td>
+                                    <td>
+                                        <select name="perBlood" class ="ui_select01">
+                                            <option value="未知">--请选择--</option>
+                                            <option value="A型">A型</option>
+                                            <option value="B型">B型</option>
+                                            <option value="AB型">AB型</option>
+                                            <option value="O型">O型</option>
+                                            <option value="RH型">RH型</option>
+                                        </select>
+
+                                    </td>
+                                    <td>电话:</td>
+                                    <td><input type="text" id="perTele" name="perTele" class="ui_input_txt02" autocomplete="off"/></td>
+                                    <td>卡号:</td>
+                                    <td>
+                                        <input type="text" id="cardNo" name="cardNo" class="ui_input_txt02" disabled="disabled"/>
+                                        <input type="hidden" name="cardId" id="cardId" value="123" />
+                                        <button type="button" onclick="fetchCardNo()">获取卡号</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>体检人住址:</td>
+                                    <td colspan="5"><input type="text" name="perAddr" id="perAddr"
+                                                           class="ui_input_txt02" style="width: 90%" autocomplete="off"/></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ui_content">
-            <div class="ui_tb">
-                <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" id="tbl">
-                    <tr id="myid">
-                        <td style="width: 100px">卡片编号</td>
-                        <td id="ad_cardcode" colspan="5"></td>
-                    </tr>
-
-
-                    <tr id="myid">
-
-                        <td style="width: 100px">资产编号</td>
-                        <td id="ad_code"></td>
-                        <td style="width: 100px">资产名称</td>
-                        <td id="ass_name"></td>
-                        <td style="width: 100px">类别</td>
-                        <td id="asty_name"></td>
-                    </tr>
-
-                    <tr id="myid">
-                        <td >序列号</td>
-                        <td id="ad_serial"></td>
-                        <td style="width: 100px">单位</td>
-                        <td id="ass_unit"></td>
-                        <td >规格型号</td>
-                        <td id="ass_model"></td>
-                    </tr>
-                    <tr id="myid">
-                        <td style="width: 100px">凭证号</td>
-                        <td id="ad_avno"></td>
-                        <td style="width: 100px">单价</td>
-                        <td id="ad_price"></td>
-                        <td id="xxx" colspan="2"></td>
-                    </tr>
-
-                    <tr id="myid">
-                        <td style="width: 100px">财务编码</td>
-                        <td id="ass_fincode"></td>
-                        <td id="myid" colspan="4"></td>
-                    </tr>
-                    <tr id="myid">
-                        <td >入帐日期</td>
-                        <td id="av_findate"></td>
-                        <td >出帐日期</td>
-                        <td id="av_insttime"></td>
-                        <td id="myid" colspan="2"></td>
-                    </tr>
-                    <tr id="myid">
-                        <td style="width: 100px">使用人</td>
-                        <td id="u_name"></td>
-                        <td style="width: 100px">数量</td>
-                        <td id="ad_num"></td>
-                        <td style="width: 100px">资产状态</td>
-                        <td id="ad_status"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="ui_tb_h30">
-                <div class="ui_frt">
-                </div>
-            </div>
-        </div>
+    </div>
+    <br/>
+    <div style="text-align: center">
+        <input type="submit" value="新增" class="ui_input_btn01" />
+        <input type="reset" value="复位" class="ui_input_btn01"/>
     </div>
 </form>
 
+<div id = "guide" style="width: 100%; float:left; overflow: scroll; height: 300px" >
+    体检人建卡信息：
+    <c:if test="${!empty(cardsList)}">
+        <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="2">
+            <tr>
+                <td>序号</td>
+                <td>卡号</td>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>血型</td>
+                <td>出生年月</td>
+                <td>电话</td>
+                <td>住址</td>
+<%--                <td>操作</td>--%>
+
+            </tr>
+            <c:forEach var="cards" items="${cardsList}" varStatus="status">
+
+                <tr>
+                    <td>${status.index + 1 }</td>
+                    <td>${cards.cardNo}</td>
+                    <td>${cards.person.perName}</td>
+                    <td>${cards.person.perSex}</td>
+                    <td>${cards.person.perBlood}</td>
+                    <td>${cards.person.perBorn}</td>
+                    <td>${cards.person.perTele}</td>
+                    <td>${cards.person.perAddr}</td>
+<%--                    <td><a href="/charge/createCards/3?cardNo=${cards.cardNo}">删除</a></td>--%>
+                </tr>
+
+            </c:forEach>
+        </table>
+    </c:if>
+</div>
+
 </body>
+<script type="text/javascript">
+    function fetchCardNo() {
+        var contexts = {};
+        var url = "charge/jsondata";
+        $.ajax({
+            type: "post",
+            url: url,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify(contexts),
+            success: function (callback) {
+                $("#cardNo").val(callback[0].cardNo);
+                $("#cardId").val(callback[0].cardId);
+
+            }
+        });
+
+    }
+
+    function selected(names, id) {
+        var chk;
+        if ($('#assoChk' + id).prop('checked')) {
+            chk = "1";
+        } else {
+            chk = "0";
+        }
+        var url = "check/jsondata";
+        var contexts = {"assoName": names, "chk" : chk, "assoId" : id};
+        var con = "";
+        var end = "";
+        var title = "您选择的项目如下：<br/>\n";
+        var heads = "<table border='1' class='table' align='center' width='100%'>\n" +
+            "<tr>\n" +
+            "    <th>序号</th>\n" +
+            "    <th>项目名称</th>\n" +
+            "    <th>项目类别</th>\n" +
+            "    <th>所属科室</th>\n" +
+            "    <th>价格</th>\n" +
+            "</tr>\n";
+        $.ajax({
+            type: "post",
+            url: url,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify(contexts),
+            success: function (callback) {
+
+                for(var i=0; i < callback.length; i++) {
+                    con = con +
+                        "<tr><td>" + (i+1) + "</td>\n" +
+                        "<td>" + callback[i].selItemName + "</td>\n" +
+                        "<td>" + callback[i].selType + "</td>\n" +
+                        "<td>" + callback[i].selOff + "</td>\n" +
+                        "<td>" + callback[i].selPrice + "</td></tr>\n";
+                }
+                end =  "</table>\n";
+
+                $("#showTxt").html(title + heads + con + end);
+            }
+        });
+    }
+</script>
 </html>
 
 

@@ -27,4 +27,6 @@ public interface BatchesMapper {
      * @return 流水表对象
      */
     public List<Batches> findBatches(Integer id);
+
+    public boolean updateBatchesPay(@Param("batchId") Integer batchId, @Param("batchPay") String batchPay);
 }

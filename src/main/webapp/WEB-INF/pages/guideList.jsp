@@ -161,14 +161,6 @@
             }
         }
 
-
-
-        // function openWin() {
-        //     window.open ("check/guide/3", "newwindow",
-        //         "left=200 top= 300 height=500, width=600, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no")
-        // }
-
-
     </script>
     <style>
         .alt td{ background:black !important;}

@@ -89,6 +89,15 @@ public interface UnionQueryMapper {
      */
     public List<Association> queryAssoItem(@Param("assoName") String assoName);
 
+    /**
+     * 查询所以没有绑定的卡片
+     * @return
+     */
+    public List<Cards> queryCardsNotPerson();
+
+    public List<Lists> queryPayBalance(@Param("batches") Batches batches,
+                                       @Param("cards") Cards cards);
+
 
 
 }
