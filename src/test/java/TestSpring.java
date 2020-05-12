@@ -194,7 +194,9 @@ public class TestSpring {
 //        batchesList = unionQueryMapper.queryGuideCheckList(batches, person, cards);
 //        System.out.println(batchesList);
 
-        System.out.println(unionQueryMapper.queryPayBalance(new Batches(), new Cards()));
+//        System.out.println(unionQueryMapper.queryPayBalance(new Batches(), new Cards()));
+        List<Menus> menusList = unionQueryMapper.queryMenesPrioUsers("lisa");
+        System.out.println(menusList);
     }
 
     public String getNumberForBatchNo() {

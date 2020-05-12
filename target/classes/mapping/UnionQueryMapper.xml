@@ -462,4 +462,35 @@
     </select>
 
 
+    <!-- 表关联查询多对多，结果映射resultMap方式 -->
+    <!-- 检索出权限-菜单-用户表数据 -->
+    <resultMap type="com.model.pojo.Menus" id="MenuPrioUsers" autoMapping="true">
+        <id property="menuId" column="menu_id" />
+        <collection property="menuPrios" javaType="java.util.List" ofType="com.model.pojo.MenuPrio" autoMapping="true">
+            <id property="prmeId" column="prme_id"></id>
+            <association property="priority" javaType="com.model.pojo.Priority" autoMapping="true">
+                <id property="prioId" column="prio_id"></id>
+                <collection property="usersList" javaType="java.util.List" ofType="com.model.pojo.Users" autoMapping="true">
+                    <id property="userId" column="user_id"></id>
+                </collection>
+            </association>
+
+        </collection>
+    </resultMap>
+    <select id="queryMenesPrioUsers" resultMap="MenuPrioUsers" parameterType="string" useCache="false">
+        select A.menu_name, C.prio_name, D.user_name
+        from menus A
+        left JOIN menu_prio B on A.menu_id = B.prme_menu_id
+        left join priority C on B.prme_prio_id = C.prio_id
+        left join users D on C.prio_id = D.user_prio_id
+        <where>
+            <if test="userName != null and userName.trim() != ''">
+                and D.user_name = #{userName}
+            </if>
+
+        </where>
+
+    </select>
+
+
 </mapper>

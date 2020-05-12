@@ -78,6 +78,7 @@ public class ChargeController {
         List<Lists> listsList = null;
         String message = "";
         if(id == 2) {
+            //体检缴费
             List<Cards> cardsList = chargeService.findCard(cardNo);
             List<Lists> lists = chargeService.findLists(listId);
             if(cardsList.get(0).getCardMoney() < lists.get(0).getListPrice()) {
@@ -86,9 +87,8 @@ public class ChargeController {
                 chargeService.updateBriefsPay(listId, "已缴费");
                 chargeService.updateBatchesPay(batchId, "已缴费");
             }
-
-
         }else if(id == 3) {
+            // 体检退费
 
         }
         listsList = unionQueryMapper.queryPayBalance(batches, cards);

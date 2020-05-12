@@ -95,8 +95,17 @@ public interface UnionQueryMapper {
      */
     public List<Cards> queryCardsNotPerson();
 
+    /**
+     * 查询卡片人员的信息
+     * @param batches
+     * @param cards
+     * @return
+     */
     public List<Lists> queryPayBalance(@Param("batches") Batches batches,
                                        @Param("cards") Cards cards);
+
+
+    public List<Menus> queryMenesPrioUsers(@Param("userName") String userName);
 
 
 

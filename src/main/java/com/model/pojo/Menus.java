@@ -3,6 +3,7 @@ package com.model.pojo;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 // 菜单表pojo
 @Repository
@@ -15,6 +16,7 @@ public class Menus implements Serializable {
     private Integer menuGrpId;          // 组id
     private String menuName;            // 菜单名
     private MenuPrio menuPrio;          // 菜单权限
+    private List<MenuPrio> menuPrios;    // 权-菜pojo集合
 
     public Integer getMenuId() {
         return menuId;
@@ -72,6 +74,14 @@ public class Menus implements Serializable {
         this.menuPrio = menuPrio;
     }
 
+    public List<MenuPrio> getMenuPrios() {
+        return menuPrios;
+    }
+
+    public void setMenuPrios(List<MenuPrio> menuPrios) {
+        this.menuPrios = menuPrios;
+    }
+
     @Override
     public String toString() {
         return "Menus{" +
@@ -82,6 +92,7 @@ public class Menus implements Serializable {
                 ", menuGrpId=" + menuGrpId +
                 ", menuName='" + menuName + '\'' +
                 ", menuPrio=" + menuPrio +
+                ", menuPrios=" + menuPrios +
                 '}';
     }
 }

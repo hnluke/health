@@ -10,6 +10,7 @@ public class MenuPrio implements Serializable {
     private Integer prmeMenuId;
     private Integer prmePrioId;
     private Menus menus;
+    private Priority priority;
 
     public Integer getPrmeId() {
         return prmeId;
@@ -44,6 +45,14 @@ public class MenuPrio implements Serializable {
         this.menus = menus;
     }
 
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
     @Override
     public String toString() {
         return "MenuPrio{" +
@@ -51,6 +60,7 @@ public class MenuPrio implements Serializable {
                 ", prmeMenuId=" + prmeMenuId +
                 ", prmePrioId=" + prmePrioId +
                 ", menus=" + menus +
+                ", priority=" + priority +
                 '}';
     }
 }
