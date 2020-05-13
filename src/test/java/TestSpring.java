@@ -1,7 +1,10 @@
+import com.controller.OfficeController;
 import com.dao.*;
 import com.model.pojo.*;
 import com.service.ICheckStationService;
 //import org.hibernate.validator.constraints.SafeHtml;
+import com.service.IOfficeService;
+import com.service.impl.OfficeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +45,23 @@ public class TestSpring {
     private Users users;
     @Resource
     private UsersDaoMapper usersDaoMapper;
+    @Resource
+    private Office office;
+    @Resource
+    private OfficeDaoMapper officeDaoMapper;
+    @Resource
+    private IOfficeService officeService;
+
+
+
     @Test
     public void testCode() {
-        List<Users> list = new ArrayList<Users>();
-        list = usersDaoMapper.findUsersByName(null);
-        System.out.println(list);
+
+       boolean flag= officeService.deleteOffice(1);
+        System.out.println("测试officeService的deleteOffice============="+flag);
+//        List<Users> list = new ArrayList<Users>();
+//        list = usersDaoMapper.findUsersByName(null);
+//        System.out.println(list);
 
 //        List<Cards> cards = unionQueryMapper.queryCardsPerson("1001");
 //        System.out.println(cards.get(0).getPerson());

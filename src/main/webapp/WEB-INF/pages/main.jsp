@@ -260,7 +260,7 @@
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":44,"resourceName":"角色配置","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":45,"resourceName":"权限配置","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":46,"resourceName":"菜单配置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":47,"resourceName":"科室设置","resourceOrder":0,"resourceType":""},
+                {"accessPath":"office/findOffice","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":47,"resourceName":"科室设置","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":49,"resourceName":"细项配置","resourceOrder":0,"resourceType":""},
                 {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":50,"resourceName":"项目配置","resourceOrder":0,"resourceType":""},
                 {"accessPath":"user/findAll","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":51,"resourceName":"修改密码","resourceOrder":0,"resourceType":""},

@@ -14,8 +14,20 @@
 
     </select>
 <!--    &lt;!&ndash; 新增 &ndash;&gt;-->
-<!--    <insert id="insertCards" parameterType="" useGeneratedKeys="true" keyColumn="" keyProperty="">-->
+<!--    <insert id="insertCards" parameterType="com.model.pojo.Cards"-->
+<!--            useGeneratedKeys="true" keyColumn="card_id" keyProperty="cardId">-->
+<!--        insert into cards-->
+<!--        <set>-->
+<!--            <if test="">-->
 
+<!--            </if>-->
+<!--            <if test="">-->
+
+<!--            </if>-->
+<!--            <if test="">-->
+
+<!--            </if>-->
+<!--        </set>-->
 <!--    </insert>-->
 <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
 <!--    <update id="updateCards" parameterType="">-->
