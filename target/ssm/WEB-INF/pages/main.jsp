@@ -247,44 +247,67 @@
 
 
             <%--];--%>
-            data = [
-                 {"accessPath":"","checked":true,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":11,"resourceName":"体检工作站","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":12,"resourceName":"收费工作站","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":13,"resourceName":"医生工作站","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":14,"resourceName":"管理工作站","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":15,"resourceName":"通用功能","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":12,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":23,"resourceName":"收费工作","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":11,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":21,"resourceName":"体检工作","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":11,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":22,"resourceName":"统计查询","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":13,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":24,"resourceName":"医生工作","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":14,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":25,"resourceName":"卡片管理","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":14,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":26,"resourceName":"系统管理","resourceOrder":0,"resourceType":""},
-                {"accessPath":"","checked":false,"delFlag":0,"parentID":15,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":27,"resourceName":"辅助功能","resourceOrder":0,"resourceType":""},
-                {"accessPath":"check/list/1","checked":false,"delFlag":0,"parentID":21,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":31,"resourceName":"开单","resourceOrder":0,"resourceType":""},
-                {"accessPath":"check/guide/1","checked":false,"delFlag":0,"parentID":21,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":32,"resourceName":"打印导检单和条码","resourceOrder":0,"resourceType":""},
-                {"accessPath":"check/report/1","checked":false,"delFlag":0,"parentID":21,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":33,"resourceName":"体检报告打印","resourceOrder":0,"resourceType":""},
-                {"accessPath":"check/compre/1","checked":false,"delFlag":0,"parentID":22,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":34,"resourceName":"体检综合查询","resourceOrder":0,"resourceType":""},
-                {"accessPath":"check/persons/1","checked":false,"delFlag":0,"parentID":22,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":35,"resourceName":"体检人员查询","resourceOrder":0,"resourceType":""},
-                {"accessPath":"charge/createCards/1","checked":false,"delFlag":0,"parentID":23,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":36,"resourceName":"建卡","resourceOrder":0,"resourceType":""},
-                    {"accessPath":"charge/balance/1","checked":false,"delFlag":0,"parentID":23,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":37,"resourceName":"结算","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":38,"resourceName":"项目接收","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":39,"resourceName":"体检小结","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":40,"resourceName":"体检总结","resourceOrder":0,"resourceType":""},
-                {"accessPath":"manage/initCard/1","checked":false,"delFlag":0,"parentID":25,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":41,"resourceName":"体检卡初始化","resourceOrder":0,"resourceType":""},
-                {"accessPath":"manage/cardQuery/1","checked":false,"delFlag":0,"parentID":25,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":42,"resourceName":"体检卡查询","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":43,"resourceName":"人员设置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":44,"resourceName":"角色配置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"manage/prio/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":45,"resourceName":"权限配置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"manage/menu/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":46,"resourceName":"菜单配置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":47,"resourceName":"科室设置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"manage/subItem/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":49,"resourceName":"细项配置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"manage/item/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":50,"resourceName":"项目配置","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":51,"resourceName":"登录","resourceOrder":0,"resourceType":""},
-                {"accessPath":"manage/logout","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":52,"resourceName":"退出","resourceOrder":0,"resourceType":""},
-                {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":53,"resourceName":"修改密码","resourceOrder":0,"resourceType":""}
+            data = [];
+            <c:if test="${empty(menuList)}">
+                data = [
+                    {"accessPath":"","checked":false,"delFlag":0,"parentID":14,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":26,"resourceName":"系统管理","resourceOrder":0,"resourceType":""},
+                    {"accessPath":"manage/user/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":43,"resourceName":"人员设置","resourceOrder":0,"resourceType":""},
+                    {"accessPath":"","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":44,"resourceName":"角色配置","resourceOrder":0,"resourceType":""},
+                    {"accessPath":"manage/prio/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":45,"resourceName":"权限配置","resourceOrder":0,"resourceType":""},
+                    {"accessPath":"manage/menu/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":46,"resourceName":"菜单配置","resourceOrder":0,"resourceType":""},
+                    {"accessPath":"manage/office/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":47,"resourceName":"科室设置","resourceOrder":0,"resourceType":""},
+                    {"accessPath":"manage/subItem/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":49,"resourceName":"细项配置","resourceOrder":0,"resourceType":""},
+                    {"accessPath":"manage/item/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":50,"resourceName":"项目配置","resourceOrder":0,"resourceType":""},
+                ];
+
+            </c:if>
+            <c:if test="${!empty(menuList)}">
+                <c:forEach items="${menuList}" var="menu" varStatus="status">
+
+                    data.push({"accessPath":"${menu.menuPath}","checked":true,"delFlag":0,"parentID":${menu.menuParId},"resourceCode":"","resourceDesc":"","resourceGrade":${menu.menuGrpId},"resourceID":${menu.menuResId},"resourceName":"${menu.menuName}","resourceOrder":0,"resourceType":""});
+
+
+                </c:forEach>
+            </c:if>
+
+            // data2 = [
+            //     {"accessPath":"","checked":true,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":11,"resourceName":"体检工作站","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":12,"resourceName":"收费工作站","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":13,"resourceName":"医生工作站","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":14,"resourceName":"管理工作站","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":1,"resourceCode":"","resourceDesc":"","resourceGrade":2,"resourceID":15,"resourceName":"通用功能","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":12,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":23,"resourceName":"收费工作","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":11,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":21,"resourceName":"体检工作","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":11,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":22,"resourceName":"统计查询","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":13,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":24,"resourceName":"医生工作","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":14,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":25,"resourceName":"卡片管理","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":14,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":26,"resourceName":"系统管理","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"","checked":false,"delFlag":0,"parentID":15,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":27,"resourceName":"辅助功能","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"check/list/1","checked":false,"delFlag":0,"parentID":21,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":31,"resourceName":"开单","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"check/guide/1","checked":false,"delFlag":0,"parentID":21,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":32,"resourceName":"打印导检单和条码","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"check/report/1","checked":false,"delFlag":0,"parentID":21,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":33,"resourceName":"体检报告打印","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"check/compre/1","checked":false,"delFlag":0,"parentID":22,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":34,"resourceName":"体检综合查询","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"check/persons/1","checked":false,"delFlag":0,"parentID":22,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":35,"resourceName":"体检人员查询","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"charge/createCards/1","checked":false,"delFlag":0,"parentID":23,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":36,"resourceName":"建卡","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"charge/balance/1","checked":false,"delFlag":0,"parentID":23,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":37,"resourceName":"结算","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":38,"resourceName":"项目接收","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":39,"resourceName":"体检小结","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":40,"resourceName":"体检总结","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"manage/initCard/1","checked":false,"delFlag":0,"parentID":25,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":41,"resourceName":"体检卡初始化","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"manage/cardQuery/1","checked":false,"delFlag":0,"parentID":25,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":42,"resourceName":"体检卡查询","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":43,"resourceName":"人员设置","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":44,"resourceName":"角色配置","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"manage/prio/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":45,"resourceName":"权限配置","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"manage/menu/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":46,"resourceName":"菜单配置","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":47,"resourceName":"科室设置","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"manage/subItem/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":49,"resourceName":"细项配置","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"manage/item/1","checked":false,"delFlag":0,"parentID":26,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":50,"resourceName":"项目配置","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":51,"resourceName":"登录","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"manage/logout","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":52,"resourceName":"退出","resourceOrder":0,"resourceType":""},
+            //     {"accessPath":"assets/finConfig","checked":false,"delFlag":0,"parentID":27,"resourceCode":"","resourceDesc":"","resourceGrade":4,"resourceID":53,"resourceName":"修改密码","resourceOrder":0,"resourceType":""}
             //     // {"accessPath":"assets/intro","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":59,"resourceName":"系统介绍","resourceOrder":0,"resourceType":""}
             //     // {"accessPath":"","checked":false,"delFlag":0,"parentID":24,"resourceCode":"","resourceDesc":"","resourceGrade":3,"resourceID":42,"resourceName":"退出系统","resourceOrder":0,"resourceType":""},
-                ];
+             //   ];
             // 如果返回数据不为空，加载"业务模块"目录
             if(data != null){
                 // 将返回的数据赋给zTree
@@ -425,7 +448,7 @@
     <span id="here_area">当前位置：系统&nbsp;>&nbsp;系统介绍</span>
 </div>
 <div id="main">
-    <iframe name="right" id="rightMain" src="assets/purchase/init" frameborder="no" scrolling="auto" width="100%" height="100%" allowtransparency="true"/>
+    <iframe name="right" id="rightMain" src="user/top" frameborder="no" scrolling="auto" width="100%" height="100%" allowtransparency="true"/>
 </div>
 
 </body>

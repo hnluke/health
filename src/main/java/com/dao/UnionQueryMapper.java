@@ -105,7 +105,19 @@ public interface UnionQueryMapper {
                                        @Param("cards") Cards cards);
 
 
+    /**
+     * 查询菜单-权限-用户关联数据
+     * @param userName
+     * @return
+     */
     public List<Menus> queryMenesPrioUsers(@Param("userName") String userName);
+
+    /**
+     * 查询用户-科室-权限关联数据
+     * @param userId
+     * @return
+     */
+    public List<Users> queryUsersOffPrio(@Param("userId") Integer userId);
 
 
 

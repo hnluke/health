@@ -45,6 +45,7 @@ public class ManageServiceImpl implements IManageService {
 
 
 
+
     /**
      * 初始化卡片
      * @author Luke
@@ -348,4 +349,10 @@ public class ManageServiceImpl implements IManageService {
     public boolean deleteAsso(Integer assoId) {
         return associationMapper.deleteAssociation(assoId);
     }
+
+
+    public List<Users> queryUserOffPrio(Integer userId) {
+        return unionQueryMapper.queryUsersOffPrio(userId);
+    }
+
 }

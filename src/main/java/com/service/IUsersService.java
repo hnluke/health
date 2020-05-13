@@ -39,5 +39,19 @@ public interface IUsersService {
      */
     public List<Menus> fetchUserMenus(String userName);
 
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    public boolean insertUsers(Users user);
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    public boolean deleteUsers(Integer userId);
+
 
 }

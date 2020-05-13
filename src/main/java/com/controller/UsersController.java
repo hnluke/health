@@ -140,9 +140,9 @@ public class UsersController {
 
 
 
-    @RequestMapping("")
+    @RequestMapping("/top")
     public String showLogin() {
-        return "login";
+        return "top";
     }
 
 

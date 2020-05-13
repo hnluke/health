@@ -14,9 +14,8 @@
 
     </select>
     <!-- 新增 -->
-    <insert id="insertOffice" parameterType="string"
-            useGeneratedKeys="true" keyColumn="item_id" keyProperty="itemId">
-        insert into subitem (off_name)
+    <insert id="insertOffice" parameterType="string">
+        insert into office (off_name)
         values (#{offName})
 
     </insert>

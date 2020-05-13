@@ -2,8 +2,11 @@ package com.controller;
 
 import com.model.pojo.*;
 import com.service.IManageService;
+import com.service.IUsersService;
 import com.service.impl.ManageServiceImpl;
 import com.sun.deploy.net.HttpResponse;
+import com.util.ExcelPlug;
+import org.jboss.logging.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,6 +29,10 @@ public class ManageController {
 
     @Resource
     private IManageService manageService;
+    @Resource
+    private IUsersService usersService;
+    @Resource
+    private ExcelPlug excelPlug;
     private String  path = ManageController.class.getClassLoader().getResource("common/resc.xls").getPath();
 
     /**
@@ -250,6 +257,47 @@ public class ManageController {
         modelAndView.addObject("itemTypeList", itemTypeList);
         modelAndView.addObject("message", message);
         modelAndView.setViewName("itemList");
+        return modelAndView;
+    }
+
+    /**
+     * 科室管理
+     * @param id
+     * @param offId
+     * @return
+     */
+    @RequestMapping("/office/{id}")
+    public ModelAndView officeManage(@PathVariable("id") Integer id,
+                               Integer offId) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Office> offList = null;
+        if(id == 2) {
+            excelPlug.importOfficeExcelToDB(path);
+        }
+        offList = manageService.findOffice("");
+        modelAndView.addObject("offList", offList);
+        modelAndView.setViewName("officeList");
+        return modelAndView;
+    }
+
+    @RequestMapping("/user/{id}")
+    public ModelAndView userManage(@PathVariable("id") Integer id,
+                               Users users,
+                               Integer userId) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Users> userList = null;
+        List<Office> offList = null;
+        List<Priority> prioList = null;
+        if(id == 2) {
+            usersService.insertUsers(users);
+        }
+        userList = manageService.queryUserOffPrio(0);
+        offList = manageService.findOffice("");
+        prioList = manageService.findPriority("");
+        modelAndView.addObject("userList", userList);
+        modelAndView.addObject("offList", offList);
+        modelAndView.addObject("prioList", prioList);
+        modelAndView.setViewName("userList");
         return modelAndView;
     }
 }

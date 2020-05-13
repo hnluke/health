@@ -202,4 +202,11 @@ public interface IManageService {
      */
     public boolean deleteAsso(Integer assoId);
 
+    /**
+     * 查询用户-科室-权限关联数据
+     * @param userId
+     * @return
+     */
+    public List<Users> queryUserOffPrio(Integer userId);
+
 }

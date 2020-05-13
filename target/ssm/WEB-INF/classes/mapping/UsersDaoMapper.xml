@@ -24,14 +24,18 @@
     </update>
 
 
-<!--    &lt;!&ndash; 新增 &ndash;&gt;-->
-<!--    <insert id="insertUsers" parameterType="" useGeneratedKeys="true" keyColumn="" keyProperty="">-->
+    <!-- 新增 -->
+    <insert id="insertUsers" parameterType="com.model.pojo.Users"
+            useGeneratedKeys="true" keyColumn="" keyProperty="">
+        insert into users (user_name, user_pwd, off_id, user_prio_id)
+        values (#{userName}, #{userPwd}, #{offId}, #{userPrioId})
 
-<!--    </insert>-->
+    </insert>
 
-    <!-- 删除 -->
-<!--    <delete id="deleteUsers" parameterType="">-->
 
-<!--    </delete>-->
+    <delete id="deleteUsersById" parameterType="integer">
+        delete from users
+        where user_id = #{userId}
+    </delete>
 
 </mapper>

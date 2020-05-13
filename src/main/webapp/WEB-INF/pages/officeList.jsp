@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Luke
-  Date: 2020/3/13
-  Time: 10:30
+  Date: 2020/5/3
+  Time: 21:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,7 +15,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>企业资产管理系统</title>
+    <title>科室管理</title>
     <base href="<%=basePath%>">
     <script type="text/javascript" src="<%=basePath%>scripts/jquery/jquery-1.7.1.js"></script>
     <link href="<%=basePath%>style/authority/basic_layout.css" rel="stylesheet" type="text/css">
@@ -161,14 +161,8 @@
             }
         }
 
-        function selected() {
-            //alert("Ok");
-             $("#showTxt2").html("");
-        }
 
-        function pop() {
-            window.open("check/list2", "newwindow", "left=300, top=200, height=500, width=600, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no");
-        }
+
     </script>
     <style>
         .alt td{ background:black !important;}
@@ -176,7 +170,7 @@
 
 </head>
 <body>
-<form id="submitForm" name="submitForm" action="check/list" method="post">
+<form id="submitForm" name="submitForm" action="manage/office/2" method="post">
     <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
     <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
     <div id="container">
@@ -184,88 +178,36 @@
             <div class="ui_text_indent">
                 <div id="box_border">
                     <div id="box_bottom">
-                        <span id="showTxt2">${flag}</span>
-                        <button onclick="pop()">弹出窗口</button>
-                        <input type="button" value="导入采购单" class="ui_input_btn01" id="importBtn2"
-                               onclick = "location.href='assets/purchase/im'"/>
-                        <input type="submit" value="资产入库" class="ui_input_btn01"/>
-                        <input type="button" value="导出" class="ui_input_btn01"
-                               onclick="location.href='assets/purchase/ex'" />
+                        <input type="submit" value="导入科室" class="ui_input_btn01"/>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="ui_content">
-            <div class="ui_tb">
+            <div id = "guide" style="width: 100%; float:left; overflow: scroll; height: 500px" >
+
                 <table class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
                     <tr>
-                        <th width="30"><input type="checkbox" id="all" onclick="selectOrClearAllCheckbox(this);" />
-                        </th>
-                        <th>采购定单</th>
-                        <th>资产名</th>
-                        <th>资产类别</th>
-                        <th>规格型号</th>
-                        <th>单位</th>
-                        <th>数量</th>
-                        <th>总价</th>
-                        <th>凭证号</th>
-<%--                        <th>操作</th>--%>
-
+                        <th>序号</th>
+                        <th>科室名</th>
+                        <th>操作</th>
                     </tr>
-                    <c:if test="${!empty(purchase_list)}">
-                    <c:forEach var="pur"  items="${purchase_list}">
-
-                    <tr>
-                        <td><input type="checkbox" name="IDCheck" value="${pur.purId}" class="acb" onclick = "selected();"/></td>
-                        <td>${pur.purCode}</td>
-                        <td>${pur.purAssname}</td>
-                        <td>${pur.purType}</td>
-                        <td>${pur.purModel}</td>
-                        <td>${pur.purUnit}</td>
-                        <td>${pur.purNum}</td>
-                        <td>${pur.purPrices}</td>
-                        <td>${pur.purVouno}</td>
-
-
-<%--                        <td>--%>
-<%--                            <a href="house_edit.html?fyID=14458579642011" class="edit">编辑</a>--%>
-<%--                            <a href="javascript:del('14458579642011');">删除</a>--%>
-<%--                        </td>--%>
-                    </tr>
-                    </c:forEach>
-
+                    <c:if test="${!empty(offList)}">
+                        <c:forEach var="off"  items="${offList}" varStatus="stauts">
+                            <tr>
+                                <td>${stauts.count}</td>
+                                <td>${off.offName}</td>
+                                <td><a href="javascript:if(confirm('确实要删除吗?'))
+                                location='manage/office/3?offId=${off.offId}'">删除</a></td>
+                            </tr>
+                        </c:forEach>
                     </c:if>
-
                 </table>
             </div>
-            <div class="ui_tb_h30">
-<%--                <div class="ui_flt" style="height: 30px; line-height: 30px;">--%>
-<%--                    共有--%>
-<%--                    <span class="ui_txt_bold04">1</span>--%>
-<%--                    条记录，当前第--%>
-<%--                    <span class="ui_txt_bold04">1--%>
-<%--						/--%>
-<%--						1</span>--%>
-<%--                    页--%>
-<%--                </div>--%>
-                <div class="ui_frt">
-                    <!--    如果是第一页，则只显示下一页、尾页 -->
+            <%--            <div id ="showTxt" style="width: 100%; float:left; overflow: scroll; height: 300px">--%>
 
-<%--                    <input type="button" value="首页" class="ui_input_btn01" />--%>
-<%--                    <input type="button" value="上一页" class="ui_input_btn01" />--%>
-<%--                    <input type="button" value="下一页" class="ui_input_btn01"--%>
-<%--                           onclick="jumpNormalPage(2);" />--%>
-<%--                    <input type="button" value="尾页" class="ui_input_btn01"--%>
-<%--                           onclick="jumpNormalPage(9);" />--%>
-
-
-
-                    <!--     如果是最后一页，则只显示首页、上一页 -->
-
-<%--                    转到第<input type="text" id="jumpNumTxt" class="ui_input_txt01" />页--%>
-<%--                    <input type="button" class="ui_input_btn01" value="跳转" onclick="jumpInputPage(9);" />--%>
-                </div>
-            </div>
+            <%--            </div>--%>
         </div>
     </div>
 </form>
@@ -273,4 +215,5 @@
 </body>
 
 </html>
+
 

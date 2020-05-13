@@ -4,6 +4,7 @@ import com.mysql.jdbc.UpdatableResultSet;
 import com.service.IChargeService;
 import com.service.ICheckStationService;
 import com.service.IManageService;
+import com.service.IUsersService;
 import com.util.ExcelPlug;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,10 @@ public class TestSpring {
     private Cards cards;
     @Resource
     private Apps apps;
+    @Resource
+    private IUsersService usersService;
+    @Resource
+    private UsersDaoMapper usersDaoMapper;
 
     @Test
     public void testCode() {
@@ -165,7 +170,7 @@ public class TestSpring {
 //         System.out.println(prioMenuList);
 //        System.out.println(unionQueryMapper.queryBriefData("",""));
 //        String basePath = TestSpring.class.getClassLoader().getResource("common/resc.xls").getPath();
-       // excelPlug.importItemTypeExcelToDB(basePath);
+//        excelPlug.importOfficeExcelToDB(basePath);
         //excelPlug.importAssoExcelToDB(basePath);
         //excelPlug.importItemExcelToDB(basePath);
 //        excelPlug.importSubItemExcelToDB(basePath);
@@ -195,8 +200,14 @@ public class TestSpring {
 //        System.out.println(batchesList);
 
 //        System.out.println(unionQueryMapper.queryPayBalance(new Batches(), new Cards()));
-        List<Menus> menusList = unionQueryMapper.queryMenesPrioUsers("lisa");
-        System.out.println(menusList);
+//        List<Menus> menusList = unionQueryMapper.queryMenesPrioUsers("lisa");
+//        System.out.println(menusList);
+//        List<Menus> menusList = null;
+//        menusList = usersService.fetchUserMenus("luke");
+//        System.out.println(menusList);
+
+//        System.out.println(usersDaoMapper.findUsersByName(null));
+        System.out.println(unionQueryMapper.queryUsersOffPrio(0));
     }
 
     public String getNumberForBatchNo() {

@@ -27,16 +27,23 @@ public class UsersServiceImpl implements IUsersService{
     @Override
     public boolean verify(String userName, String userPwd) {
         boolean flag = false;
-        if(userName == null || "".equals(userName.trim())) {
-            return false;
-        }
+//        if(userName == null || "".equals(userName.trim())) {
+//            return false;
+//        }
         List<Users> users = usersDaoMapper.findUsersByName(userName);
-        Users user = users.get(0);
-        if (userPwd.equals(user.getUserPwd())){
-            flag=true;
+        if("".equals(userName) && users.size() < 1) {
+            return true;
+        }else{
+            if(users.size() < 1) {
+                return false;
+            }else {
+                Users user = users.get(0);
+                if (userPwd.equals(user.getUserPwd())){
+                    flag = true;
+                }
+            }
+
         }
-
-
         return flag;
     }
 
@@ -56,9 +63,23 @@ public class UsersServiceImpl implements IUsersService{
         return rows;
     }
 
+    /**
+     * 获取用户权限的菜单数据
+     * @author Luke
+     * @param userName
+     * @return
+     */
     public List<Menus> fetchUserMenus(String userName) {
         List<Menus> menusList = unionQueryMapper.queryMenesPrioUsers(userName);
         return menusList;
+    }
+
+    public boolean insertUsers(Users user) {
+        return usersDaoMapper.insertUsers(user);
+    }
+
+    public boolean deleteUsers(Integer userId) {
+        return usersDaoMapper.deleteUsersById(userId);
     }
 
 

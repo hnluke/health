@@ -5,12 +5,13 @@ import com.model.pojo.*;
 import jxl.Sheet;
 import jxl.Workbook;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-@Component
+@Service
 public class ExcelPlug {
     @Resource
     private Menus menus;
@@ -26,6 +27,8 @@ public class ExcelPlug {
     private ItemMapper itemMapper;
     @Resource
     private SubItemMapper subItemMapper;
+    @Resource
+    private OfficeMapper officeMapper;
 
     /**
      * 导入Excel数据到Menu表  (1)
@@ -68,9 +71,9 @@ public class ExcelPlug {
                     //j = j + 1;
                     // 默认最左边编号也算一列
                     String menuPath = rs.getCell(j++, i).getContents();
-                    Integer menuResId = Integer.parseInt(rs.getCell(j++, i).getContents());
                     Integer menuParId = Integer.parseInt(rs.getCell(j++, i).getContents());
                     Integer menuGrpId = Integer.parseInt(rs.getCell(j++, i).getContents());
+                    Integer menuResId = Integer.parseInt(rs.getCell(j++, i).getContents());
                     String menuName = rs.getCell(j++, i).getContents();
                     Menus menu = new Menus();
                     menu.setMenuPath(menuPath);
@@ -169,7 +172,7 @@ public class ExcelPlug {
 
 
     /**
-     * 将Excel的数据转化为权限pojo对象的List
+     * 将Excel的数据转化为项目类别pojo对象
      * @param path 文件路径
      * @return
      */
@@ -374,6 +377,58 @@ public class ExcelPlug {
                     subItem.setSubLower(subLower);
                     subItem.setItemId(itemId);
                     list.add(subItem);
+                }
+            }
+        } catch (Exception e) {
+            list = null;
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    /**
+     * 导入Excel数据到项目类别表  (7)
+     *
+     * @param path
+     * @return
+     */
+    public boolean importOfficeExcelToDB(String path) {
+        boolean flag = false;
+        List<Office> officeList = new ArrayList<Office>();
+        officeList = getOfficeAllByExcel(path);
+        for (Office office : officeList) {
+            if (officeMapper.findOffice(office.getOffName()).size() < 1) {
+                officeMapper.insertOffice(office.getOffName());
+            }
+
+        }
+        flag = true;
+        return flag;
+    }
+
+
+    /**
+     * 将Excel的数据转化为Office对象
+     * @param path 文件路径
+     * @return
+     */
+    public List<Office> getOfficeAllByExcel(String path) {
+        List<Office> list = new ArrayList<Office>();
+        try {
+            Workbook rwb = Workbook.getWorkbook(new File(path));
+            Sheet rs = rwb.getSheet("科室");// 或者rwb.getSheet(0)
+            int clos = rs.getColumns();// 得到所有的列
+            int rows = rs.getRows();// 得到所有的行
+            System.out.println(clos + " rows:" + rows);
+            for (int i = 1; i < rows; i++) {
+                for (int j = 0; j < clos; j++) {
+                    // 第一个是列数，第二个是行数
+                    //j = j + 1;
+                    // 默认最左边编号也算一列
+                    String offName = rs.getCell(j++, i).getContents();
+                    Office office = new Office();
+                    office.setOffName(offName);
+                    list.add(office);
                 }
             }
         } catch (Exception e) {
