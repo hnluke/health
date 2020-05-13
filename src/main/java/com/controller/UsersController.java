@@ -1,6 +1,7 @@
 package com.controller;
 
 
+import com.model.pojo.Menus;
 import com.model.pojo.Users;
 import com.service.IUsersService;
 import org.mybatis.logging.Logger;
@@ -34,6 +35,7 @@ public class UsersController {
     @RequestMapping(value = "/login",method= RequestMethod.POST)
     public ModelAndView login(Users user, HttpSession session,
                               HttpServletResponse response, HttpServletRequest request,  String isMemory){
+        List<Menus> menusList = null;
         if(isMemory==null){
             isMe=false;
         }else{
@@ -47,18 +49,22 @@ public class UsersController {
             try {
                 isMemory(isMe, user, request, response);
             } catch (UnsupportedEncodingException e) {
-                // TODO 自动生成的 catch 块
+
                 e.printStackTrace();
             }
             session.setAttribute("user", user.getUserName());
+            menusList = usersService.fetchUserMenus(user.getUserName());
+            modelAndView.addObject("menuList", menusList);
             modelAndView.setViewName("main");
+            return modelAndView;
 
         }else {
             session.setAttribute("user", "");
             modelAndView.setViewName("redirect:/login.jsp");
+            return modelAndView;
         }
+//        modelAndView.setViewName("main");
 
-        return modelAndView;
     }
 
     /*
@@ -85,7 +91,6 @@ public class UsersController {
         }
     }
 
-
     @RequestMapping("/findAll")
     public ModelAndView findAll() {
         ModelAndView modelAndView = new ModelAndView();
@@ -94,8 +99,8 @@ public class UsersController {
         modelAndView.setViewName("changePwd");
         return modelAndView;
     }
-
-    //关于修改密码的表单提交
+//
+//    //关于修改密码的表单提交
     @RequestMapping("/changePwd")
     public ModelAndView changePwd(@RequestParam("newPwd") String newPwd, @RequestParam("userPwd") String userPwd, @RequestParam("userId") Integer userId, ModelMap model) {
         ModelAndView modelAndView = new ModelAndView();
@@ -119,11 +124,11 @@ public class UsersController {
         return modelAndView;
     }
 
-    /**
-     * 退出登录
-     * @param session
-     * @return
-     */
+//    /**
+//     * 退出登录
+//     * @param session
+//     * @return
+//     */
     @RequestMapping("/logout")
     public ModelAndView logout(HttpSession session) {
 
@@ -135,9 +140,9 @@ public class UsersController {
 
 
 
-    @RequestMapping("")
+    @RequestMapping("/top")
     public String showLogin() {
-        return "login";
+        return "top";
     }
 
 

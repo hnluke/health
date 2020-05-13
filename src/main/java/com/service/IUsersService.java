@@ -1,5 +1,6 @@
 package com.service;
 
+import com.model.pojo.Menus;
 import com.model.pojo.Users;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,6 +31,27 @@ public interface IUsersService {
      * @return
      */
     int changePwd(String userPwd, String newPwd,Integer userId);
+
+    /**
+     * 得到用户的菜单集合
+     * @param userName
+     * @return
+     */
+    public List<Menus> fetchUserMenus(String userName);
+
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    public boolean insertUsers(Users user);
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    public boolean deleteUsers(Integer userId);
 
 
 }

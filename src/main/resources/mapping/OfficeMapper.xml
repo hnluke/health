@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OfficeMapper">
+    <cache/>
+    <!--     查询-->
+    <select id="findOffice" parameterType="string" resultType="com.model.pojo.Office">
+        select * from office
+        <where>
+            <if test="offName != null and offName.trim() != ''">
+                and off_name = #{offName}
+            </if>
+        </where>
+
+    </select>
+    <!-- 新增 -->
+    <insert id="insertOffice" parameterType="string">
+        insert into office (off_name)
+        values (#{offName})
+
+    </insert>
+    <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
+<!--    <update id="updateSubItem" parameterType="com.model.pojo.SubItem">-->
+<!--        update subitem-->
+<!--        <set>-->
+<!--            <if test="subCode != null and subCode.trim != ''">-->
+<!--                sub_code = #{subCode},-->
+<!--            </if>-->
+<!--            <if test="itemId != null and itemId != 0">-->
+<!--                item_id = #{itemId},-->
+<!--            </if>-->
+<!--            <if test="subUnit != null and subUnit.trim() != ''">-->
+<!--                sub_unit = #{subUnit},-->
+<!--            </if>-->
+<!--            <if test="subRefer != null and subRefer.trim != ''">-->
+<!--                sub_refer = #{subRefer},-->
+<!--            </if>-->
+<!--            <if test="subLower != null">-->
+<!--                sub_lower= #{subLower},-->
+<!--            </if>-->
+<!--            <if test="subUpper != null">-->
+<!--                sub_upper = #{subUpper},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where sub_name = #{subName}-->
+<!--    </update>-->
+<!--    &lt;!&ndash;    &lt;!&ndash; 删除 &ndash;&gt;&ndash;&gt;-->
+<!--    <delete id="deleteSubItem" parameterType="integer">-->
+<!--            delete from subitem-->
+<!--            where sub_id = {subId}-->
+<!--        </delete>-->
+
+</mapper>

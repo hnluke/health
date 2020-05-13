@@ -59,7 +59,7 @@ public interface UsersDaoMapper {
      * @param u_id 用户表id
      * @return
      */
-    public boolean deleteUsersById(Integer u_id);
+    public boolean deleteUsersById(@Param("userId") Integer userId);
 
     /**
      * 复位用户密码

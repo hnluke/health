@@ -13,11 +13,11 @@
 <!--        </where>-->
 <!--    </select>-->
 <!--    &lt;!&ndash; 新增 &ndash;&gt;-->
-<!--    <insert id="insertDetail" parameterType=""-->
-<!--            useGeneratedKeys="true" keyColumn="det_id" keyProperty="detId">-->
-<!--        insert into detail (brief_id, det_item_name, sub_id)-->
-<!--        values (#{detBriefId}, #{detItemName}, #{sub_id})-->
-<!--    </insert>-->
+    <insert id="insertDetail" parameterType="com.model.pojo.Details"
+            useGeneratedKeys="true" keyColumn="det_id" keyProperty="detId">
+        insert into detail (brief_id, det_itemName, det_unit, det_refer, det_upper, det_lower)
+        values (#{briefId}, #{detItemName}, #{detUnit}, #{detRefer}, #{detUpper}, #{detLower})
+    </insert>
 <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
 <!--    <update id="updateDetail" parameterType="com.model.pojo.Detail">-->
 <!--        update detail-->

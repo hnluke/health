@@ -5,8 +5,11 @@ import java.io.Serializable;
 // 套项表pojo
 public class AssoItem implements Serializable {
     public final static long serialVersionUID = 109L;
+    private Integer asitId;     // 关联表id
     private Integer assoId;     // 套餐id
     private Integer itemId;     // 项目id
+    private Association association;    // 套餐pojo
+    private Item items;              // 项目pojo
 
     public Integer getAssoId() {
         return assoId;
@@ -22,5 +25,39 @@ public class AssoItem implements Serializable {
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
+    }
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(Association association) {
+        this.association = association;
+    }
+
+    public Integer getAsitId() {
+        return asitId;
+    }
+
+    public void setAsitId(Integer asitId) {
+        this.asitId = asitId;
+    }
+
+    public Item getItems() {
+        return items;
+    }
+
+    public void setItems(Item items) {
+        this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "AssoItem{" +
+                "asitId=" + asitId +
+                ", assoId=" + assoId +
+                ", itemId=" + itemId +
+                ", association=" + association +
+                '}';
     }
 }

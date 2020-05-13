@@ -9,14 +9,15 @@ import java.io.Serializable;
 public class SubItem implements Serializable {
     public final static long serialVersionUID = 115L;
     private Integer subId;         // 子项目id
+    private Integer itemId;         // 项目表id
     private String subName;        // 子项目名称
     private String subCode;        // 子项目编号
     private Double subPrice;       // 价格
     private Item item;              // 项目pojo
     private String subUnit;         // 单位
     private String subRefer;        // 参考值
-    private String subUpper;        // 健康上限值
-    private String subLower;        // 健康下限值
+    private Integer subUpper;        // 健康上限值
+    private Integer subLower;        // 健康下限值
 
 
 
@@ -77,26 +78,35 @@ public class SubItem implements Serializable {
         this.subRefer = subRefer;
     }
 
-    public String getSubUpper() {
+    public Integer getSubUpper() {
         return subUpper;
     }
 
-    public void setSubUpper(String subUpper) {
+    public void setSubUpper(Integer subUpper) {
         this.subUpper = subUpper;
     }
 
-    public String getSubLower() {
+    public Integer getSubLower() {
         return subLower;
     }
 
-    public void setSubLower(String subLower) {
+    public void setSubLower(Integer subLower) {
         this.subLower = subLower;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     @Override
     public String toString() {
         return "SubItem{" +
                 "subId=" + subId +
+                ", itemId=" + itemId +
                 ", subName='" + subName + '\'' +
                 ", subCode='" + subCode + '\'' +
                 ", subPrice=" + subPrice +

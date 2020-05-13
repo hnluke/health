@@ -26,7 +26,7 @@ public interface CardsMapper{
      * 删除满足id的用户
      * @param id    用户id
      */
-    public boolean deleteUsers(Integer id);
+    public boolean deleteCards(Integer id);
 
     /**
      * 依据卡片编号查询卡, 如果id为0，则查询所有的用户信息
@@ -34,5 +34,11 @@ public interface CardsMapper{
      * @return
      */
     public List<Cards> findCards(@Param("cardNo") String cardNo);
+
+    /**
+     * 寻找最后一条记录,以卡片编号排序方式
+     * @return
+     */
+    public Cards findLastCard();
 }
 

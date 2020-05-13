@@ -47,6 +47,10 @@ public class CheckStationServiceImpl  implements ICheckStationService {
     private SelectsMapper selectsMapper;
     @Autowired
     private CardsMapper cardsMapper;
+    @Resource
+    private Details details;
+    @Autowired
+    private DetailMapper detailMapper;
 //    @Resource
 //    private Selects selects;
 
@@ -141,6 +145,17 @@ public class CheckStationServiceImpl  implements ICheckStationService {
                 briefs.setBriefCardNo(cardNos);           // 卡片编号
                 briefs.setBriefPerson(person);            // 体检人
                 briefsMapper.insertBriefs(briefs);        // 向小结表插入一条项目记录
+                Integer briefId = briefs.getBriefId();
+                List<SubItem> subList = listItem.getSubItemList();
+                for(SubItem subItem : subList) {
+                    details.setBriefId(briefId);
+                    details.setDetItemName(subItem.getSubName());
+                    details.setDetUnit(subItem.getSubUnit());
+                    details.setDetRefer(subItem.getSubRefer());
+                    details.setDetUpper(String.valueOf(subItem.getSubUpper()));
+                    details.setDetLower(String.valueOf(subItem.getSubLower()));
+                    detailMapper.insertDetail(details);
+                }
             }
         }
         selectsMapper.clearSelect();
@@ -224,7 +239,7 @@ public class CheckStationServiceImpl  implements ICheckStationService {
             for(Item item : listItem) {
                 selects = new Selects();
                 if(assoName != null) {
-                    selects.setSelAssoId(item.getAssoId());
+                    selects.setSelAssoId(item.getAssoItems().get(0).getAssoId());
                     //selects.setSelAssoName(item);
                 }else if(itemName != null) {
                     selects.setSelAssoId(0);
@@ -308,6 +323,12 @@ public class CheckStationServiceImpl  implements ICheckStationService {
         return briefList;
     }
 
+    /**
+     * 查询卡片的人员信息
+     * @author Luke
+     * @param cardNos   卡片编号
+     * @return
+     */
     public List<Cards> showPersonData(String cardNos) {
         List<Cards> cardsList = unionQueryMapper.queryCardsPerson(cardNos);
         return cardsList;

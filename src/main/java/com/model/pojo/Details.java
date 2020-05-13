@@ -20,6 +20,8 @@ public class Details implements Serializable {
     private String detRefer;        // 参考值
     private String detUpper;        // 上限值
     private String detLower;        // 下限值
+    private Integer briefId;        // 小结表id
+
 
 
     public Integer getDetId() {
@@ -116,6 +118,14 @@ public class Details implements Serializable {
 
     public void setDetLower(String detLower) {
         this.detLower = detLower;
+    }
+
+    public Integer getBriefId() {
+        return briefId;
+    }
+
+    public void setBriefId(Integer briefId) {
+        this.briefId = briefId;
     }
 
     @Override

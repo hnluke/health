@@ -4,15 +4,55 @@
 <mapper namespace="com.dao.PersonMapper">
     <cache/>
     <!-- 查询 -->
-    <select id="queryPerson" parameterType="string" resultType="com.model.pojo.Person">
-        select * from lists
+    <select id="findPerson" parameterType="string" resultType="com.model.pojo.Person">
+        select * from person
         <where>
-            <if test="id != null and id != 0">
-                and per_id = #{id}
+            <if test="per_name != null and perName.trim() != ''">
+                and per_name = #{perName}
             </if>
         </where>
 
     </select>
+
+    <delete id="deletePerson" parameterType="integer">
+        delete from person
+        where per_id = #{perId}
+    </delete>
+
+    <update id="updatePerson" parameterType="com.model.pojo.Person">
+        update person
+        <set>
+            <if test="perName != null and perName.trim() != ''">
+                per_name = #{perName},
+            </if>
+            <if test="perSex != null and perSex.trim() != ''">
+                per_sex = #{perSex},
+            </if>
+            <if test="perTele != null and perTele.trim() != ''">
+                per_tele = #{perTele},
+            </if>
+            <if test="perAge != null and perAge != 0">
+                per_age = #{perAge},
+            </if>
+            <if test="perAddr != null and perAddr.trim() != ''">
+                per_name = #{perName},
+            </if>
+            <if test="perBlood != null and perBlood.trim() != ''">
+                per_blood = #{perBlood},
+            </if>
+            <if test="perBorn != null and perBorn.trim() != ''">
+                per_born = #{perBorn},
+            </if>
+        </set>
+        where per_id = #{perId}
+    </update>
+
+    <insert id="insertPerson" parameterType="com.model.pojo.Person"
+        useGeneratedKeys="true" keyProperty="perId" keyColumn="per_id">
+            insert into person (per_name, per_sex, per_tele, per_age, per_addr, per_blood, per_born, card_id)
+            values (#{perName}, #{perSex}, #{perTele}, #{perAge}, #{perAddr}, #{perBlood}, #{perBorn}, #{cardId})
+
+    </insert>
 
 
 </mapper>

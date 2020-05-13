@@ -49,5 +49,15 @@
         where batch_id = #{batchId}
     </update>
 
+    <update id="updateBatchesPay" >
+        update batches
+        <set>
+            <if test="batchPay != null and batchPay.trim() != ''">
+                batch_pay = #{batchPay},
+            </if>
+        </set>
+        where batch_id = #{batchId}
+    </update>
+
 
 </mapper>

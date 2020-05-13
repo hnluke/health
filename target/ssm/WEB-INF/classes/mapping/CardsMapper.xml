@@ -13,22 +13,28 @@
         </where>
 
     </select>
+
+    <!-- 只返回最后一条记录 -->
+    <select id="findLastCard" resultType="com.model.pojo.Cards">
+        select * from cards
+        order by card_no DESC
+        limit 1
+    </select>
 <!--    &lt;!&ndash; 新增 &ndash;&gt;-->
-<!--    <insert id="insertCards" parameterType="com.model.pojo.Cards"-->
-<!--            useGeneratedKeys="true" keyColumn="card_id" keyProperty="cardId">-->
-<!--        insert into cards-->
-<!--        <set>-->
-<!--            <if test="">-->
+    <insert id="insertCards" parameterType="com.model.pojo.Cards"
+            useGeneratedKeys="true" keyColumn="card_id" keyProperty="cardId">
+        insert into cards
+        <set>
+            <if test="cardNo !=null and cardNo.trim() != ''">
+                card_no = #{cardNo},
+            </if>
+            <if test="cardMoney != null">
+                card_money = #{cardMoney},
+            </if>
+        </set>
+    </insert>
 
-<!--            </if>-->
-<!--            <if test="">-->
 
-<!--            </if>-->
-<!--            <if test="">-->
-
-<!--            </if>-->
-<!--        </set>-->
-<!--    </insert>-->
 <!--    &lt;!&ndash; 修改 &ndash;&gt;-->
 <!--    <update id="updateCards" parameterType="">-->
 <!--        update-->
@@ -41,8 +47,9 @@
 <!--        where-->
 <!--    </update>-->
 <!--    &lt;!&ndash; 删除 &ndash;&gt;-->
-<!--    <delete id="deleteCards" parameterType="">-->
-
-<!--    </delete>-->
+    <delete id="deleteCards" parameterType="integer">
+        delete from cards
+        where card_id = #{cardId}
+    </delete>
 
 </mapper>

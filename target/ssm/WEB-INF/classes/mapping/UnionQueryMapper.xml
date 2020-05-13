@@ -13,16 +13,35 @@
         </association>
 
     </resultMap>
-    <select id="queryCardsPerson" resultMap="cardsPerson" parameterType="string">
+    <select id="queryCardsPerson" resultMap="cardsPerson" parameterType="string" useCache="false">
         select A.card_id, A.card_money, A.card_no, B.*
         from cards A
         inner join person B
         on A.card_id = B.card_id
         <where>
             <if test="cardNos != null and cardNos.trim() != ''">
-                and A.card_no = #{cardNos}
+                and A.card_no like '%${cardNos}'
             </if>
         </where>
+    </select>
+
+
+    <!-- 卡片表与体检人表关联查询, 查询所以没有绑定的卡片记录 -->
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <resultMap type="com.model.pojo.Cards" id="cardsNotPerson" autoMapping="true">
+        <id property="cardId" column="card_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+            <id property="perId" column="per_id"></id>
+        </association>
+
+    </resultMap>
+    <select id="queryCardsNotPerson" resultMap="cardsNotPerson" useCache="false">
+        select A.card_id, A.card_no, B.card_id
+        from cards A
+        left join person B
+        on A.card_id = B.card_id
+        where B.card_id is null
     </select>
 
 
@@ -50,7 +69,7 @@
 
     <!-- 表关联查询多对多，结果映射resultMap方式 -->
     <!-- 检索出开单时应提供给小结表的信息资料 -->
-    <resultMap type="com.model.pojo.Item" id="assoItemTypeOff" autoMapping="true">
+    <resultMap type="com.model.pojo.Item" id="assoItemTypeOffDetail" autoMapping="true">
         <id property="itemId" column="item_id" />
         <!--        <result property="name" column="name"></result>-->
         <association property="office" javaType="com.model.pojo.Office" autoMapping="true">
@@ -59,22 +78,28 @@
         <association property="itemType" javaType="com.model.pojo.ItemType" autoMapping="true">
             <id column="type_id" property="typeId" />
         </association>
-
-        <collection property="listAsso" javaType="java.util.List" ofType="com.model.pojo.Association" autoMapping="true">
-            <id property="assoId" column="asso_id" />
-            <association property="assoItem" javaType="com.model.pojo.AssoItem" autoMapping="true">
+        <collection property="subItemList" javaType="java.util.List" ofType="com.model.pojo.SubItem" autoMapping="true">
+            <id property="subId" column="sub_id"></id>
+        </collection>
+        <collection property="assoItems" javaType="java.util.List" ofType="com.model.pojo.AssoItem" autoMapping="true">
+            <id property="asitId" column="asit_id" />
+            <association property="association" javaType="com.model.pojo.Association" autoMapping="true">
                 <id column="asso_id" property="assoId" />
             </association>
         </collection>
 
     </resultMap>
-    <select id="queryBriefData" resultMap="assoItemTypeOff">
-        select A.item_id, A.item_name, A.item_price, E.asso_name, B.type_name, C.off_name, E.asso_id
+    <select id="queryBriefData" resultMap="assoItemTypeOffDetail">
+        select A.item_id, A.item_name, A.item_price, E.asso_name,
+        B.type_name, C.off_name, E.asso_id,
+        F.sub_name, F.sub_unit, F.sub_refer, F.sub_upper, F.sub_lower
         from item A
         left JOIN item_type B on A.item_type_id = B.type_id
         left JOIN office C on A.off_id = C.off_id
+        left join subitem F on A.item_id = F.item_id
         LEFT JOIN asso_item D on A.item_id = D.item_id
         LEFT JOIN association E on E.asso_id = D.asso_id
+
         <where>
             <if test="itemName != null and itemName.trim() != ''">
                 and A.item_name = #{itemName}
@@ -84,6 +109,46 @@
             </if>
         </where>
     </select>
+
+<!--    <resultMap type="com.model.pojo.Item" id="assoItemTypeOffDetail" autoMapping="true">-->
+<!--        <id property="itemId" column="item_id" />-->
+<!--        &lt;!&ndash;        <result property="name" column="name"></result>&ndash;&gt;-->
+<!--        <association property="office" javaType="com.model.pojo.Office" autoMapping="true">-->
+<!--            <id column="off_id" property="offId"/>-->
+<!--        </association>-->
+<!--        <association property="itemType" javaType="com.model.pojo.ItemType" autoMapping="true">-->
+<!--            <id column="type_id" property="typeId" />-->
+<!--        </association>-->
+<!--        <collection property="subItemList" javaType="java.util.List" ofType="com.model.pojo.SubItem" autoMapping="true">-->
+<!--            <id property="subId" column="sub_id"></id>-->
+<!--        </collection>-->
+<!--        <collection property="listAsso" javaType="java.util.List" ofType="com.model.pojo.Association" autoMapping="true">-->
+<!--            <id property="assoId" column="asso_id" />-->
+<!--            <association property="assoItem" javaType="com.model.pojo.AssoItem" autoMapping="true">-->
+<!--                <id column="asso_id" property="assoId" />-->
+<!--            </association>-->
+<!--        </collection>-->
+
+<!--    </resultMap>-->
+<!--    <select id="queryBriefData" resultMap="assoItemTypeOffDetail">-->
+<!--        select A.item_id, A.item_name, A.item_price, E.asso_name,-->
+<!--        B.type_name, C.off_name, E.asso_id,-->
+<!--        F.sub_name, sub_unit, sub_refer, sub_upper, sub_lower-->
+<!--        from item A-->
+<!--        left JOIN item_type B on A.item_type_id = B.type_id-->
+<!--        left JOIN office C on A.off_id = C.off_id-->
+<!--        LEFT JOIN asso_item D on A.item_id = D.item_id-->
+<!--        left join subitem F on A.item_id = F.item_id-->
+<!--        LEFT JOIN association E on E.asso_id = D.asso_id-->
+<!--        <where>-->
+<!--            <if test="itemName != null and itemName.trim() != ''">-->
+<!--                and A.item_name = #{itemName}-->
+<!--            </if>-->
+<!--            <if test="assoName != null and assoName.trim() != ''">-->
+<!--                and E.asso_name = #{assoName}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
 
     <!-- 表关联查询多对一，结果映射resultMap方式 -->
     <!-- 获取打印导检表的数据 -->
@@ -208,7 +273,7 @@
             LEFT JOIN detail B on A.brief_id = B.brief_id
             LEFT JOIN lists C on A.list_id = C.list_id
             LEFT JOIN batches D on C.batch_id = D.batch_id
-            LEFT JOIN person E on E.per_id = E.per_id
+            LEFT JOIN person E on E.per_id = D.per_id
             LEFT JOIN cards F on E.card_id = F.card_id
             <where>
                 D.batch_cmp = '已完成'
@@ -221,6 +286,7 @@
         </select>
 
     <!-- 导检表数据 -->
+    <!-- 小结表和开单表lists关联, 多对一 -->
     <resultMap type="com.model.pojo.Briefs" id="briefsLists" autoMapping="true">
         <id property="briefId" column="brief_id"></id>
         <!--        <result property="name" column="name"></result>-->
@@ -246,6 +312,7 @@
     <resultMap type="com.model.pojo.Briefs" id="briefsDetails" autoMapping="true">
         <id property="briefId" column="brief_id"></id>
         <!--        <result property="name" column="name"></result>-->
+
         <collection property="listDetails" javaType="java.util.List" ofType="com.model.pojo.Details" autoMapping="true">
             <id property="detId" column="det_id"></id>
         </collection>
@@ -300,4 +367,156 @@
     </select>
 
 
+    <!-- 表关联查询多对多，结果映射resultMap方式 -->
+    <!-- 检索出权限-菜单表数据 -->
+    <resultMap type="com.model.pojo.Priority" id="prioMenu" autoMapping="true">
+        <id property="prioId" column="prio_id" />
+        <collection property="menuPrioList" javaType="java.util.List" ofType="com.model.pojo.MenuPrio" autoMapping="true">
+                <id property="prmeId" column="prme_id"></id>
+            <association property="menus" javaType="com.model.pojo.Menus" autoMapping="true">
+                <id property="menuId" column="menu_id"></id>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="queryPrioMenu" resultMap="prioMenu" parameterType="string" useCache="false">
+        select A.*, B.*, C.*
+        from priority A
+        left JOIN menu_prio B on A.prio_id = B.prme_prio_id
+        left join menus C on B.prme_menu_id = C.menu_Id
+        <where>
+            <if test="prioName != null and prioName.trim() != ''">
+                and A.prio_name = #{prioName}
+            </if>
+
+        </where>
+        order by A.prio_name
+    </select>
+
+
+
+
+    <!-- 表关联查询多对多，结果映射resultMap方式 -->
+    <!-- 检索出套餐-项目数据 -->
+    <resultMap type="com.model.pojo.Association" id="assoItem" autoMapping="true">
+        <id property="assoId" column="asso_id" />
+        <collection property="assoItems" javaType="java.util.List" ofType="com.model.pojo.AssoItem" autoMapping="true">
+            <id property="asitId" column="asit_id"></id>
+            <association property="items" javaType="com.model.pojo.Item" autoMapping="true">
+                <id property="itemId" column="item_id"></id>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="queryAssoItem" resultMap="assoItem" parameterType="string" useCache="false">
+        select A.*, B.*, C.*
+        from association A
+        left JOIN asso_item B on A.asso_id = B.asso_id
+        left join item C on B.item_id = C.item_id
+        <where>
+            <if test="assoName != null and assoName.trim() != ''">
+                and A.asso_name = #{assoName}
+            </if>
+
+        </where>
+        order by A.asso_name
+    </select>
+
+
+    <!-- 表关联查询多对一，结果映射resultMap方式 -->
+    <!-- 获取缴费、退费 -->
+    <resultMap type="com.model.pojo.Lists" id="ListsBatchesPersonCard" autoMapping="true">
+        <id property="listId" column="list_id" />
+        <association property="batches" javaType="com.model.pojo.Batches" autoMapping="true">
+            <id property="batchId" column="batch_id" />
+            <association property="person" javaType="com.model.pojo.Person" autoMapping="true">
+                <id property="perId" column="per_id" />
+                <association property="cards" javaType="com.model.pojo.Cards" autoMapping="true">
+                    <id property="cardId" column="card_id" />
+                </association>
+            </association>
+        </association>
+
+    </resultMap>
+    <select id="queryPayBalance" resultMap="ListsBatchesPersonCard">
+        select A.list_name, A.list_type, A.list_price, A.list_id, A.batch_id,
+        B.batch_no, B.batch_cmp, B.batch_pay, B.batch_date,
+        C.per_name, C.per_tele, C.per_age, C.per_born, C.per_sex, C.per_blood,
+        D.card_no, D.card_money
+        from lists A
+        LEFT JOIN batches B on B.batch_id = A.batch_id
+        LEFT JOIN person C on C.per_id = B.per_id
+        LEFT JOIN cards D on D.card_id = C.card_id
+        <where>
+            <if test="batches.batchPay != null and batches.batchPay.trim() != ''">
+                and B.batch_pay = #{batches.batchPay}
+            </if>
+
+            <if test="cards.cardNo != null and cards.cardNo.trim() != ''">
+                and D.card_no = #{cards.cardNo}
+            </if>
+            <if test="batches.batchCmp != null and batches.batchCmp.trim() != ''">
+                and B.batch_cmp = #{batches.batchCmp}
+            </if>
+        </where>
+
+
+    </select>
+
+
+    <!-- 表关联查询多对多，结果映射resultMap方式 -->
+    <!-- 检索出权限-菜单-用户表数据 -->
+    <resultMap type="com.model.pojo.Menus" id="MenuPrioUsers" autoMapping="true">
+        <id property="menuId" column="menu_id" />
+        <collection property="menuPrios" javaType="java.util.List" ofType="com.model.pojo.MenuPrio" autoMapping="true">
+            <id property="prmeId" column="prme_id"></id>
+            <association property="priority" javaType="com.model.pojo.Priority" autoMapping="true">
+                <id property="prioId" column="prio_id"></id>
+                <collection property="usersList" javaType="java.util.List" ofType="com.model.pojo.Users" autoMapping="true">
+                    <id property="userId" column="user_id"></id>
+                </collection>
+            </association>
+
+        </collection>
+    </resultMap>
+    <select id="queryMenesPrioUsers" resultMap="MenuPrioUsers" parameterType="string" useCache="false">
+        select A.*, C.prio_name, D.user_name
+        from menus A
+        left JOIN menu_prio B on A.menu_id = B.prme_menu_id
+        left join priority C on B.prme_prio_id = C.prio_id
+        left join users D on C.prio_id = D.user_prio_id
+        <where>
+            <if test="userName != null and userName.trim() != ''">
+                and D.user_name = #{userName}
+            </if>
+
+        </where>
+
+    </select>
+
+<!--queryUsersOffPrio-->
+
+    <!-- 表关联查询多对多，结果映射resultMap方式 -->
+    <!-- 检索出用户-权限-科室表数据 -->
+    <resultMap type="com.model.pojo.Users" id="UsersOffPrio" autoMapping="true">
+        <id property="userId" column="user_id" />
+            <association property="priority" javaType="com.model.pojo.Priority" autoMapping="true">
+                <id property="prioId" column="prio_id"></id>
+            </association>
+            <association property="office" javaType="com.model.pojo.Office" autoMapping="true">
+                <id property="offId" column="off_id"></id>
+            </association>
+    </resultMap>
+    <select id="queryUsersOffPrio" resultMap="UsersOffPrio" parameterType="integer" useCache="false">
+        select A.*, B.off_name, C.prio_name
+        from users A
+        left JOIN office B on A.off_id = B.off_id
+        left join priority C on A.user_prio_id = C.prio_id
+
+        <where>
+            <if test="userId != null and userId != 0">
+                and A.user_id = #{userId}
+            </if>
+
+        </where>
+
+    </select>
 </mapper>

@@ -28,4 +28,6 @@ public interface BriefsMapper {
      * @return 小结表对象
      */
     public List<Briefs> findBriefs(Integer id);
+
+    public boolean updateBriefsPay(@Param("listId") Integer listId, @Param("briefPay") String briefPay);
 }

@@ -4,19 +4,19 @@
 <mapper namespace="com.dao.ListsMapper">
     <cache/>
     <!-- 查询 -->
-<!--    <select id="queryLists" parameterType="integer" resultType="com.model.pojo.Lists">-->
-<!--        select * from lists-->
-<!--        <where>-->
-<!--            <if test="id != null and id != 0">-->
-<!--                and list_id = #{id}-->
-<!--            </if>-->
-<!--        </where>-->
+    <select id="findLists" parameterType="integer" resultType="com.model.pojo.Lists">
+        select * from lists
+        <where>
+            <if test="listId != null and listId != 0">
+                and list_id = #{id}
+            </if>
+        </where>
 
-<!--    </select>-->
+    </select>
     <!-- 新增 -->
     <insert id="insertLists" parameterType="com.model.pojo.Lists"
             useGeneratedKeys="true" keyColumn="list_id" keyProperty="listId">
-        insert into Lists (batch_id, list_name, list_type, list_price)
+        insert into lists (batch_id, list_name, list_type, list_price)
         values (#{batchId}, #{listName}, #{listType}, #{listPrice})
 
     </insert>

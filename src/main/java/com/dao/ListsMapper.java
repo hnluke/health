@@ -34,5 +34,5 @@ public interface ListsMapper {
 //     * @param id
 //     * @return
 //     */
-//    public List<Lists> findLists(Integer id);
+    public List<Lists> findLists(@Param("listId") Integer listId);
 }

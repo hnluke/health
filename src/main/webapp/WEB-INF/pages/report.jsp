@@ -61,52 +61,89 @@
 <table width="100%" align="left">
     <c:if test="${!empty(reportData)}">
         <c:forEach var="report"  items="${reportData}">
-            <tr>
-                <td colspan="6" style="background-color: #9d9d9d; text-align: left">${report.briefItemName}</td>
-            </tr>
-            <tr>
-                <td>项目名称</td>
-                <td></td>
-                <td>检查结果</td>
-                <td>提示</td>
-                <td>参考范围</td>
-                <td>单位</td>
-            </tr>
-            <c:forEach var="det" items="${report.listDetails}">
+            <c:if test="${report.briefType.equals('检查类')}">
                 <tr>
-                    <td>${det.detItemName}</td>
+                    <td colspan="6" style="background-color: #9d9d9d; text-align: left">
+                            ${report.briefItemName}
+                    </td>
+                </tr>
+                <tr>
+                    <td>项目名称</td>
                     <td></td>
-                    <td>${det.detResult}</td>
-                    <td>${det.detPrompt}</td>
-                    <td>${det.detRefer}</td>
-                    <td>${det.detUnit}</td>
+                    <td>检查结果</td>
+                    <td>提示</td>
+                    <td>参考范围</td>
+                    <td>单位</td>
+                </tr>
+            </c:if>
+            <c:if test="${report.briefType.equals('B超类')}">
+                <tr>
+                    <td>体检编号:</td>
+                    <td></td>
+                    <td>姓名:</td>
+                    <td></td>
+                    <td>检查日期：</td>
+                    <td></td>
+                </tr>
+            </c:if>
+
+                <c:forEach var="det" items="${report.listDetails}">
+                    <c:if test="${report.briefType.equals('检查类')}">
+                        <tr>
+                            <td>${det.detItemName}</td>
+                            <td></td>
+                            <td>${det.detResult}</td>
+                            <td>${det.detPrompt}</td>
+                            <td>${det.detRefer}</td>
+                            <td>${det.detUnit}</td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${report.briefType.equals('B超类')}">
+                        <tr>
+                            <td colspan="6">
+
+                            <img src="image/2.jpg" width="500" height="241">
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+                <tr>
+                    <td colspan="6" style="text-align: left"><hr></td>
+                </tr>
+                <tr>
+                    <td>小结:</td>
+                    <td>${report.briefDesc}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>检查医生:${report.briefUser}</td>
+                    <td>检查日期:${report.briefDate}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="6"><hr></td>
                 </tr>
 
-            </c:forEach>
-            <tr>
-                <td colspan="6" style="text-align: left"><hr></td>
-            </tr>
-            <tr>
-                <td>小结:</td>
-                <td>${report.briefDesc}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>检查医生:${report.briefUser}</td>
-                <td>检查日期:${report.briefDate}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="6"><hr></td>
-            </tr>
-        </c:forEach>
 
+                <tr>
+                    <td colspan="6">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6"></td>
+                </tr>
+                <tr>
+                    <td colspan="6"></td>
+                </tr>
+<%--            </c:if>--%>
+        </c:forEach>
     </c:if>
 </table>
 </div>

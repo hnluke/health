@@ -11,6 +11,8 @@ public class Users implements Serializable {
     private Integer userId;         // 用户id
     private String userName;        // 姓名
     private String userPwd;             // 密码
+    private Integer userPrioId;         // 权限表id
+    private Integer offId;          // 科室表id
     private Office office;          // 科室表pojo
     private Priority priority;      // 权限表pojo
 
@@ -54,12 +56,30 @@ public class Users implements Serializable {
         this.priority = priority;
     }
 
+    public Integer getUserPrioId() {
+        return userPrioId;
+    }
+
+    public void setUserPrioId(Integer userPrioId) {
+        this.userPrioId = userPrioId;
+    }
+
+    public Integer getOffId() {
+        return offId;
+    }
+
+    public void setOffId(Integer offId) {
+        this.offId = offId;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userPwd='" + userPwd + '\'' +
+                ", userPrioId=" + userPrioId +
+                ", offId=" + offId +
                 ", office=" + office +
                 ", priority=" + priority +
                 '}';

@@ -75,7 +75,49 @@ public interface UnionQueryMapper {
      */
     public List<Batches> queryBatchSumPerCard(@Param("batchNo") String batchNo);
 
+    /**
+     * 查询权限-菜单关联表
+     * @param prioName
+     * @return
+     */
+    public List<Priority> queryPrioMenu(@Param("prioName") String prioName);
 
+    /**
+     * 关联套餐-项目(多对多)查询
+     * @param assoName
+     * @return
+     */
+    public List<Association> queryAssoItem(@Param("assoName") String assoName);
+
+    /**
+     * 查询所以没有绑定的卡片
+     * @return
+     */
+    public List<Cards> queryCardsNotPerson();
+
+    /**
+     * 查询卡片人员的信息
+     * @param batches
+     * @param cards
+     * @return
+     */
+    public List<Lists> queryPayBalance(@Param("batches") Batches batches,
+                                       @Param("cards") Cards cards);
+
+
+    /**
+     * 查询菜单-权限-用户关联数据
+     * @param userName
+     * @return
+     */
+    public List<Menus> queryMenesPrioUsers(@Param("userName") String userName);
+
+    /**
+     * 查询用户-科室-权限关联数据
+     * @param userId
+     * @return
+     */
+    public List<Users> queryUsersOffPrio(@Param("userId") Integer userId);
 
 
 
