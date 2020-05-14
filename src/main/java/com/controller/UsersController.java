@@ -9,10 +9,7 @@ import org.mybatis.logging.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -99,23 +96,27 @@ public class UsersController {
         modelAndView.setViewName("changePwd");
         return modelAndView;
     }
-//
-//    //关于修改密码的表单提交
-    @RequestMapping("/changePwd")
-    public ModelAndView changePwd(@RequestParam("newPwd") String newPwd, @RequestParam("userPwd") String userPwd, @RequestParam("userId") Integer userId, ModelMap model) {
+
+
+   //关于修改密码的表单提交
+    @RequestMapping("/changePwd/{id}")
+    public ModelAndView changePwd(@PathVariable("id") Integer id, String newPwd, String userPwd, Integer userId) {
         ModelAndView modelAndView = new ModelAndView();
+        if (id == 2) {
+            int rows = usersService.changePwd(newPwd,userId);
+            if(rows > 0){
+                if(newPwd.equals(userPwd)){
+                    modelAndView.addObject("msg","修改密码失败！新密码不能与旧密码相同！");
+                }else {
+                    modelAndView.addObject("msg", "修改密码成功！");
+                }
 
-        int rows = usersService.changePwd(userPwd, newPwd,userId);
-        if(rows > 0){
-            if(newPwd.equals(userPwd)){
-                modelAndView.addObject("msg","修改密码失败！新密码不能与旧密码相同！");
-            }else {
-                modelAndView.addObject("msg", "修改密码成功！");
+            }else{
+                modelAndView.addObject("msg","修改密码失败！");
             }
-
-        }else{
-            modelAndView.addObject("msg","修改密码失败！");
         }
+
+
 
 
         List<Users> userList  = usersService.findAll("");

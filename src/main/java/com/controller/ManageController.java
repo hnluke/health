@@ -272,6 +272,8 @@ public class ManageController {
         List<Office> offList = null;
         if(id == 2) {
             excelPlug.importOfficeExcelToDB(path);
+        }else if(id == 3) {
+            manageService.deleteOffice(offId);
         }
         offList = manageService.findOffice("");
         modelAndView.addObject("offList", offList);

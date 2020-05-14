@@ -57,9 +57,8 @@ public class UsersServiceImpl implements IUsersService{
 
     //更新密码
     @Override
-    public int changePwd(String userPwd, String newPwd,Integer userId) {
+    public int changePwd(String newPwd,Integer userId) {
         int rows = usersDaoMapper.changePwd(newPwd,userId);
-
         return rows;
     }
 

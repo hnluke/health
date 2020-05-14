@@ -209,4 +209,6 @@ public interface IManageService {
      */
     public List<Users> queryUserOffPrio(Integer userId);
 
+    public boolean deleteOffice(Integer offId);
+
 }

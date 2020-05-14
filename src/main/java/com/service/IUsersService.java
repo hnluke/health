@@ -25,12 +25,11 @@ public interface IUsersService {
 
     /**
      * 修改用户密码
-     * @param userPwd
      * @param newPwd
      * @param userId
      * @return
      */
-    int changePwd(String userPwd, String newPwd,Integer userId);
+    int changePwd( String newPwd,Integer userId);
 
     /**
      * 得到用户的菜单集合

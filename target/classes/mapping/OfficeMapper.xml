@@ -45,9 +45,9 @@
 <!--        where sub_name = #{subName}-->
 <!--    </update>-->
 <!--    &lt;!&ndash;    &lt;!&ndash; 删除 &ndash;&gt;&ndash;&gt;-->
-<!--    <delete id="deleteSubItem" parameterType="integer">-->
-<!--            delete from subitem-->
-<!--            where sub_id = {subId}-->
-<!--        </delete>-->
+    <delete id="deleteOffice" parameterType="integer">
+            delete from office
+            where off_id = #{offId}
+        </delete>
 
 </mapper>

@@ -20,4 +20,6 @@ public interface OfficeMapper {
      * @return
      */
     public List<Office> findOffice(@Param("offName") String offName);
+
+    public boolean deleteOffice(@Param("offId") Integer offId);
 }

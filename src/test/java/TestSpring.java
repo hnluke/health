@@ -5,6 +5,7 @@ import com.service.IChargeService;
 import com.service.ICheckStationService;
 import com.service.IManageService;
 import com.service.IUsersService;
+import com.service.impl.UsersServiceImpl;
 import com.util.ExcelPlug;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import javax.annotation.Resource;
-import javax.xml.soap.Detail;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -207,7 +207,9 @@ public class TestSpring {
 //        System.out.println(menusList);
 
 //        System.out.println(usersDaoMapper.findUsersByName(null));
-        System.out.println(unionQueryMapper.queryUsersOffPrio(0));
+//        System.out.println(unionQueryMapper.queryUsersOffPrio(0));
+
+        System.out.println(usersService.changePwd("222",7));
     }
 
     public String getNumberForBatchNo() {
