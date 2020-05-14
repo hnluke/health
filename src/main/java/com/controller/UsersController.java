@@ -116,9 +116,6 @@ public class UsersController {
             }
         }
 
-
-
-
         List<Users> userList  = usersService.findAll("");
         modelAndView.addObject("userList", userList);
         modelAndView.setViewName("changePwd");

@@ -13,8 +13,8 @@ public interface UsersDaoMapper {
      * @param userName 如果u_name是空字串，则查询整个users表
      * @return 返回一个Users的pojo对象
      */
-    List<Users>  findUsersByName(@Param("userName") String userName);
 
+    List<Users>  findUsersByName(@Param("userName") String userName);
     /**
      * 修改用户密码,有多个参数以及一个参数用在动态sql中需要加@Param
      * @param userPwd
