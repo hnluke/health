@@ -119,6 +119,8 @@ public interface UnionQueryMapper {
      */
     public List<Users> queryUsersOffPrio(@Param("userId") Integer userId);
 
+    public List<Users> queryUsersOff(@Param("userName") String userName);
+
 
 
 }

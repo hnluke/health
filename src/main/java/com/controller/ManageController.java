@@ -290,6 +290,8 @@ public class ManageController {
         List<Priority> prioList = null;
         if(id == 2) {
             usersService.insertUsers(users);
+        }if(id == 3) {
+            usersService.deleteUsers(userId);
         }
         userList = manageService.queryUserOffPrio(0);
         offList = manageService.findOffice("");

@@ -255,7 +255,8 @@
                     <td>${user.userPwd}</td>
                     <td>${user.office.offName}</td>
                     <td>${user.priority.prioName}</td>
-                    <td><a href="/manage/user/3?userId=${user.userId}">删除</a></td>
+                    <td><a href="
+                    manage/user/3?userId=${user.userId}">删除</a></td>
                 </tr>
 
             </c:forEach>

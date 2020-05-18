@@ -519,4 +519,25 @@
         </where>
 
     </select>
+
+
+    <resultMap type="com.model.pojo.Users" id="UsersOff" autoMapping="true">
+        <id property="userId" column="user_id" />
+
+        <association property="office" javaType="com.model.pojo.Office" autoMapping="true">
+            <id property="offId" column="off_id"></id>
+        </association>
+    </resultMap>
+    <select id="queryUsersOff" resultMap="UsersOff" parameterType="string" useCache="false">
+        select A.*, B.off_name
+        from users A
+        left JOIN office B on A.off_id = B.off_id
+        <where>
+            <if test="userName != null and userName != 0">
+                and A.user_name = #{userName}
+            </if>
+
+        </where>
+
+    </select>
 </mapper>

@@ -15,7 +15,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>企业资产管理系统</title>
+    <title>开单</title>
     <base href="<%=basePath%>">
     <script type="text/javascript" src="<%=basePath%>scripts/jquery/jquery-1.7.1.js"></script>
     <link href="<%=basePath%>style/authority/basic_layout.css" rel="stylesheet" type="text/css">

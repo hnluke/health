@@ -207,7 +207,9 @@ public class TestSpring {
 //        System.out.println(menusList);
 
 //        System.out.println(usersDaoMapper.findUsersByName(null));
-        System.out.println(unionQueryMapper.queryUsersOffPrio(0));
+//        System.out.println(unionQueryMapper.queryUsersOffPrio(0));
+
+        System.out.println(unionQueryMapper.queryUsersOff(""));
     }
 
     public String getNumberForBatchNo() {
