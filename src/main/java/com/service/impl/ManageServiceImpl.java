@@ -355,4 +355,8 @@ public class ManageServiceImpl implements IManageService {
         return unionQueryMapper.queryUsersOffPrio(userId);
     }
 
+    public boolean deleteOffice(Integer offId) {
+        return officeMapper.deleteOffice(offId);
+    }
+
 }

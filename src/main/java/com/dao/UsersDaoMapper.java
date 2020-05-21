@@ -13,8 +13,8 @@ public interface UsersDaoMapper {
      * @param userName 如果u_name是空字串，则查询整个users表
      * @return 返回一个Users的pojo对象
      */
-    List<Users>  findUsersByName(@Param("userName") String userName);
 
+    List<Users>  findUsersByName(@Param("userName") String userName);
     /**
      * 修改用户密码,有多个参数以及一个参数用在动态sql中需要加@Param
      * @param userPwd
@@ -36,7 +36,7 @@ public interface UsersDaoMapper {
      * @param users 用给定的Users对象去更新数据表中相应的记录
      * @return true代表更新成功，false代表更新失败
      */
-    public boolean updateUsersByName(String u_name, Users users);
+    public boolean updateUsersByName(@Param("userName") String u_name, Users users);
 
 
 
@@ -56,7 +56,7 @@ public interface UsersDaoMapper {
 
     /**
      * 删除用户
-     * @param u_id 用户表id
+     * @param userId 用户表id
      * @return
      */
     public boolean deleteUsersById(@Param("userId") Integer userId);

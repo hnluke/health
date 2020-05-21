@@ -29,6 +29,10 @@
     <script type="text/javascript">
 
         $(document).ready(function(){
+
+                <%--alert(${msg})--%>
+
+
             /** 新增   **/
             $("#addBtn").fancybox({
                 'href'  : 'house_edit.html',
@@ -177,9 +181,11 @@
     <style>
         .alt td{ background:black !important;}
     </style>
+<%--    alert('${msg}')--%>
 </head>
-<body>
-<form id="submitForm" name="submitForm" action="user/changePwd" method="post">
+<body onload="if ('${msg}'!=''){ alert('${msg}')}">
+
+<%--<form id="submitForm" name="submitForm"  method="post">--%>
     <input type="hidden" name="allIDCheck" value="" id="allIDCheck"/>
     <input type="hidden" name="fangyuanEntity.fyXqName" value="" id="fyXqName"/>
     <div id="container">
@@ -216,13 +222,16 @@
                                 <td>${pur.userName}</td>
                                 <td>${pur.office}</td>
                                 <td>${pur.userPwd}</td>
-                                <td>
-                                    <input type="hidden" name="userId" value="${pur.userId}">
-                                    <input type="hidden" name="userPwd" value="${pur.userPwd}">
-                                    <input type="text" name="newPwd" placeholder="请输入新密码"/>
-                                    <span style="color:red">${msg}</span>
-                                    <button>确定修改</button>
-                                </td>
+                                <form action="user/changePwd/2" method="post">
+                                    <td>
+                                        <input type="hidden" name="userId" value="${pur.userId}">
+                                        <input type="hidden" name="userPwd" value="${pur.userPwd}">
+                                        <input type="text" name="newPwd" placeholder="请输入新密码"/>
+<%--                                        <span style="color:red">${msg}</span>--%>
+                                        <button>确定修改</button>
+                                    </td>
+                                </form>
+
                             </tr>
                         </c:forEach>
 
@@ -235,7 +244,7 @@
                 </div>            </div>
         </div>
     </div>
-</form>
+<%--</form>--%>
 
 </body>
 <script>

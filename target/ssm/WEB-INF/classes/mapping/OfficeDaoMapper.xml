@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OfficeDaoMapper">
+    <cache/>
+    <!--根据科室id查找科室-->
+    <select id="findOfficesById"  resultType="com.model.pojo.Office"  >
+        SELECT * FROM office
+        <where>
+            <if test="offId != null and offId != ''">
+                and off_id = #{offId}
+            </if>
+        </where>
+    </select>
+
+<!--    删除科室-->
+    <delete id="deleteOffice" parameterType="integer">
+        <if test="offId != null and offId != ''">
+            delete from office where off_id = #{offId}
+        </if>
+    </delete>
+
+    <!-- 新增科室 -->
+    <insert id="insertOffice" parameterType="string" useGeneratedKeys="true" >
+        INSERT INTO office(off_name) VALUES(#{offName});
+    </insert >
+
+
+
+<!--    &lt;!&ndash; 修改用户密码 &ndash;&gt;-->
+<!--    <update id="changePwd" >-->
+<!--        update users-->
+<!--        <set>-->
+<!--            <if test="userId != null and userId != ''and userPwd != null and userPwd != ''">-->
+<!--                user_pwd = #{userPwd}-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where user_id = #{userId}-->
+<!--    </update>-->
+
+
+
+
+
+
+</mapper>
